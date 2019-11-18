@@ -1,7 +1,8 @@
 package com.company.users;
 
 import com.company.database.DataAccessController;
-
+// If u need some functionallity that does not exist do something like [ClassName].[methodName()]
+// and then the person responsible for that class will implement the method later
 public class UserController  {
     private User user;
 
