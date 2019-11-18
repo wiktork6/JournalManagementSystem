@@ -8,7 +8,7 @@ public class DataAccessController {
     private static String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team042?user=team042&password=7a66e0db";
     private static String DB_TEST = "jdbc:mysql://localhost:3306/test";
     private static String USERNAME_TEST = "root";
-    private static String PASSWORD_TEST = "dupeczka1.";
+    private static String PASSWORD_TEST = "1234";
 
 
     private static Connection openConnection() throws SQLException{
