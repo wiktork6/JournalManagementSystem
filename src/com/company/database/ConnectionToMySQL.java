@@ -6,16 +6,16 @@ public class ConnectionToMySQL {
     private static String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team042?user=team042&password=7a66e0db";
     private static String DB_TEST = "jdbc:mysql://localhost:3306/test";
     private static String USERNAME_TEST = "root";
-    private static String PASSWORD_TEST = "1234";
+    private static String PASSWORD_TEST = "dupeczka1.";
     public static void main(String[] args) {
 
 
-        try(Connection conn = DriverManager.getConnection(DB);
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             Statement statement = conn.createStatement()){
 
             //Creating users table
             statement.execute("CREATE TABLE IF NOT EXISTS users(" +
-                    "id INTEGER NOT NULL, " +
+                    "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "email VARCHAR (50) NOT NULL, " +
                     "title VARCHAR (5), " +
                     "forname VARCHAR (30), " +
@@ -60,19 +60,14 @@ public class ConnectionToMySQL {
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "review_summary TEXT, " +
                     "typographical_errors TINYTEXT, " +
+                    "initial_verdict VARCHAR(50), " +
+                    "final_verdict VARCHAR(50), " +
                     "submission_id INTEGER NOT NULL, " +
                     "reviewer_id INTEGER NOT NULL, " +
                     "FOREIGN KEY (submission_id) REFERENCES submissions(id), " +
                     "FOREIGN KEY (reviewer_id) REFERENCES reviewers(id), " +
                     "PRIMARY KEY(id))");
 
-            //Creating verdicts table
-            statement.execute("CREATE TABLE IF NOT EXISTS verdicts(" +
-                    "id INTEGER NOT NULL AUTO_INCREMENT, " +
-                    "verdict VARCHAR(50), " + //USE ENUM MAYBE
-                    "review_id INTEGER NOT NULL, " +
-                    "FOREIGN KEY (review_id) REFERENCES reviews(id), " +
-                    "PRIMARY KEY(id))");
 
             //Creating questions table
             statement.execute("CREATE TABLE IF NOT EXISTS questions(" +
@@ -111,9 +106,9 @@ public class ConnectionToMySQL {
             statement.execute("CREATE TABLE IF NOT EXISTS volumes(" +
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "volume_number INTEGER NOT NULL, " +
-                    "ISSN VARCHAR(8) NOT NULL, " +
                     "number_of_editions INTEGER, " +
                     "year_of_publication YEAR, " +
+                    "ISSN VARCHAR(8) NOT NULL, " +
                     "FOREIGN KEY(ISSN) REFERENCES journals(ISSN), " +
                     "PRIMARY KEY(id))");
 

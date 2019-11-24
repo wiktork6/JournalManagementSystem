@@ -2,6 +2,7 @@ package com.company.users;
 
 
 public class User {
+    private Integer id;
     private String title;
     private String forname;
     private String surname;
@@ -42,5 +43,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
