@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.pojo.Author;
 import app.pojo.Submission;
 
 public class SubmissionController {

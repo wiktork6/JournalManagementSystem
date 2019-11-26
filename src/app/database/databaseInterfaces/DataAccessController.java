@@ -17,6 +17,9 @@ public interface DataAccessController {
     Article showArticle(Integer articleId);
     ArrayList<Review> getReviews(Integer submissionId);
     ArrayList<Question> getQuestions(Integer reviewId);
-    ArrayList<Journal> getAvailableJournals(Integer editorId);
+    ArrayList<String> getAvailableJournals(Integer editorId);
+    User getUser(Integer id);
+    Integer getAuthor(Integer userId);
+    Integer getEditor(Integer userId);
 
 }

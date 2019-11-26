@@ -12,4 +12,20 @@ public class Journal {
         this.numberOfVolumes = numberOfVolumes;
         this.chiefEditorId = chiefEditorId;
     }
+
+    public String getIssn() {
+        return issn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getNumberOfVolumes() {
+        return numberOfVolumes;
+    }
+
+    public Integer getChiefEditorId() {
+        return chiefEditorId;
+    }
 }

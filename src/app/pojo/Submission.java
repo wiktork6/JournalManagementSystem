@@ -6,12 +6,15 @@ public class Submission {
     private String title;
     private String draftArticle;
     private Integer authorId;
+    private String issn;
 
-    public Submission( String abstractText, String title, String draftArticle, Integer authorId) {
+    public Submission(Integer id, String abstractText, String title, String draftArticle, Integer authorId, String issn) {
+        this.id = id;
         this.abstractText = abstractText;
         this.title = title;
         this.draftArticle = draftArticle;
         this.authorId = authorId;
+        this.issn = issn;
     }
 
     public Integer getId() {

@@ -18,27 +18,8 @@ public class EditorController {
         this.dataAccessController = dataAccessController;
     }
 
-    public User createNewUser(String title,){
-        return new User()
-    }
-    public boolean acceptArticle(Submission submission){
-        insertArticle();
-    }
-    public boolean rejecttArticle(Submission submission){
-        deleteSubmission();
-    }
-    public boolean getSubmissionsList(){
 
-    }
-    public Editor nominateNewEditor(){
 
-    }
-    public Editor appointNewEditor(){
-
-    }
-    public Editor retire(){
-
-    }
 
     public ArrayList<Journal> getAvailableJournals(){
         return dataAccessController.getAvailableJournals(editor.getId());

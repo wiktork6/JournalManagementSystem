@@ -19,5 +19,31 @@ public class Article {
         this.editionId = editionId;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public String getPageNumberRange() {
+        return pageNumberRange;
+    }
+
+    public String getAbstractText() {
+        return abstractText;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getFullArticle() {
+        return fullArticle;
+    }
+
+    public Integer getMainAuthorId() {
+        return mainAuthorId;
+    }
+
+    public Integer getEditionId() {
+        return editionId;
+    }
 }

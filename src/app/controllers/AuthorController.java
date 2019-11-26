@@ -1,7 +1,7 @@
 package app.controllers;
 
 import app.database.MySqlDataAccessController;
-import app.database.DataInsertController;
+import app.database.MySqlDataInsertController;
 import app.pojo.Author;
 import app.pojo.Submission;
 import app.pojo.User;
@@ -14,7 +14,7 @@ public class AuthorController {
     }
     public void createNewSubmission(String abstractText, String title, String draftArticle){
         Submission newSubmission = new Submission(abstractText, title, draftArticle, this.author.getAuthorId());
-        DataInsertController.insertSubmission(newSubmission);
+        MySqlDataInsertController.insertSubmission(newSubmission);
     }
 
     public void revisedArticle(){
@@ -24,7 +24,7 @@ public class AuthorController {
     public void registerAuthor(String title, String forname, String surname, String university, String email, String password) {
         User user = new User(title, forname, surname, university, email, password);
         MySqlDataAccessController.insertUser(user);
-        DataInsertController.insertNewAuthor(MySqlDataAccessController.getUserId(user.getEmail()));
+        MySqlDataInsertController.insertNewAuthor(MySqlDataAccessController.getUserId(user.getEmail()));
     }
 
     public void seeReviews (Integer articleId){

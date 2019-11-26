@@ -21,7 +21,7 @@ public class ConnectionToMySQL {
                     "forname VARCHAR (30), " +
                     "surname VARCHAR (30), " +
                     "university VARCHAR (50), " +
-                    "password VARCHAR (30) NOT NULL, " +
+                    "password VARCHAR (100) NOT NULL, " +
                     "PRIMARY KEY (id))");
 
             //Creating authors table
@@ -51,8 +51,10 @@ public class ConnectionToMySQL {
                     "title VARCHAR(255) NOT NULL, " +
                     "abstract TINYTEXT, " +
                     "draft_article TEXT, " +
+                    "ISSN VARCHAR(8)" +
                     "author_id INTEGER, " +
                     "FOREIGN KEY (author_id) REFERENCES authors(id), " +
+                    "FOREIGN KEY (ISSN) REFERENCES journals(ISSN), " +
                     "PRIMARY KEY (id))");
 
             // Creating reviews table
@@ -89,7 +91,7 @@ public class ConnectionToMySQL {
             //Creating journals table
             statement.execute("CREATE TABLE IF NOT EXISTS journals(" +
                     "ISSN VARCHAR(8) NOT NULL, " +
-                    "nameOfJournal VARCHAR(50) NOT NULL" +
+                    "name_of_journal VARCHAR(50) NOT NULL" +
                     "number_of_volumes INTEGER, " +
                     "chief_editor_id INTEGER, " +
                     "FOREIGN KEY(chief_editor_id) REFERENCES editors(id), " +
