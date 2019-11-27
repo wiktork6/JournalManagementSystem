@@ -12,4 +12,20 @@ public class Edition {
         this.monthOfPublication = monthOfPublication;
         this.volumeId = volumeId;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getEdition_number() {
+        return edition_number;
+    }
+
+    public String getMonthOfPublication() {
+        return monthOfPublication;
+    }
+
+    public Integer getVolumeId() {
+        return volumeId;
+    }
 }

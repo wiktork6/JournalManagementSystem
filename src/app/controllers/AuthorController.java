@@ -1,7 +1,6 @@
 package app.controllers;
 
 import app.database.MySqlDataAccessController;
-import app.database.MySqlDataInsertController;
 import app.pojo.Author;
 import app.pojo.Submission;
 import app.pojo.User;

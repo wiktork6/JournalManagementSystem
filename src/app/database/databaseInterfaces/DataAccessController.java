@@ -22,6 +22,13 @@ public interface DataAccessController {
     Integer getAuthor(Integer userId);
     Integer getEditor(Integer userId);
     ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId);
-    Integer getLastSubmissionId();
-
+    Integer insertUser(String title, String forname, String surname, String university, String email, String password);
+    Integer insertAuthor(Integer userId);
+    Integer insertEditor(Integer userId);
+    boolean insertJournal(Journal journal);
+    boolean insertJournalEditor(Journal journal, Editor editor);
+    Integer insertSubmission(String title, String abstractText, String draftArticle, Integer authorId, String issn);
+    boolean insertCoAuthor(Integer submissionId, Integer authorId);
 }
+
+

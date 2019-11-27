@@ -14,4 +14,24 @@ public class Volume {
         this.yearOfPublication = yearOfPublication;
         this.issn = issn;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getVolumeNumber() {
+        return volumeNumber;
+    }
+
+    public Integer getNumberOfEdition() {
+        return numberOfEdition;
+    }
+
+    public String getYearOfPublication() {
+        return yearOfPublication;
+    }
+
+    public String getIssn() {
+        return issn;
+    }
 }

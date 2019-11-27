@@ -417,21 +417,146 @@ public class MySqlDataAccessController implements DataAccessController {
         }
     }
 
+
+
+
+
+
     @Override
-    public Integer getLastSubmissionId() {
+    public Integer insertUser(String title, String forname, String surname, String university, String email, String password){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM submissions ORDER BY ID DESC LIMIT 1;")){
-
-            ResultSet res = preparedStatement.executeQuery();
-            res.next();
-            Integer submissionId =  res.getInt(1);
-
-            res.close();
-            return submissionId;
-
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO users(title, forname, surname, university, email, password) " +
+                    "VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, forname);
+            preparedStatement.setString(3, surname);
+            preparedStatement.setString(4, university);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, password);
+            preparedStatement.execute();
+            ResultSet res = preparedStatement.getGeneratedKeys();
+            Integer userId = 0;
+            if(res.next()){
+                userId = res.getInt(1);
+            }
+            return userId;
         }catch(SQLException ex){
             ex.printStackTrace();
             return null;
+        }
+    }
+
+
+    @Override
+    public Integer insertAuthor(Integer userId){
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO authors(user_id) " +
+                    "VALUES(?);", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setInt(1, userId );
+            preparedStatement.execute();
+
+            ResultSet res = preparedStatement.getGeneratedKeys();
+            Integer authorId = 0;
+            if(res.next()){
+                authorId = res.getInt(1);
+            }
+            return authorId;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    public Integer insertEditor(Integer userId){
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO editors(user_id) " +
+                    "VALUES(?);", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setInt(1, userId );
+            preparedStatement.execute();
+            ResultSet res = preparedStatement.getGeneratedKeys();
+            Integer editorId = 0;
+            if(res.next()){
+                editorId = res.getInt(1);
+            }
+            return editorId;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    public boolean insertJournal(Journal journal){
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO journals(ISSN, name_of_journal, number_of_volumes, chief_editor_id) " +
+                    "VALUES(?,?,?,?);")){
+            preparedStatement.setString(1, journal.getIssn());
+            preparedStatement.setString(2, journal.getName());
+            preparedStatement.setInt(3, journal.getNumberOfVolumes());
+            preparedStatement.setInt(4, journal.getChiefEditorId());
+
+            preparedStatement.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean insertJournalEditor(Journal journal, Editor editor) {
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO journal_editor(ISSN, editor_id) " +
+                    "VALUES(?,?);")){
+
+            preparedStatement.setString(1, journal.getIssn());
+            preparedStatement.setInt(2, editor.getId());
+
+            preparedStatement.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public Integer insertSubmission(String title, String abstractText, String draftArticle, Integer authorId, String issn) {
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO submissions(title, abstract, draft_article, ISSN, author_id) " +
+                    "VALUES(?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, abstractText);
+            preparedStatement.setString(3, draftArticle);
+            preparedStatement.setString(4, issn);
+            preparedStatement.setInt(5, authorId);
+            preparedStatement.execute();
+            ResultSet res = preparedStatement.getGeneratedKeys();
+            Integer submissionId = 0;
+            if(res.next()){
+                submissionId = res.getInt(1);
+            }
+
+            return submissionId;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean insertCoAuthor(Integer submissionId, Integer authorId) {
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO submission_author(submission_id, author_id) " +
+                    "VALUES(?,?);")){
+
+            preparedStatement.setInt(1, submissionId);
+            preparedStatement.setInt(2, authorId);
+
+            preparedStatement.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
         }
     }
 }
