@@ -44,18 +44,25 @@ public class ConnectionToMySQL {
                     "user_id INTEGER NOT NULL, " +
                     "FOREIGN KEY (user_id) REFERENCES users(id), " +
                     "PRIMARY KEY (id))");
-
+            //Creating journals table
+            statement.execute("CREATE TABLE IF NOT EXISTS journals(" +
+                    "ISSN VARCHAR(8) NOT NULL, " +
+                    "name_of_journal VARCHAR(50) NOT NULL, " +
+                    "number_of_volumes INTEGER, " +
+                    "chief_editor_id INTEGER, " +
+                    "FOREIGN KEY(chief_editor_id) REFERENCES editors(id), " +
+                    "PRIMARY KEY(ISSN))");
             // Creating submissions table
             statement.execute("CREATE TABLE IF NOT EXISTS submissions(" +
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "title VARCHAR(255) NOT NULL, " +
                     "abstract TINYTEXT, " +
                     "draft_article TEXT, " +
-                    "ISSN VARCHAR(8)" +
+                    "ISSN VARCHAR(8), " +
                     "author_id INTEGER, " +
                     "FOREIGN KEY (author_id) REFERENCES authors(id), " +
                     "FOREIGN KEY (ISSN) REFERENCES journals(ISSN), " +
-                    "PRIMARY KEY (id))");
+                    "PRIMARY KEY(id))");
 
             // Creating reviews table
             statement.execute("CREATE TABLE IF NOT EXISTS reviews(" +
@@ -88,14 +95,6 @@ public class ConnectionToMySQL {
                     "FOREIGN KEY(question_id) REFERENCES questions(id), " +
                     "PRIMARY KEY(id))");
 
-            //Creating journals table
-            statement.execute("CREATE TABLE IF NOT EXISTS journals(" +
-                    "ISSN VARCHAR(8) NOT NULL, " +
-                    "name_of_journal VARCHAR(50) NOT NULL" +
-                    "number_of_volumes INTEGER, " +
-                    "chief_editor_id INTEGER, " +
-                    "FOREIGN KEY(chief_editor_id) REFERENCES editors(id), " +
-                    "PRIMARY KEY(ISSN))");
 
             //Creating journal_editor table
             statement.execute("CREATE TABLE IF NOT EXISTS journal_editor(" +
@@ -144,6 +143,13 @@ public class ConnectionToMySQL {
                     "FOREIGN KEY(article_id) REFERENCES articles(id), " +
                     "FOREIGN KEY(author_id) REFERENCES authors(id), " +
                     "PRIMARY KEY(article_id, author_id))");
+            //Creating submission_author table
+            statement.execute("CREATE TABLE IF NOT EXISTS submission_author(" +
+                    "submission_id INTEGER NOT NULL, " +
+                    "author_id INTEGER NOT NULL, " +
+                    "FOREIGN KEY(submission_id) REFERENCES submissions(id), " +
+                    "FOREIGN KEY(author_id) REFERENCES authors(id), " +
+                    "PRIMARY KEY(submission_id, author_id))");
         }catch(SQLException ex){
             ex.printStackTrace();
         }

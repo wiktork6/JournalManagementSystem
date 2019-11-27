@@ -21,8 +21,8 @@ public class EditorController {
 
 
 
-    public ArrayList<Journal> getAvailableJournals(){
-        return dataAccessController.getAvailableJournals(editor.getId());
-    }
+//    public ArrayList<Journal> getAvailableJournals(){
+//        return dataAccessController.getAvailableJournals(editor.getId());
+//    }
 
 }

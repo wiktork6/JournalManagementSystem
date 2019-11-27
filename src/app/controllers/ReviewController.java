@@ -14,7 +14,7 @@ public class ReviewController {
         this.review = review;
     }
 
-    public ArrayList<Question> getQuestions(){
-        return MySqlDataAccessController.getQuestions(review.getId());
-    }
+//    public ArrayList<Question> getQuestions(){
+//        return MySqlDataAccessController.getQuestions(review.getId());
+//    }
 }

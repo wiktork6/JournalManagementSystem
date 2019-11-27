@@ -23,20 +23,20 @@ public class UserController  {
 //    }
 
 
-    public boolean login(String email, String password){
-        DataAccessController dataAccessController = new MySqlDataAccessController();
-        ArrayList<User> listOfUsers = dataAccessController.getUsers();
-        for(int i=0; i<listOfUsers.size(); i++){
-            User user = listOfUsers.get(i);
-            if(user.getEmail().equals(email) || user.getPassword().equals(password)){
-                return true;
-            }
-        }
-        return false;
-    }
-    public User register(String forname, String surname, String title, String university, String email, String password){
-        return new Author(title, forname, surname, university, email, password,null); // should be user not author i think
-    }
+//    public boolean login(String email, String password){
+//        DataAccessController dataAccessController = new MySqlDataAccessController();
+//        ArrayList<User> listOfUsers = dataAccessController.getUsers();
+//        for(int i=0; i<listOfUsers.size(); i++){
+//            User user = listOfUsers.get(i);
+//            if(user.getEmail().equals(email) || user.getPassword().equals(password)){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//    public User register(String forname, String surname, String title, String university, String email, String password){
+//        return new Author(title, forname, surname, university, email, password,null); // should be user not author i think
+//    }
     public void logout(){
 
     }

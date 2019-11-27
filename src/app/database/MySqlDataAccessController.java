@@ -15,7 +15,7 @@ public class MySqlDataAccessController implements DataAccessController {
     public MySqlDataAccessController() {
     }
 
-
+    @Override
     public User getUser(Integer id){
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, email, title, forname, surname, university FROM users WHERE id = ?")) {
@@ -23,14 +23,17 @@ public class MySqlDataAccessController implements DataAccessController {
             preparedStatement.setInt(1,id);
 
             ResultSet res = preparedStatement.executeQuery();
+            User user = null;
+            if(res.next()){
+                Integer userId = res.getInt(1);
+                String email = res.getString(2);
+                String title = res.getString(3);
+                String forname = res.getString(4);
+                String surname = res.getString(5);
+                String university= res.getString(6);
+                user = new User(userId,title,forname,surname,university,email);
+            }
 
-            Integer userId = res.getInt(1);
-            String email = res.getString(2);
-            String title = res.getString(3);
-            String forname = res.getString(4);
-            String surname = res.getString(5);
-            String university= res.getString(6);
-            User user = new User(userId,title,forname,surname,university,email);
 
             res.close();
             return user;
@@ -42,7 +45,7 @@ public class MySqlDataAccessController implements DataAccessController {
     }
 
 
-
+    @Override
     public ArrayList<User> getUsers() {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, email, title, forname, surname, university FROM users;")) {
@@ -68,7 +71,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public Integer getUserId(String email) {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM users WHERE email = ?;")) {
@@ -87,11 +90,11 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public ArrayList<Journal> getJournals() {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              Statement statement = conn.createStatement()) {
-            ResultSet res = statement.executeQuery("SELECT ISSN, name_of_journal_, number_of_volumes, chief_editor_id FROM journals;");
+            ResultSet res = statement.executeQuery("SELECT ISSN, name_of_journal, number_of_volumes, chief_editor_id FROM journals;");
             ArrayList<Journal> listOfJournals = new ArrayList<>();
 
             while (res.next()) {
@@ -112,7 +115,7 @@ public class MySqlDataAccessController implements DataAccessController {
         }
 
     }
-    
+    @Override
     public ArrayList<String> getAvailableJournals(Integer editorId){
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT ISSN FROM journal_editor WHERE editor_id = ?;")) {
@@ -136,7 +139,7 @@ public class MySqlDataAccessController implements DataAccessController {
         }
 
     }
-
+    @Override
     public ArrayList<Volume> getVolumes() {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              Statement statement = conn.createStatement()) {
@@ -160,7 +163,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public ArrayList<Volume> getVolumes(String issnNumber) {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, volume_number, number_of_editions, year_of_publication, ISSN FROM volumes WHERE ISSN = ?;")) {
@@ -185,7 +188,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public ArrayList<Edition> getEditions(Integer volumeId) {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, edition_number, month_of_publication, volume_id FROM editions WHERE volume_id = ?;")) {
@@ -209,7 +212,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public ArrayList<Edition> getEditions() {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              Statement statement = conn.createStatement()) {
@@ -232,7 +235,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public ArrayList<Article> getArticles(Integer editionId) {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, page_number_range, abstract, title, final_full_article, main_author_id, edition_id FROM articles WHERE edition_id = ?;")) {
@@ -259,7 +262,7 @@ public class MySqlDataAccessController implements DataAccessController {
         }
     }
 
-
+    @Override
     public ArrayList<Article> getArticles() {
         try (Connection conn = DriverManager.getConnection(DB_TEST, USERNAME_TEST, PASSWORD_TEST);
              Statement statement = conn.createStatement()) {
@@ -284,6 +287,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
+    @Override
     public Article showArticle(Integer articleId){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, page_number_range, abstract, title, final_full_article, main_author_id, edition_id FROM articles WHERE id = ?;")){
@@ -303,7 +307,8 @@ public class MySqlDataAccessController implements DataAccessController {
             ex.printStackTrace();
             return null;
         }
-  }
+    }
+    @Override
     public ArrayList<Review> getReviews(Integer submissionId){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, review_summary, typographical_errors, initial_verdict, final_verdict, submission_id, reviewer_id FROM reviews WHERE submission_id = ?;")){
@@ -330,7 +335,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public ArrayList<Question> getQuestions(Integer reviewId){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, question_number, question, review_id FROM questions WHERE review_id = ?;")){
@@ -355,12 +360,13 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public Integer getAuthor(Integer userId){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM authors WHERE user_id = ?")){
             preparedStatement.setInt(1, userId);
             ResultSet res = preparedStatement.executeQuery();
+            res.next();
             Integer authorId =  res.getInt(1);
 
             res.close();
@@ -371,12 +377,13 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
-
+    @Override
     public Integer getEditor(Integer userId){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM editors WHERE user_id =?;")){
             preparedStatement.setInt(1, userId);
             ResultSet res = preparedStatement.executeQuery();
+            res.next();
             Integer editorId =  res.getInt(1);
 
             res.close();
@@ -387,6 +394,44 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
+    /*
+    do zmiany
+    */
+    @Override
+    public ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId) {
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, a.author_id, u.title, u.forname FROM SubmissionAuthor s INNER JOIN Author a ON a.Author_id=s.author_id INNER JOIN User u ON u.userID=a.userID")){
+            preparedStatement.setInt(1, submissionId);
+            ResultSet res = preparedStatement.executeQuery();
+            while(res.next()){
 
+            }
+            Integer editorId =  res.getInt(1);
 
+            res.close();
+            return new ArrayList<Author>();
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Integer getLastSubmissionId() {
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM submissions ORDER BY ID DESC LIMIT 1;")){
+
+            ResultSet res = preparedStatement.executeQuery();
+            res.next();
+            Integer submissionId =  res.getInt(1);
+
+            res.close();
+            return submissionId;
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }

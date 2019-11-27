@@ -19,5 +19,9 @@ public class RegisterSubmission {
 
     public void registerNewSubmission(Author author, String title, String abstractText, String draftArticle, String issn){
         dataInsertController.insertSubmission(title, abstractText, draftArticle, author.getAuthorId(), issn);
+        Integer submissionId = dataAccessController.getLastSubmissionId();
+        dataInsertController.insertCoAuthor(author.getAuthorId(), submissionId);
     }
+
+
 }

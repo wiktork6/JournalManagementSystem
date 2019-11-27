@@ -21,5 +21,7 @@ public interface DataAccessController {
     User getUser(Integer id);
     Integer getAuthor(Integer userId);
     Integer getEditor(Integer userId);
+    ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId);
+    Integer getLastSubmissionId();
 
 }

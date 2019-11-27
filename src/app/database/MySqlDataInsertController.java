@@ -1,10 +1,7 @@
 package app.database;
 
 import app.database.databaseInterfaces.DataInsertController;
-import app.pojo.Editor;
-import app.pojo.Journal;
-import app.pojo.Submission;
-import app.pojo.User;
+import app.pojo.*;
 
 import java.sql.*;
 
@@ -128,4 +125,22 @@ public class MySqlDataInsertController implements DataInsertController {
             return false;
         }
     }
+
+    @Override
+    public boolean insertCoAuthor(Integer submissionId, Integer authorId) {
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO submission_author(submission_id, author_id) " +
+                    "VALUES(?,?);")){
+
+            preparedStatement.setInt(1, submissionId);
+            preparedStatement.setInt(2, authorId);
+
+            preparedStatement.execute();
+            return true;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
 }

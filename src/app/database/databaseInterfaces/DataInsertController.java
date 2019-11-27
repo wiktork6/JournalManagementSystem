@@ -1,5 +1,6 @@
 package app.database.databaseInterfaces;
 
+import app.pojo.Author;
 import app.pojo.Editor;
 import app.pojo.Journal;
 
@@ -10,4 +11,5 @@ public interface DataInsertController {
     boolean insertJournal(Journal journal);
     boolean insertJournalEditor(Journal journal, Editor editor);
     boolean insertSubmission(String title, String abstractText, String draftArticle, Integer authorId, String issn);
+    boolean insertCoAuthor(Integer submissionId, Integer authorId);
 }
