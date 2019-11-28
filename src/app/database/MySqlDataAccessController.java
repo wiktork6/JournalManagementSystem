@@ -378,6 +378,23 @@ public class MySqlDataAccessController implements DataAccessController {
         }
     }
     @Override
+    public Integer getReviewer(Integer userId){
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM reviewers WHERE user_id = ?")){
+            preparedStatement.setInt(1, userId);
+            ResultSet res = preparedStatement.executeQuery();
+            res.next();
+            Integer reviewerId =  res.getInt(1);
+
+            res.close();
+            return reviewerId;
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    @Override
     public Integer getEditor(Integer userId){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM editors WHERE user_id =?;")){
@@ -484,6 +501,7 @@ public class MySqlDataAccessController implements DataAccessController {
             return null;
         }
     }
+    @Override
     public boolean insertJournal(Journal journal){
         try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
             PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO journals(ISSN, name_of_journal, number_of_volumes, chief_editor_id) " +
@@ -557,6 +575,34 @@ public class MySqlDataAccessController implements DataAccessController {
         }catch(SQLException ex){
             ex.printStackTrace();
             return false;
+        }
+    }
+    @Override
+    public User getUserToLogin(String email, String password){
+        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, email, title, forname, surname, university FROM users WHERE email = ? and password = ?")){
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(1, password);
+            ResultSet res = preparedStatement.executeQuery();
+            User user = null;
+            if(res.next()){
+                Integer userId =  res.getInt(1);
+                String emailUser = res.getString(2);
+                String title = res.getString(3);
+                String forname = res.getString(4);
+                String surname = res.getString(5);
+                String university = res.getString(6);
+
+               user =  new User(userId, title,forname,surname,university,emailUser);
+            }
+
+
+            res.close();
+            return user;
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
         }
     }
 }
