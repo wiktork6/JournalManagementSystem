@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GenericService<Item> implements Service<Item> {
 
-    private GenericDataAccessController<Item> dac;
+    protected GenericDataAccessController<Item> dac;
 
     GenericService(GenericDataAccessController<Item> dac){
         this.dac = dac;

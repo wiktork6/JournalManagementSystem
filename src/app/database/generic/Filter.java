@@ -4,8 +4,8 @@ public class Filter {
     private String filterName;
     private Object filterValue;
 
-    Filter(){}
-    Filter(String filterName, Object filterValue){
+    public Filter(){}
+    public Filter(String filterName, Object filterValue){
         this.setFilterName(filterName);
         this.setFilterValue(filterValue);
     }
