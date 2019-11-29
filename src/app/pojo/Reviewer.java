@@ -12,4 +12,8 @@ public class Reviewer extends User {
         super(id, title, forname, surname, university, email);
         this.reviewerId = reviewerId;
     }
+
+    public Integer getReviewerId() {
+        return reviewerId;
+    }
 }

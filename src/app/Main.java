@@ -18,6 +18,16 @@ public class Main {
        //        viewJournalsButton();
 
     }
+//    public static boolean loginButton(String email, String password){
+//        DataAccessController dataAccessController = new MySqlDataAccessController();
+//        Login login = new Login(dataAccessController);
+//        if(login.login(email, password)!=0){
+//
+//        }else{
+//            System.out.println("Incorrect email or password");
+//            return false;
+//        }
+//    }
 
     //It needs to print author to the box, to be added later
     public static Author addCoAuthorToSubmissionButtom(String title, String forname, String surname, String university, String email, String password, String repeatPassword, Integer submissionId){
