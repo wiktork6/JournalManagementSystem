@@ -1,14 +1,12 @@
-package app.database.databaseInterfaces;
-
-import app.pojo.*;
+package app.database.generic;
 
 import java.util.ArrayList;
 
 public interface DataAccessController<Item> {
-    ArrayList<Item> getItemsWhere(String filterName, Object filterValue);
+    ArrayList<Item> getItemsWhere(ArrayList<Filter> filters);
     ArrayList<Item> getItems();
     Item getItem(Object id);
-    Item getItemWhere(String filterName, Object filterValue);
+    Item getItemWhere(ArrayList<Filter> filters);
     Integer addItem(Item item);
 
     //ArrayList<User> getUsers();

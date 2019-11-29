@@ -1,9 +1,6 @@
 package app.controllers;
 
-import app.database.MySqlDataAccessController;
 import app.pojo.Author;
-import app.pojo.Submission;
-import app.pojo.User;
 
 public class AuthorController {
     private Author author;

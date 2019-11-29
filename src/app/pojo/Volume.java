@@ -7,6 +7,9 @@ public class Volume {
     private String yearOfPublication;
     private String issn;
 
+    public Volume() {
+    }
+
     public Volume(Integer id, Integer volumeNumber, Integer numberOfEdition, String yearOfPublication, String issn) {
         this.id = id;
         this.volumeNumber = volumeNumber;

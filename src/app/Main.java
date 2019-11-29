@@ -1,7 +1,6 @@
 package app;
 
-import app.database.MySqlDataAccessController;
-import app.database.databaseInterfaces.DataAccessController;
+import app.database.generic.DataAccessController;
 
 import app.pojo.*;
 import app.controllers.register.RegisterJournal;

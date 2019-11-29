@@ -1,6 +1,7 @@
 package app.controllers;
 
-import app.database.databaseInterfaces.DataAccessController;
+import app.database.SubmissionDataAccessController;
+import app.database.generic.DataAccessController;
 
 import app.pojo.Author;
 import app.pojo.Submission;
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 public class SubmissionController {
     private Submission submission;
 
-    private DataAccessController dataAccessController;
+    private SubmissionDataAccessController dataAccessController;
 
-    public SubmissionController(Submission submission, DataAccessController dataAccessController) {
+    public SubmissionController(Submission submission, SubmissionDataAccessController dataAccessController) {
         this.submission = submission;
 
         this.dataAccessController = dataAccessController;

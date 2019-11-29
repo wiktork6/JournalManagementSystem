@@ -6,6 +6,9 @@ public class Edition {
     private String monthOfPublication;
     private Integer volumeId;
 
+    public Edition(){
+    }
+
     public Edition(Integer id, Integer edition_number, String monthOfPublication, Integer volumeId) {
         this.id = id;
         this.edition_number = edition_number;

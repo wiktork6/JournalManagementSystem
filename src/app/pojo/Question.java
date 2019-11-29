@@ -7,6 +7,9 @@ public class Question {
     private Integer reviewId;
 //    private boolean isAnswered;
 
+    public Question(){
+    }
+
     public Question(Integer id, Integer question_number, String question, Integer reviewId) {
         this.id = id;
         this.question_number = question_number;

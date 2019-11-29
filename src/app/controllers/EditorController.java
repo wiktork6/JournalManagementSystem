@@ -1,12 +1,7 @@
 package app.controllers;
 
-import app.database.databaseInterfaces.DataAccessController;
+import app.database.generic.DataAccessController;
 import app.pojo.Editor;
-import app.pojo.Journal;
-import app.pojo.Submission;
-import app.pojo.User;
-
-import java.util.ArrayList;
 
 public class EditorController {
 

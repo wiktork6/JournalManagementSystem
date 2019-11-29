@@ -5,6 +5,9 @@ public class Reviewer extends User {
 // and then the person responsible for that class will implement the method later
     private Integer reviewerId;
 
+    public Reviewer(){
+    }
+
     public Reviewer(Integer id, String title, String forname, String surname, String university, String email, Integer reviewerId) {
         super(id, title, forname, surname, university, email);
         this.reviewerId = reviewerId;

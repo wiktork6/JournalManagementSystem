@@ -1,11 +1,6 @@
 package app.controllers;
 
-import app.database.MySqlDataAccessController;
-import app.database.databaseInterfaces.DataAccessController;
-import app.pojo.Author;
 import app.pojo.User;
-
-import java.util.ArrayList;
 
 
 public class UserController  {

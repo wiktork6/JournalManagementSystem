@@ -1,24 +1,23 @@
 package app.controllers.register;
 
-import app.database.databaseInterfaces.DataAccessController;
+import app.database.SubmissionDataAccessController;
+import app.database.generic.DataAccessController;
 
 import app.pojo.Author;
-import app.pojo.Editor;
-import app.pojo.Journal;
 import app.pojo.Submission;
 
 public class RegisterSubmission {
 
-    private DataAccessController dataAccessController;
+    private SubmissionDataAccessController dataAccessController;
 
-    public RegisterSubmission(DataAccessController dataAccessController) {
+    public RegisterSubmission(SubmissionDataAccessController dataAccessController) {
 
         this.dataAccessController = dataAccessController;
     }
 
 
     public Integer registerNewSubmission(Author author, String title, String abstractText, String draftArticle, String issn){
-        Integer submissionId = dataAccessController.insertSubmission(title, abstractText, draftArticle, author.getAuthorId(), issn);
+        Integer submissionId = dataAccessController.addItem(new Submission(-1, title, abstractText, draftArticle, author.getAuthorId(), issn));
         dataAccessController.insertCoAuthor(author.getAuthorId(), submissionId);
         return submissionId;
     }

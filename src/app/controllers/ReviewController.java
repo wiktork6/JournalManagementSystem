@@ -1,11 +1,6 @@
 package app.controllers;
 
-import app.database.MySqlDataAccessController;
-import app.pojo.Question;
 import app.pojo.Review;
-
-
-import java.util.ArrayList;
 
 public class ReviewController {
     private Review review;

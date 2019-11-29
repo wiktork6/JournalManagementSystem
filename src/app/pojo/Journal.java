@@ -6,6 +6,9 @@ public class Journal {
     private Integer numberOfVolumes;
     private Integer chiefEditorId;
 
+    public Journal(){
+    }
+
     public Journal(String issn, String name, Integer numberOfVolumes, Integer chiefEditorId) {
         this.issn = issn;
         this.name = name;

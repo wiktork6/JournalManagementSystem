@@ -9,6 +9,10 @@ public class Article {
     private Integer mainAuthorId;
     private Integer editionId;
 
+    public Article()
+    {
+    }
+
     public Article(Integer id, String pageNumberRange, String abstractText, String title, String fullArticle, Integer mainAuthorId, Integer editionId) {
         this.id = id;
         this.pageNumberRange = pageNumberRange;

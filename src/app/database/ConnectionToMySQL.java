@@ -6,12 +6,13 @@ public class ConnectionToMySQL {
     private static String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team042?user=team042&password=7a66e0db";
     private static String DB_TEST = "jdbc:mysql://localhost:3306/test";
     private static String USERNAME_TEST = "root";
-    private static String PASSWORD_TEST = "dupeczka1.";
+    private static String PASSWORD_TEST = "bob4orba";
     public static void main(String[] args) {
 
 
-        try(Connection conn = DriverManager.getConnection(DB_TEST,USERNAME_TEST,PASSWORD_TEST);
+        try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
             Statement statement = conn.createStatement()){
+
 
             //Creating users table
             statement.execute("CREATE TABLE IF NOT EXISTS users(" +

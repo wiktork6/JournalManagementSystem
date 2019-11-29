@@ -8,6 +8,9 @@ public class Submission {
     private Integer authorId;
     private String issn;
 
+    public Submission(){
+    }
+
     public Submission(Integer id, String abstractText, String title, String draftArticle, Integer authorId, String issn) {
         this.id = id;
         this.abstractText = abstractText;
@@ -55,5 +58,13 @@ public class Submission {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
+    }
+
+    public String getIssn(){
+        return this.issn;
+    }
+
+    public void setIssn(String issn){
+        this.issn = issn;
     }
 }

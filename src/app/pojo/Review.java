@@ -10,6 +10,9 @@ public class Review {
     private Integer submissionId;
     private Integer reviewerId;
 
+    public Review(){
+    }
+
     public Review(Integer id, String reviewSummary, String typographicallErrors, String initialVerdict, String finalVerdict, Integer submissionId, Integer reviewerId) {
         this.id = id;
         this.reviewSummary = reviewSummary;

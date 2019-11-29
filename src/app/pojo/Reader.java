@@ -1,10 +1,6 @@
 package app.pojo;
 
-import app.pojo.Article;
-import app.database.databaseInterfaces.DataAccessController;
-import app.pojo.Edition;
-import app.pojo.Journal;
-import app.pojo.Volume;
+import app.database.generic.DataAccessController;
 
 import java.util.ArrayList;
 
