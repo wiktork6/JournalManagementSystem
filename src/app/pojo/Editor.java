@@ -12,6 +12,10 @@ public class Editor extends User {
         this.editorId = editorId;
     }
 
+    public Editor(Integer id) {
+        super(id);
+    }
+
     public Integer getEditorId(){
         return this.editorId;
     }

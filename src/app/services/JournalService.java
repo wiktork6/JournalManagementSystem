@@ -8,7 +8,7 @@ import app.pojo.Journal;
 import java.util.ArrayList;
 
 public class JournalService extends GenericService<Journal> {
-    JournalService(GenericDataAccessController<Journal> dac) {
+    public JournalService(GenericDataAccessController<Journal> dac) {
         super(dac);
     }
 

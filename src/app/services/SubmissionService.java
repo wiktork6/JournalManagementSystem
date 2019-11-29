@@ -8,11 +8,11 @@ import app.pojo.Submission;
 import java.util.ArrayList;
 
 public class SubmissionService extends GenericService<Submission> {
-    SubmissionService(GenericDataAccessController<Submission> dac) {
+    public SubmissionService(GenericDataAccessController<Submission> dac) {
         super(dac);
     }
 
-    public boolean insertCoAuthor(Integer submissionId, Integer authorId){
+    public boolean addCoAuthor(Integer submissionId, Integer authorId){
         return ((SubmissionDataAccessController) dac).insertCoAuthor(submissionId, authorId);
     }
 

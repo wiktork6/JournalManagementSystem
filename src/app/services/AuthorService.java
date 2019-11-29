@@ -7,7 +7,7 @@ import app.pojo.Author;
 import java.util.ArrayList;
 
 public class AuthorService extends GenericService<Author> {
-    AuthorService(GenericDataAccessController<Author> dac) {
+    public AuthorService(GenericDataAccessController<Author> dac) {
         super(dac);
     }
 

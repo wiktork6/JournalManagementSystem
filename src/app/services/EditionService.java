@@ -8,7 +8,7 @@ import app.pojo.Volume;
 import java.util.ArrayList;
 
 public class EditionService extends GenericService<Edition> {
-    EditionService(GenericDataAccessController<Edition> dac) {
+    public EditionService(GenericDataAccessController<Edition> dac) {
         super(dac);
     }
 

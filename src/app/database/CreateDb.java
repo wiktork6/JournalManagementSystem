@@ -2,13 +2,9 @@ package app.database;
 
 import java.sql.*;
 
-public class ConnectionToMySQL {
-    private static String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team042?user=team042&password=7a66e0db";
-    private static String DB_TEST = "jdbc:mysql://localhost:3306/test";
-    private static String USERNAME_TEST = "root";
-    private static String PASSWORD_TEST = "bob4orba";
-    public static void main(String[] args) {
+public class CreateDb {
 
+    public static void createTables() {
 
         try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
             Statement statement = conn.createStatement()){
@@ -49,7 +45,6 @@ public class ConnectionToMySQL {
             statement.execute("CREATE TABLE IF NOT EXISTS journals(" +
                     "ISSN VARCHAR(8) NOT NULL, " +
                     "name_of_journal VARCHAR(50) NOT NULL, " +
-                    "number_of_volumes INTEGER, " +
                     "chief_editor_id INTEGER, " +
                     "FOREIGN KEY(chief_editor_id) REFERENCES editors(id), " +
                     "PRIMARY KEY(ISSN))");

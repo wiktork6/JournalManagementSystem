@@ -8,7 +8,7 @@ import app.pojo.User;
 import java.util.ArrayList;
 
 public class UserService extends GenericService<User> {
-    UserService(GenericDataAccessController<User> dac) {
+    public UserService(GenericDataAccessController<User> dac) {
         super(dac);
     }
 

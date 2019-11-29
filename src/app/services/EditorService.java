@@ -8,7 +8,7 @@ import app.pojo.Editor;
 import java.util.ArrayList;
 
 public class EditorService extends GenericService<Editor> {
-    EditorService(GenericDataAccessController<Editor> dac) {
+    public EditorService(GenericDataAccessController<Editor> dac) {
         super(dac);
     }
 

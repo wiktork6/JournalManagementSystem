@@ -23,7 +23,7 @@ public class EditorDataAccessController extends GenericDataAccessController<Edit
 
     @Override
     protected String insertItemQueryString() {
-        return "INSERT INTO authors(user_id) VALUES(?)";
+        return "INSERT INTO editors(user_id) VALUES(?)";
     }
 
     @Override

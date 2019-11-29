@@ -7,7 +7,7 @@ import app.pojo.Volume;
 import java.util.ArrayList;
 
 public class VolumeService extends GenericService<Volume> {
-    VolumeService(GenericDataAccessController<Volume> dac) {
+    public VolumeService(GenericDataAccessController<Volume> dac) {
         super(dac);
     }
 
