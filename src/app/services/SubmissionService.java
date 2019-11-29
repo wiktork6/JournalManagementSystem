@@ -9,8 +9,8 @@ import app.services.generic.GenericService;
 import java.util.ArrayList;
 
 public class SubmissionService extends GenericService<Submission> {
-    public SubmissionService(GenericDataAccessController<Submission> dac) {
-        super(dac);
+    public SubmissionService() {
+        super(new SubmissionDataAccessController());
     }
 
     public boolean addCoAuthor(Integer submissionId, Integer authorId){

@@ -9,8 +9,8 @@ import app.services.generic.GenericService;
 import java.util.ArrayList;
 
 public class JournalService extends GenericService<Journal> {
-    public JournalService(GenericDataAccessController<Journal> dac) {
-        super(dac);
+    public JournalService() {
+        super(new JournalDataAccessController());
     }
 
     public boolean insertJournalEditor(String journalIssn, Integer editorId){

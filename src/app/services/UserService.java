@@ -9,8 +9,8 @@ import app.services.generic.GenericService;
 import java.util.ArrayList;
 
 public class UserService extends GenericService<User> {
-    public UserService(GenericDataAccessController<User> dac) {
-        super(dac);
+    public UserService() {
+        super(new UserDataAccessController());
     }
 
     public Integer getUserId(String email){
