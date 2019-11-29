@@ -11,7 +11,7 @@ public class UserDataAccessController extends GenericDataAccessController<User> 
 
 
     public Integer getUserId(String email) {
-        try (Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+        try (Connection conn = DriverManager.getConnection(DbConnection.STRING);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM users WHERE email = ?;")) {
             preparedStatement.setString(1,email);
             ResultSet res = preparedStatement.executeQuery();

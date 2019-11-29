@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class GenericDataAccessController<Item> implements DataAccessController<Item> {
 
     protected ArrayList<Item> getItems(String queryString, ArrayList<Filter> filters) {
-        try (Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+        try (Connection conn = DriverManager.getConnection(DbConnection.STRING);
              PreparedStatement preparedStatement = getPreparedStatement(filters, conn, queryString)) {
             ResultSet res = preparedStatement.executeQuery(queryString);
             ArrayList<Item> itemsList = new ArrayList<>();
@@ -71,7 +71,7 @@ public abstract class GenericDataAccessController<Item> implements DataAccessCon
 
     @Override
     public Item getItemWhere(ArrayList<Filter> filters){
-        try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = this.getPreparedStatement(filters, conn, this.getItemsWhereQueryString(filters))){
             ResultSet res = preparedStatement.executeQuery();
 
@@ -99,7 +99,7 @@ public abstract class GenericDataAccessController<Item> implements DataAccessCon
 
     @Override
     public Integer addItem(Item item) {
-        try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement(this.insertItemQueryString() + ";", Statement.RETURN_GENERATED_KEYS)){
             this.setInsertPreparedStatement(preparedStatement, item);
 

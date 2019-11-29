@@ -34,7 +34,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     }
 
     public ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId) {
-        try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, a.author_id, u.title, u.forname FROM SubmissionAuthor s INNER JOIN Author a ON a.Author_id=s.author_id INNER JOIN User u ON u.userID=a.userID")){
             preparedStatement.setInt(1, submissionId);
             ResultSet res = preparedStatement.executeQuery();
@@ -53,7 +53,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     }
 
     public boolean insertCoAuthor(Integer submissionId, Integer authorId) {
-        try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO submission_author(submission_id, author_id) " +
                     "VALUES(?,?);")){
 

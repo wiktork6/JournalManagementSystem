@@ -16,7 +16,7 @@ public class CreateDb {
 
     public static void createTables() {
 
-        try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             Statement statement = conn.createStatement()){
 
             //Creating users table
