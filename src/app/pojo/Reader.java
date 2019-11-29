@@ -1,9 +1,5 @@
 package app.pojo;
 
-import app.database.generic.DataAccessController;
-
-import java.util.ArrayList;
-
 public class Reader {
     //private DataAccessController dataAccessController;
 

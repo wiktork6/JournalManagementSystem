@@ -1,7 +1,6 @@
 package app.controllers;
 
-import app.database.SubmissionDataAccessController;
-import app.database.generic.DataAccessController;
+import app.database.dataAccessControllers.SubmissionDataAccessController;
 
 import app.pojo.Author;
 import app.pojo.Submission;

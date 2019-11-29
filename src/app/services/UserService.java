@@ -1,9 +1,10 @@
 package app.services;
 
-import app.database.UserDataAccessController;
-import app.database.generic.Filter;
-import app.database.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.UserDataAccessController;
+import app.database.dataAccessControllers.generic.Filter;
+import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.pojo.User;
+import app.services.generic.GenericService;
 
 import java.util.ArrayList;
 

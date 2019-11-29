@@ -1,9 +1,10 @@
 package app.services;
 
-import app.database.SubmissionDataAccessController;
-import app.database.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.SubmissionDataAccessController;
+import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.pojo.Author;
 import app.pojo.Submission;
+import app.services.generic.GenericService;
 
 import java.util.ArrayList;
 

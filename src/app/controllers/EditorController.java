@@ -1,6 +1,6 @@
 package app.controllers;
 
-import app.database.generic.DataAccessController;
+import app.database.dataAccessControllers.generic.DataAccessController;
 import app.pojo.Editor;
 
 public class EditorController {

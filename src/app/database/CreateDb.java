@@ -4,11 +4,20 @@ import java.sql.*;
 
 public class CreateDb {
 
+    public static void createDatabase(){
+        try(Connection conn = DriverManager.getConnection(DbConnection.SERVER_URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+            Statement statement = conn.createStatement()) {
+            statement.execute("CREATE DATABASE IF NOT EXISTS " + DbConnection.NAME);
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
     public static void createTables() {
 
         try(Connection conn = DriverManager.getConnection(DbConnection.URL, DbConnection.USERNAME, DbConnection.PASSWORD);
             Statement statement = conn.createStatement()){
-
 
             //Creating users table
             statement.execute("CREATE TABLE IF NOT EXISTS users(" +
@@ -146,7 +155,12 @@ public class CreateDb {
                     "FOREIGN KEY(submission_id) REFERENCES submissions(id), " +
                     "FOREIGN KEY(author_id) REFERENCES authors(id), " +
                     "PRIMARY KEY(submission_id, author_id))");
-        }catch(SQLException ex){
+        }
+        catch(SQLSyntaxErrorException ex){
+            createDatabase();
+            createTables();
+        }
+        catch(SQLException ex){
             ex.printStackTrace();
         }
     }
