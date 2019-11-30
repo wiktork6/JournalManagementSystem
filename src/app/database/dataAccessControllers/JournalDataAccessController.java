@@ -8,33 +8,41 @@ import java.sql.*;
 public class JournalDataAccessController extends GenericDataAccessController<Journal> {
 
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT ISSN, name_of_journal, chief_editor_id FROM journals";
+    protected String getTableName() {
+        return "journals";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, ISSN, name_of_journal, chief_editor_id";
     }
 
     @Override
     protected Journal readItem(ResultSet res) throws SQLException {
-        String issn = res.getString(1);
-        String name = res.getString(2);
-        Integer chiefEditorId = res.getInt(3);
-        return new Journal(issn, name, chiefEditorId);
+        Integer id = res.getInt(1);
+        String issn = res.getString(2);
+        String name = res.getString(3);
+        Integer chiefEditorId = res.getInt(4);
+        return new Journal(id, issn, name, chiefEditorId);
     }
 
     @Override
-    protected String insertItemQueryString() {
-        return "INSERT INTO journals(ISSN, name_of_journal, chief_editor_id) VALUES(?,?,?)";
+    protected String getModifyFields() {
+        return "ISSN, name_of_journal, chief_editor_id";
     }
 
+
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Journal journal) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Journal journal) throws SQLException {
         preparedStatement.setString(1, journal.getIssn());
         preparedStatement.setString(2, journal.getName());
         preparedStatement.setInt(3, journal.getChiefEditorId());
+        return 3;
     }
 
     public boolean insertJournalEditor(String journalId, Integer editorId) {
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
-            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO journal_editor(ISSN, editor_id) " +
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO journal_editor(journal_id, editor_id) " +
                     "VALUES(?,?);")){
 
             preparedStatement.setString(1, journalId);

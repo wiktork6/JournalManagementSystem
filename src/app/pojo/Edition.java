@@ -1,6 +1,6 @@
 package app.pojo;
 
-public class Edition {
+public class Edition implements Identifiable {
     private Integer id;
     private Integer edition_number;
     private String monthOfPublication;
@@ -18,6 +18,11 @@ public class Edition {
 
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getEdition_number() {

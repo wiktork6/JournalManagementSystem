@@ -1,12 +1,18 @@
 package app.controllers;
 
+import app.controllers.generic.GenericController;
 import app.pojo.Author;
+import app.services.AuthorService;
 
-public class AuthorController {
-    private Author author;
+public class AuthorController extends GenericController<Author> {
 
-    public AuthorController(Author author) {
-        this.author = author;
+    public AuthorController() {
+        super(new AuthorService());
+    }
+
+    @Override
+    protected boolean validateItem(Author author) {
+        return true;
     }
 //    public void createNewSubmission(String abstractText, String title, String draftArticle){
 //        Submission newSubmission = new Submission(abstractText, title, draftArticle, this.author.getAuthorId());

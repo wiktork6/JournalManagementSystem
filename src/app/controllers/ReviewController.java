@@ -1,15 +1,18 @@
 package app.controllers;
 
+import app.controllers.generic.GenericController;
 import app.pojo.Review;
+import app.services.ReviewService;
 
-public class ReviewController {
-    private Review review;
+public class ReviewController extends GenericController<Review> {
 
-    public ReviewController(Review review) {
-        this.review = review;
+    public ReviewController() {
+        super(new ReviewService());
     }
 
-//    public ArrayList<Question> getQuestions(){
-//        return MySqlDataAccessController.getQuestions(review.getId());
-//    }
+    @Override
+    protected boolean validateItem(Review review) {
+        return true;
+    }
+
 }

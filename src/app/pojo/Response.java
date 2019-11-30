@@ -1,6 +1,6 @@
 package app.pojo;
 
-public class Response {
+public class Response implements Identifiable {
     private Integer id;
     private String response;
     private Integer authorId;
@@ -17,4 +17,13 @@ public class Response {
     }
 
 
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

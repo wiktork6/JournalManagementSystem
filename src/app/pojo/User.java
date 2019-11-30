@@ -1,14 +1,14 @@
 package app.pojo;
 
 
-public class User {
+public class User implements Identifiable {
     private Integer id;
     private String title;
     private String forname;
     private String surname;
     private String university;
     private String email;
-    private String password; // Used only when creating a user
+    private String password; // Used only when creating/updating a user
 
     public User(){
     }
@@ -60,4 +60,32 @@ public class User {
     }
 
     public String getPassword() { return password; }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setForname(String forname) {
+        this.forname = forname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

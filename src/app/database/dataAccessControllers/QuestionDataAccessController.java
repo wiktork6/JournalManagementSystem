@@ -10,8 +10,13 @@ import java.sql.SQLException;
 public class QuestionDataAccessController extends GenericDataAccessController<Question> {
 
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT id, question_number, question, review_id FROM questions";
+    protected String getTableName() {
+        return "questions";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, question_number, question, review_id";
     }
 
     @Override
@@ -25,12 +30,12 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
     }
 
     @Override
-    protected String insertItemQueryString() {
+    protected String getModifyFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Question question) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Question question) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }

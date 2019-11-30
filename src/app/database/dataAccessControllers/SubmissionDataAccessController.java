@@ -10,8 +10,13 @@ import java.util.ArrayList;
 
 public class SubmissionDataAccessController extends GenericDataAccessController<Submission> {
     @Override
-    protected String getItemsQueryString() {
-        return null;
+    protected String getTableName() {
+        return "submissions";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, title, abstract, draft_article, journal_id, author_id";
     }
 
     @Override
@@ -20,17 +25,18 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     }
 
     @Override
-    protected String insertItemQueryString() {
-        return "INSERT INTO submissions(title, abstract, draft_article, ISSN, author_id) VALUES(?,?,?,?,?)";
+    protected String getModifyFields() {
+        return "title, abstract, draft_article, journal_id, author_id";
     }
 
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Submission submission) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Submission submission) throws SQLException {
         preparedStatement.setString(1, submission.getTitle());
         preparedStatement.setString(2, submission.getAbstractText());
         preparedStatement.setString(3, submission.getDraftArticle());
-        preparedStatement.setString(4, submission.getIssn());
+        preparedStatement.setInt(4, submission.getJournalId());
         preparedStatement.setInt(5, submission.getAuthorId());
+        return 5;
     }
 
     public ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId) {

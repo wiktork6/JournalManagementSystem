@@ -1,8 +1,7 @@
 package app.services;
 
 import app.database.dataAccessControllers.ArticleDataAccessController;
-import app.database.dataAccessControllers.generic.Filter;
-import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Article;
 import app.services.generic.GenericService;
 
@@ -12,8 +11,12 @@ public class ArticleService extends GenericService<Article> {
     public ArticleService(){super(new ArticleDataAccessController());}
 
     public ArrayList<Article> getEditionArticles(Integer editionId){
-        ArrayList<Filter> filters = new ArrayList<Filter>();
-        filters.add(new Filter("edition_id", editionId));
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("edition_id", editionId));
         return dac.getItemsWhere(filters);
+    }
+
+    public Article getLatest(){
+        return ((ArticleDataAccessController)dac).getLatest();
     }
 }

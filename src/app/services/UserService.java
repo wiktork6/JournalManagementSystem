@@ -1,8 +1,7 @@
 package app.services;
 
 import app.database.dataAccessControllers.UserDataAccessController;
-import app.database.dataAccessControllers.generic.Filter;
-import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.User;
 import app.services.generic.GenericService;
 
@@ -18,9 +17,9 @@ public class UserService extends GenericService<User> {
     }
 
     public User authentecateUser(String email, String password){
-        ArrayList<Filter> filters = new ArrayList<>();
-        filters.add(new Filter("email", email));
-        filters.add(new Filter("password", password));
+        ArrayList<KVPair> filters = new ArrayList<>();
+        filters.add(new KVPair("email", email));
+        filters.add(new KVPair("password", password));
         return dac.getItemWhere(filters);
     }
 }

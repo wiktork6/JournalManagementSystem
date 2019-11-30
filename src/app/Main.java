@@ -5,6 +5,7 @@ import app.database.*;
 import app.database.dataAccessControllers.*;
 import app.pojo.*;
 import app.services.*;
+import app.views.WelcomePage;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,8 @@ public class Main {
         addCoAuthorToSubmissionButtom("Mr", "Bob", "Black", "University of Manchester", "BobBlack@manchester.ac.uk","BB1234", "BB1234", submissionId);
        //        viewJournalsButton();
 
+
+
     }
 //    public static boolean loginButton(String email, String password){
 //        DataAccessController dataAccessController = new MySqlDataAccessController();
@@ -28,6 +31,17 @@ public class Main {
 //            return false;
 //        }
 //    }
+
+    public static void runGUI() {
+
+        try {
+            WelcomePage window = new WelcomePage();
+            window.frame.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     //It needs to print author to the box, to be added later
     public static Integer addCoAuthorToSubmissionButtom(String title, String forname, String surname, String university, String email, String password, String repeatPassword, Integer submissionId){
@@ -43,7 +57,7 @@ public class Main {
         return authorId;
 
     }
-    public static Integer registerNewAuthorAndSubmissionButton(String title, String forname, String surname, String university, String email, String password, String repeatPassword, String issn, String articleTitle, String text, String abstractText){
+    public static Integer registerNewAuthorAndSubmissionButton(String title, String forname, String surname, String university, String email, String password, String repeatPassword, String journalId, String articleTitle, String text, String abstractText){
         UserService us = new UserService();
         User user = new User(title, forname, surname, university, email, password);
         Integer userId = us.addItem(user);
@@ -52,7 +66,7 @@ public class Main {
         Integer authorId = as.addItem(new Author(userId));
 
         SubmissionService ss = new SubmissionService();
-        Integer submissionId = ss.addItem(new Submission(-1, abstractText, articleTitle, text, authorId, issn));
+        Integer submissionId = ss.addItem(new Submission(-1, abstractText, articleTitle, text, authorId, 1));
         return  submissionId;
     }
 
@@ -64,7 +78,9 @@ public class Main {
         Integer userId = us.addItem(user);
 
         EditorService es = new EditorService();
-        Integer editorId = es.addItem(new Editor(userId));
+        Editor editor = new Editor();
+        editor.setUser(new User(userId));
+        Integer editorId = es.addItem(editor);
 
         JournalService js = new JournalService();
         return js.addItem(new Journal(issn, name, editorId));

@@ -1,8 +1,7 @@
 package app.services;
 
 import app.database.dataAccessControllers.AuthorDataAccessController;
-import app.database.dataAccessControllers.generic.Filter;
-import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Author;
 import app.services.generic.GenericService;
 
@@ -14,8 +13,8 @@ public class AuthorService extends GenericService<Author> {
     }
 
     public Author getUserAuthor(Integer userId){
-        ArrayList<Filter> filters = new ArrayList<Filter>();
-        filters.add(new Filter("user_id", userId));
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("user_id", userId));
         return dac.getItemWhere(filters);
     }
 }

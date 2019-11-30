@@ -1,23 +1,27 @@
 package app.pojo;
 
-public class Submission {
+public class Submission implements Identifiable {
     private Integer id;
     private String abstractText;
     private String title;
     private String draftArticle;
     private Integer authorId;
-    private String issn;
+    private Integer journalId;
 
     public Submission(){
     }
 
-    public Submission(Integer id, String abstractText, String title, String draftArticle, Integer authorId, String issn) {
-        this.id = id;
+    public Submission(String abstractText, String title, String draftArticle, Integer authorId, Integer journalId){
         this.abstractText = abstractText;
         this.title = title;
         this.draftArticle = draftArticle;
         this.authorId = authorId;
-        this.issn = issn;
+        this.journalId = journalId;
+    }
+
+    public Submission(Integer id, String abstractText, String title, String draftArticle, Integer authorId, Integer journalId) {
+        this(abstractText, title, draftArticle, authorId, journalId);
+        this.id = id;
     }
 
     public Integer getId() {
@@ -60,11 +64,11 @@ public class Submission {
         this.authorId = authorId;
     }
 
-    public String getIssn(){
-        return this.issn;
+    public Integer getJournalId(){
+        return this.journalId;
     }
 
-    public void setIssn(String issn){
-        this.issn = issn;
+    public void setJournalId(Integer journalId){
+        this.journalId = journalId;
     }
 }

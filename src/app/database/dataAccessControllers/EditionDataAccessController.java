@@ -8,8 +8,13 @@ import java.sql.*;
 public class EditionDataAccessController extends GenericDataAccessController<Edition> {
 
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT id, edition_number, month_of_publication, volume_id FROM editions";
+    protected String getTableName() {
+        return "editions";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, edition_number, month_of_publication, volume_id";
     }
 
     @Override
@@ -22,12 +27,12 @@ public class EditionDataAccessController extends GenericDataAccessController<Edi
     }
 
     @Override
-    protected String insertItemQueryString() {
+    protected String getModifyFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Edition edition) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Edition edition) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }

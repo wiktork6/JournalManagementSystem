@@ -1,13 +1,16 @@
 package app.database.dataAccessControllers.generic;
 
+import app.pojo.Identifiable;
+
 import java.util.ArrayList;
 
-public interface DataAccessController<Item> {
-    ArrayList<Item> getItemsWhere(ArrayList<Filter> filters);
+public interface DataAccessController<Item extends Identifiable> {
+    ArrayList<Item> getItemsWhere(ArrayList<KVPair> filters);
     ArrayList<Item> getItems();
-    Item getItem(Object id);
-    Item getItemWhere(ArrayList<Filter> filters);
+    Item getItem(Integer id);
+    Item getItemWhere(ArrayList<KVPair> filters);
     Integer addItem(Item item);
+    Integer updateItem(Item item);
 
     //ArrayList<User> getUsers();
     //Integer getUserId(String email);

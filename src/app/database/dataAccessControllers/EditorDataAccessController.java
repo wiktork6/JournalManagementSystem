@@ -9,25 +9,30 @@ import java.sql.SQLException;
 
 public class EditorDataAccessController extends GenericDataAccessController<Editor> {
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT id FROM editors";
+    protected String getTableName() {
+        return "editors";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, user_id";
     }
 
     @Override
     protected Editor readItem(ResultSet res) throws SQLException {
-        Integer editorId =  res.getInt(1);
-        Editor editor = new Editor();
-        editor.setEditorId(editorId);
-        return editor;
+        Integer id =  res.getInt(1);
+        Integer userId =  res.getInt(2);
+        return new Editor(id, userId);
     }
 
     @Override
-    protected String insertItemQueryString() {
-        return "INSERT INTO editors(user_id) VALUES(?)";
+    protected String getModifyFields() {
+        return "user_id";
     }
 
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Editor editor) throws SQLException {
-        preparedStatement.setInt(1, editor.getId());
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Editor editor) throws SQLException {
+        preparedStatement.setInt(1, editor.getUser().getId());
+        return 1;
     }
 }

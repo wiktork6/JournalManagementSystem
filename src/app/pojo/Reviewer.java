@@ -1,19 +1,37 @@
 package app.pojo;
 
-public class Reviewer extends User {
-    // If u need some functionallity that does not exist do something like [ClassName].[methodName()]
-// and then the person responsible for that class will implement the method later
-    private Integer reviewerId;
+public class Reviewer implements Identifiable {
+
+    private Integer id;
+    private User user;
 
     public Reviewer(){
     }
 
-    public Reviewer(Integer id, String title, String forname, String surname, String university, String email, Integer reviewerId) {
-        super(id, title, forname, surname, university, email);
-        this.reviewerId = reviewerId;
+    public Reviewer(Integer id){
+        this.id = id;
     }
 
-    public Integer getReviewerId() {
-        return reviewerId;
+    public Reviewer(Integer id, Integer userId) {
+        this(id);
+        this.user = new User(userId);
+    }
+
+    public User getUser(){
+        return this.user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

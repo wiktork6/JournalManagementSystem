@@ -52,21 +52,22 @@ public class CreateDb {
                     "PRIMARY KEY (id))");
             //Creating journals table
             statement.execute("CREATE TABLE IF NOT EXISTS journals(" +
+                    "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "ISSN VARCHAR(8) NOT NULL, " +
                     "name_of_journal VARCHAR(50) NOT NULL, " +
                     "chief_editor_id INTEGER, " +
                     "FOREIGN KEY(chief_editor_id) REFERENCES editors(id), " +
-                    "PRIMARY KEY(ISSN))");
+                    "PRIMARY KEY(id))");
             // Creating submissions table
             statement.execute("CREATE TABLE IF NOT EXISTS submissions(" +
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "title VARCHAR(255) NOT NULL, " +
                     "abstract TINYTEXT, " +
                     "draft_article TEXT, " +
-                    "ISSN VARCHAR(8), " +
+                    "journal_id INTEGER, " +
                     "author_id INTEGER, " +
                     "FOREIGN KEY (author_id) REFERENCES authors(id), " +
-                    "FOREIGN KEY (ISSN) REFERENCES journals(ISSN), " +
+                    "FOREIGN KEY (journal_id) REFERENCES journals(id), " +
                     "PRIMARY KEY(id))");
 
             // Creating reviews table
@@ -103,11 +104,11 @@ public class CreateDb {
 
             //Creating journal_editor table
             statement.execute("CREATE TABLE IF NOT EXISTS journal_editor(" +
-                    "ISSN VARCHAR(8) NOT NULL, " +
+                    "journal_id INTEGER NOT NULL, " +
                     "editor_id INTEGER NOT NULL, " +
-                    "FOREIGN KEY(ISSN) REFERENCES journals(ISSN), " +
+                    "FOREIGN KEY(journal_id) REFERENCES journals(id), " +
                     "FOREIGN KEY(editor_id) REFERENCES editors(id), " +
-                    "PRIMARY KEY(ISSN, editor_id))");
+                    "PRIMARY KEY(journal_id, editor_id))");
 
             //Creating volumes table
             statement.execute("CREATE TABLE IF NOT EXISTS volumes(" +
@@ -115,8 +116,8 @@ public class CreateDb {
                     "volume_number INTEGER NOT NULL, " +
                     "number_of_editions INTEGER, " +
                     "year_of_publication YEAR, " +
-                    "ISSN VARCHAR(8) NOT NULL, " +
-                    "FOREIGN KEY(ISSN) REFERENCES journals(ISSN), " +
+                    "journal_id INTEGER NOT NULL, " +
+                    "FOREIGN KEY(journal_id) REFERENCES journals(id), " +
                     "PRIMARY KEY(id))");
 
             //Creating editions table

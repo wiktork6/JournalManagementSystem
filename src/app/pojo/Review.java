@@ -1,7 +1,7 @@
 package app.pojo;
 
 
-public class Review {
+public class Review implements Identifiable {
     private Integer id;
     private String reviewSummary;
     private String typographicallErrors;
@@ -25,6 +25,11 @@ public class Review {
 
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getReviewSummary() {

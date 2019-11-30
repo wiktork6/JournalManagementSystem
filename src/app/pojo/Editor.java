@@ -1,26 +1,36 @@
 package app.pojo;
 
-public class Editor extends User {
-    private Integer editorId;
+public class Editor implements Identifiable {
+    private Integer id;
+    private User user;
 
     public Editor(){
     }
 
-
-    public Editor(Integer id, String title, String forname, String surname, String university, String email, Integer editorId) {
-        super(id, title, forname, surname, university, email);
-        this.editorId = editorId;
+    public Editor(Integer id, Integer userId) {
+        this(id);
+        this.user = new User(userId);
     }
 
     public Editor(Integer id) {
-        super(id);
+        this.id = id;
     }
 
-    public Integer getEditorId(){
-        return this.editorId;
+    @Override
+    public Integer getId() {
+        return this.id;
     }
 
-    public void setEditorId(Integer id){
-        this.editorId = id;
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getUser(){
+        return this.user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
     }
 }

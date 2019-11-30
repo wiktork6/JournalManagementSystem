@@ -1,6 +1,6 @@
 package app.pojo;
 
-public class Article {
+public class Article implements Identifiable {
     private Integer id;
     private String pageNumberRange;
     private String abstractText;
@@ -25,6 +25,11 @@ public class Article {
 
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPageNumberRange() {

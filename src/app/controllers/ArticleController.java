@@ -1,17 +1,25 @@
 package app.controllers;
 
+import app.controllers.generic.GenericController;
 import app.pojo.Article;
 import app.services.ArticleService;
 
 import java.util.ArrayList;
 
-public class ArticleController {
+public class ArticleController extends GenericController<Article> {
 
-    protected ArticleService service;
+    public ArticleController(){ super(new ArticleService());}
 
-    ArticleController(){ this.service = new ArticleService();}
+    public ArrayList<Article> getArticles(){
+        return this.getItems();
+    }
 
-    public ArrayList<Article> listItems(){
-        return service.getItems();
+    public Article getLatest(){
+        return ((ArticleService)this.service).getLatest();
+    }
+
+    @Override
+    protected boolean validateItem(Article article) {
+        return true;
     }
 }

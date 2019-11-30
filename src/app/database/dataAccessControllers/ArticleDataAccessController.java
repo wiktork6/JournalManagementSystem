@@ -9,8 +9,13 @@ import java.sql.SQLException;
 
 public class ArticleDataAccessController extends GenericDataAccessController<Article> {
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT id, page_number_range, abstract, title, final_full_article, main_author_id, edition_id FROM articles";
+    protected String getTableName() {
+        return "articles";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, page_number_range, abstract, title, final_full_article, main_author_id, edition_id";
     }
 
     @Override
@@ -26,12 +31,17 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
     }
 
     @Override
-    protected String insertItemQueryString() {
+    protected String getModifyFields() {
         throw new UnsupportedOperationException();
     }
 
+
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Article article) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Article article) throws SQLException {
         throw new UnsupportedOperationException();
+    }
+
+    public Article getLatest(){
+        return this.getItem(this.getItemsQueryString() + " ORDER BY id DESC LIMIT 1", null);
     }
 }

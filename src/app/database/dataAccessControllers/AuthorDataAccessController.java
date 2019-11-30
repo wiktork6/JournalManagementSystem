@@ -7,26 +7,32 @@ import java.sql.*;
 
 public class AuthorDataAccessController extends GenericDataAccessController<Author> {
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT id FROM authors";
+    protected String getTableName() {
+        return "authors";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, user_id";
     }
 
     @Override
     protected Author readItem(ResultSet res) throws SQLException {
-        Integer authorId =  res.getInt(1);
-        Author author = new Author();
-        author.setAuthorId(authorId);
+        Integer id =  res.getInt(1);
+        Integer userId =  res.getInt(2);
+        Author author = new Author(id, userId);
         return author;
     }
 
     @Override
-    protected String insertItemQueryString() {
-        return "INSERT INTO authors(user_id) VALUES(?)";
+    protected String getModifyFields() {
+        return "user_id";
     }
 
-    @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Author author) throws SQLException {
-        preparedStatement.setInt(1, author.getId() );
 
+    @Override
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Author author) throws SQLException {
+        preparedStatement.setInt(1, author.getUser().getId() );
+        return 1;
     }
 }

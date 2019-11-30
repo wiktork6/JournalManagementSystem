@@ -1,8 +1,7 @@
 package app.services;
 
 import app.database.dataAccessControllers.VolumeDataAccessController;
-import app.database.dataAccessControllers.generic.Filter;
-import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Volume;
 import app.services.generic.GenericService;
 
@@ -13,9 +12,9 @@ public class VolumeService extends GenericService<Volume> {
         super(new VolumeDataAccessController());
     }
 
-    public ArrayList<Volume> getJournalVolumes(String journalIssn){
-        ArrayList<Filter> filters = new ArrayList<Filter>();
-        filters.add(new Filter("ISSN", journalIssn));
+    public ArrayList<Volume> getJournalVolumes(String journalId){
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("journal_id", journalId));
         return dac.getItemsWhere(filters);
     }
 }

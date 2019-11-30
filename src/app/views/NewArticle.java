@@ -16,13 +16,14 @@ import java.awt.event.ActionEvent;
 public class NewArticle {
 
 	public JFrame frame;
-	private JTextField txtFJournal;
+	private JTextField txtFArticleText;
 	private JTextField txtFISSN;
 	private JTextField txtFTitle;
 	private JTextField txtFForename;
 	private JTextField txtFSurname;
 	private JTextField txtFUni;
 	private JTextField txtFEmail;
+	private JTextField txtFArticleTitle;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldRepeat;
 
@@ -92,26 +93,36 @@ public class NewArticle {
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_6.setBounds(62, 283, 71, 16);
 		frame.getContentPane().add(label_6);
-		
-		JLabel label_7 = new JLabel("New journal name");
-		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setBounds(415, 171, 130, 16);
-		frame.getContentPane().add(label_7);
-		
-		JLabel label_8 = new JLabel("Journal ISSN number");
-		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_8.setBounds(393, 255, 164, 16);
-		frame.getContentPane().add(label_8);
-		
-		txtFJournal = new JTextField();
-		txtFJournal.setColumns(10);
-		txtFJournal.setBounds(427, 194, 130, 26);
-		frame.getContentPane().add(txtFJournal);
-		
+
+		JLabel lblNewJournalName = new JLabel("Journal ISSN number");
+		lblNewJournalName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJournalName.setBounds(375, 123, 130, 16);
+		frame.getContentPane().add(lblNewJournalName);
+
+		JLabel lblJournalIssnNumber = new JLabel("Article Text");
+		lblJournalIssnNumber.setHorizontalAlignment(SwingConstants.LEFT);
+		lblJournalIssnNumber.setBounds(375, 263, 164, 16);
+		frame.getContentPane().add(lblJournalIssnNumber);
+
 		txtFISSN = new JTextField();
 		txtFISSN.setColumns(10);
-		txtFISSN.setBounds(427, 278, 130, 26);
+		txtFISSN.setBounds(375, 146, 130, 26);
 		frame.getContentPane().add(txtFISSN);
+
+		txtFArticleText = new JTextField();
+		txtFArticleText.setColumns(10);
+		txtFArticleText.setBounds(375, 286, 130, 26);
+		frame.getContentPane().add(txtFArticleText);
+
+		JLabel lblTitle = new JLabel("Title");
+		lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTitle.setBounds(375, 196, 130, 16);
+		frame.getContentPane().add(lblTitle);
+
+		txtFArticleTitle = new JTextField();
+		txtFArticleTitle.setColumns(10);
+		txtFArticleTitle.setBounds(375, 214, 130, 26);
+		frame.getContentPane().add(txtFArticleTitle);
 		
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {

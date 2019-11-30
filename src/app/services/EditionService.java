@@ -1,8 +1,7 @@
 package app.services;
 
 import app.database.dataAccessControllers.EditionDataAccessController;
-import app.database.dataAccessControllers.generic.Filter;
-import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Edition;
 import app.services.generic.GenericService;
 
@@ -14,8 +13,8 @@ public class EditionService extends GenericService<Edition> {
     }
 
     public ArrayList<Edition> getVolumeEditions(int volumeId){
-        ArrayList<Filter> filters = new ArrayList<Filter>();
-        filters.add(new Filter("volume_id", volumeId));
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("volume_id", volumeId));
         return dac.getItemsWhere(filters);
     }
 }

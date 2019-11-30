@@ -1,38 +1,52 @@
 package app.controllers;
 
+import app.controllers.generic.GenericController;
 import app.pojo.User;
+import app.services.UserService;
 
 
-public class UserController  {
-    private User user;
+public class UserController extends GenericController<User> {
+    private User loggedUser;
 
-    public UserController(User user){
-        this.user = user;
+    public UserController(){
+        super(new UserService());
     }
 
-    private boolean changePassword(String password){
-        return false;
+    public User login(String email, String password){
+        this.loggedUser = ((UserService)this.service).authentecateUser(email, password);
+        return this.loggedUser;
     }
-//    private boolean updateEmail(String email){
-//        DataAccessController.updateEmail();
-//    }
 
+    public User register(String title, String forname, String surname, String university, String email, String password, String repeatPassword){
+        if(password.equals(repeatPassword)) {
+            return null;
+        }
+        return this.addItem(new User(title, forname, surname, university, email, password));
+    }
 
-//    public boolean login(String email, String password){
-//        DataAccessController dataAccessController = new MySqlDataAccessController();
-//        ArrayList<User> listOfUsers = dataAccessController.getUsers();
-//        for(int i=0; i<listOfUsers.size(); i++){
-//            User user = listOfUsers.get(i);
-//            if(user.getEmail().equals(email) || user.getPassword().equals(password)){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//    public User register(String forname, String surname, String title, String university, String email, String password){
-//        return new Author(title, forname, surname, university, email, password,null); // should be user not author i think
-//    }
+    public User updateAccount(Integer id, String title, String forname, String surname, String university, String email, String password, String repeatPassword)
+    {
+        if(password != null && repeatPassword != null && !password.equals(repeatPassword)) {
+            return null;
+        }
+        User updated = this.updateItem(new User(id, title, forname, surname, university, email, password));
+        if(updated != null){
+            updated.setId(this.loggedUser.getId());
+            this.loggedUser = updated;
+        }
+        return updated;
+    }
+
+    public User getLoggedUser(){
+        return this.loggedUser;
+    }
+
     public void logout(){
+        this.loggedUser = null;
+    }
 
+    @Override
+    protected boolean validateItem(User user) {
+        return true;
     }
 }

@@ -9,8 +9,13 @@ import java.sql.SQLException;
 
 public class ReviewDataAccessController extends GenericDataAccessController<Review> {
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT id, review_summary, typographical_errors, initial_verdict, final_verdict, submission_id, reviewer_id FROM reviews";
+    protected String getTableName() {
+        return "reviews";
+    }
+
+    @Override
+    protected String getAllFields() {
+        return "id, review_summary, typographical_errors, initial_verdict, final_verdict, submission_id, reviewer_id";
     }
 
     @Override
@@ -26,12 +31,12 @@ public class ReviewDataAccessController extends GenericDataAccessController<Revi
     }
 
     @Override
-    protected String insertItemQueryString() {
+    protected String getModifyFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Review review) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Review review) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }

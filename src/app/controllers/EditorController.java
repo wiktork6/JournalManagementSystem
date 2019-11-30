@@ -1,20 +1,19 @@
 package app.controllers;
 
-import app.database.dataAccessControllers.generic.DataAccessController;
+import app.controllers.generic.GenericController;
 import app.pojo.Editor;
+import app.services.EditorService;
 
-public class EditorController {
+public class EditorController extends GenericController<Editor> {
 
-    private Editor editor;
-    private DataAccessController dataAccessController;
-
-    public EditorController(Editor editor, DataAccessController dataAccessController) {
-        this.editor = editor;
-        this.dataAccessController = dataAccessController;
-
+    public EditorController() {
+        super(new EditorService());
     }
 
-
+    @Override
+    protected boolean validateItem(Editor editor) {
+        return false;
+    }
 
 
 //    public ArrayList<Journal> getAvailableJournals(){

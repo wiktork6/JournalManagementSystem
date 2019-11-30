@@ -1,5 +1,9 @@
 package app.views;
 
+import app.controllers.Controllers;
+import app.controllers.UserController;
+import app.pojo.User;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,8 +18,8 @@ import javax.swing.SwingConstants;
 public class Login {
 
 	public JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField emailTextField;
+	private JTextField passwordTextField;
 
 	/**
 	 * Launch the application.
@@ -60,10 +64,10 @@ public class Login {
 		btnGoBack.setBounds(23, 26, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		
-		textField = new JTextField();
-		textField.setBounds(267, 147, 130, 29);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		emailTextField = new JTextField();
+		emailTextField.setBounds(267, 147, 130, 29);
+		frame.getContentPane().add(emailTextField);
+		emailTextField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Email:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -75,26 +79,32 @@ public class Login {
 		lblPassword.setBounds(172, 194, 63, 16);
 		frame.getContentPane().add(lblPassword);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(267, 188, 130, 29);
-		frame.getContentPane().add(textField_1);
+		passwordTextField = new JTextField();
+		passwordTextField.setColumns(10);
+		passwordTextField.setBounds(267, 188, 130, 29);
+		frame.getContentPane().add(passwordTextField);
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				UserWelcomePage usrwlcm = new UserWelcomePage();
-				usrwlcm.frame.setVisible(true);
+				User user = Controllers.USER.login(emailTextField.getText(), passwordTextField.getText());
+				if(user != null) {
+					frame.dispose();
+					UserWelcomePage usrwlcm = new UserWelcomePage();
+					usrwlcm.frame.setVisible(true);
+				}
+				else {
+
+				}
 			}
 		});
 		btnLogin.setBounds(280, 219, 117, 29);
 		frame.getContentPane().add(btnLogin);
 		
-		JLabel lblNewLabel_1 = new JLabel("Login:");
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
-		lblNewLabel_1.setBounds(172, 98, 83, 23);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblLogin = new JLabel("Login:");
+		lblLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
+		lblLogin.setBounds(172, 98, 83, 23);
+		frame.getContentPane().add(lblLogin);
 		
 		JLabel lblDontHaveAn = new JLabel("Don't have an account? Register:");
 		lblDontHaveAn.setBounds(23, 260, 309, 29);

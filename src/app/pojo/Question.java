@@ -1,6 +1,6 @@
 package app.pojo;
 
-public class Question {
+public class Question implements Identifiable {
     private Integer id;
     private Integer question_number;
     private String question;
@@ -19,6 +19,11 @@ public class Question {
 
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getQuestion_number() {

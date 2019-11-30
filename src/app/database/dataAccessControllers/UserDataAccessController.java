@@ -7,7 +7,15 @@ import java.sql.*;
 
 public class UserDataAccessController extends GenericDataAccessController<User> {
 
+    @Override
+    protected String getTableName() {
+        return "users";
+    }
 
+    @Override
+    protected String getAllFields() {
+        return "id, email, title, forname, surname, university";
+    }
 
 
     public Integer getUserId(String email) {
@@ -29,10 +37,6 @@ public class UserDataAccessController extends GenericDataAccessController<User> 
         }
     }
 
-    @Override
-    protected String getItemsQueryString() {
-        return "SELECT id, email, title, forname, surname, university FROM users";
-    }
 
     @Override
     protected User readItem(ResultSet res) throws SQLException {
@@ -45,19 +49,19 @@ public class UserDataAccessController extends GenericDataAccessController<User> 
         return new User(userId,title,forname,surname,university,email);
     }
 
-
     @Override
-    protected String insertItemQueryString() {
-        return "INSERT INTO users(title, forname, surname, university, email, password) VALUES(?,?,?,?,?,?)";
+    protected String getModifyFields() {
+        return "title, forname, surname, university, email, password";
     }
 
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
         preparedStatement.setString(1, user.getTitle());
         preparedStatement.setString(2, user.getForname());
         preparedStatement.setString(3, user.getSurname());
         preparedStatement.setString(4, user.getUniversity());
         preparedStatement.setString(5, user.getEmail());
         preparedStatement.setString(6, user.getPassword());
+        return 6;
     }
 }

@@ -7,10 +7,14 @@ import java.sql.*;
 public class VolumeDataAccessController extends GenericDataAccessController<Volume> {
 
     @Override
-    protected String getItemsQueryString() {
-        return "SELECT id, volume_number, number_of_editions, year_of_publication, ISSN FROM volumes";
+    protected String getTableName() {
+        return "volumes";
     }
 
+    @Override
+    protected String getAllFields() {
+        return "id, volume_number, number_of_editions, year_of_publication, journal_id";
+    }
 
     @Override
     protected Volume readItem(ResultSet res) throws SQLException {
@@ -18,17 +22,17 @@ public class VolumeDataAccessController extends GenericDataAccessController<Volu
         Integer volumeNumber = res.getInt(2);
         Integer numberOfEditions = res.getInt(3);
         String yearOfPublication = res.getString(4);
-        String issn = res.getString(5);
-        return new Volume(id, volumeNumber, numberOfEditions, yearOfPublication, issn);
+        Integer journalId = res.getInt(5);
+        return new Volume(id, volumeNumber, numberOfEditions, yearOfPublication, journalId);
     }
 
     @Override
-    protected String insertItemQueryString() {
+    protected String getModifyFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void setInsertPreparedStatement(PreparedStatement preparedStatement, Volume volume) throws SQLException {
+    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Volume volume) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }
