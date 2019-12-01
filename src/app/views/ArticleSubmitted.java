@@ -46,15 +46,15 @@ public class ArticleSubmitted {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(251, 24, 61, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(251, 24, 61, 16);
+		frame.getContentPane().add(lbl42);
 		
-		JLabel label_1 = new JLabel("Acount created!");
-		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
-		label_1.setBounds(157, 107, 291, 80);
-		frame.getContentPane().add(label_1);
+		JLabel lblAccountCreated = new JLabel("Account created!");
+		lblAccountCreated.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		lblAccountCreated.setBounds(157, 107, 291, 80);
+		frame.getContentPane().add(lblAccountCreated);
 		
 		JLabel lblArticlesubmitted = new JLabel("Article submitted!");
 		lblArticlesubmitted.setVerticalAlignment(SwingConstants.TOP);
@@ -62,16 +62,16 @@ public class ArticleSubmitted {
 		lblArticlesubmitted.setBounds(157, 171, 291, 70);
 		frame.getContentPane().add(lblArticlesubmitted);
 		
-		JButton button = new JButton("Login Page");
-		button.addActionListener(new ActionListener() {
+		JButton btnLogin = new JButton("Login Page");
+		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
 			}
 		});
-		button.setBounds(372, 314, 182, 60);
-		frame.getContentPane().add(button);
+		btnLogin.setBounds(372, 314, 182, 60);
+		frame.getContentPane().add(btnLogin);
 	}
 
 }

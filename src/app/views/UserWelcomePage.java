@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
+
 import javax.swing.JSeparator;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -100,7 +101,7 @@ public class UserWelcomePage {
 		btnNewJournal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				NewJournal nj = new NewJournal();
+				RegisteredNewJournal nj = new RegisteredNewJournal();
 				nj.frame.setVisible(true);
 			}
 		});
@@ -108,19 +109,19 @@ public class UserWelcomePage {
 		frame.getContentPane().add(btnNewJournal);
 		
 		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setOrientation(SwingConstants.VERTICAL);
-		separator_2.setForeground(new Color(0, 0, 0));
-		separator_2.setBackground(new Color(0, 0, 0));
-		separator_2.setBounds(200, 147, 12, 251);
-		frame.getContentPane().add(separator_2);
+		JSeparator seperatorLeft = new JSeparator();
+		seperatorLeft.setOrientation(SwingConstants.VERTICAL);
+		seperatorLeft.setForeground(new Color(0, 0, 0));
+		seperatorLeft.setBackground(new Color(0, 0, 0));
+		seperatorLeft.setBounds(200, 147, 12, 251);
+		frame.getContentPane().add(seperatorLeft);
 		
-		JSeparator separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setForeground(Color.BLACK);
-		separator.setBackground(Color.BLACK);
-		separator.setBounds(400, 147, 12, 251);
-		frame.getContentPane().add(separator);
+		JSeparator separatorRight = new JSeparator();
+		separatorRight.setOrientation(SwingConstants.VERTICAL);
+		separatorRight.setForeground(Color.BLACK);
+		separatorRight.setBackground(Color.BLACK);
+		separatorRight.setBounds(400, 147, 12, 251);
+		frame.getContentPane().add(separatorRight);
 		
 		JButton btnSubmissions = new JButton("See submissions");
 		btnSubmissions.addActionListener(new ActionListener() {
@@ -134,21 +135,21 @@ public class UserWelcomePage {
 		btnSubmissions.setBounds(240, 225, 133, 29);
 		frame.getContentPane().add(btnSubmissions);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(258, 34, 60, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(258, 34, 60, 16);
+		frame.getContentPane().add(lbl42);
 		
-		JButton btnNewButton = new JButton("Submit New Article");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnNewArticle = new JButton("Submit New Article");
+		btnNewArticle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				NewArticle na = new NewArticle();
+				RegisteredNewArticle na = new RegisteredNewArticle();
 				na.frame.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(224, 184, 164, 29);
-		frame.getContentPane().add(btnNewButton);
+		btnNewArticle.setBounds(224, 184, 164, 29);
+		frame.getContentPane().add(btnNewArticle);
 		
 		JButton btnArticles = new JButton("See my articles");
 		btnArticles.addActionListener(new ActionListener() {

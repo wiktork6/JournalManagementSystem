@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
@@ -74,30 +75,34 @@ public class FinalReview {
 		btnLogout.setBounds(6, 6, 117, 29);
 		frame.getContentPane().add(btnLogout);
 		
-		JLabel label_1 = new JLabel("<Article Name>");
-		label_1.setHorizontalAlignment(SwingConstants.LEFT);
-		label_1.setBounds(28, 69, 135, 26);
-		frame.getContentPane().add(label_1);
+		JLabel lblArticleName = new JLabel("<Article Name>");
+		lblArticleName.setHorizontalAlignment(SwingConstants.LEFT);
+		lblArticleName.setBounds(28, 69, 135, 26);
+		frame.getContentPane().add(lblArticleName);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(28, 92, 530, 179);
-		frame.getContentPane().add(textPane);
+		JTextPane txtAuthorResponse = new JTextPane();
+		txtAuthorResponse.setEditable(false);
+		JScrollPane spEditor = new JScrollPane(txtAuthorResponse,
+	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    spEditor.setBounds(28, 92, 530, 179);
+		frame.getContentPane().add(spEditor);
 		
-		JLabel label_2 = new JLabel("Final Verdict");
-		label_2.setHorizontalAlignment(SwingConstants.LEFT);
-		label_2.setBounds(43, 299, 135, 26);
-		frame.getContentPane().add(label_2);
+		JLabel lblVerdict = new JLabel("Final Verdict");
+		lblVerdict.setHorizontalAlignment(SwingConstants.LEFT);
+		lblVerdict.setBounds(43, 299, 135, 26);
+		frame.getContentPane().add(lblVerdict);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(190, 300, 148, 27);
-		frame.getContentPane().add(comboBox);
+		JComboBox comboBoxVerdicts = new JComboBox();
+		comboBoxVerdicts.setBounds(190, 300, 148, 27);
+		frame.getContentPane().add(comboBoxVerdicts);
 		
-		JButton btnNewButton = new JButton("Submit");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(386, 336, 159, 53);
-		frame.getContentPane().add(btnNewButton);
+		btnSubmit.setBounds(386, 336, 159, 53);
+		frame.getContentPane().add(btnSubmit);
 	}
 }

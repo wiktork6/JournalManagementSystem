@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -49,8 +50,11 @@ public class Reviews {
 		
 		JList listReviews = new JList();
 		listReviews.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listReviews.setBounds(46, 126, 511, 204);
-		frame.getContentPane().add(listReviews);
+		JScrollPane spEditor = new JScrollPane(listReviews,
+	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    spEditor.setBounds(46, 126, 511, 204);
+		frame.getContentPane().add(spEditor);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
@@ -87,16 +91,16 @@ public class Reviews {
 		btnSelect.setBounds(440, 360, 117, 29);
 		frame.getContentPane().add(btnSelect);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(281, 33, 61, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(281, 33, 61, 16);
+		frame.getContentPane().add(lbl42);
 		
 		//ADDFUNC - replace text with name of the submission
-		JLabel label_1 = new JLabel("<Article Name>");
-		label_1.setHorizontalAlignment(SwingConstants.LEFT);
-		label_1.setBounds(46, 98, 201, 29);
-		frame.getContentPane().add(label_1);
+		JLabel lblArticleName = new JLabel("<Article Name>");
+		lblArticleName.setHorizontalAlignment(SwingConstants.LEFT);
+		lblArticleName.setBounds(46, 98, 201, 29);
+		frame.getContentPane().add(lblArticleName);
 	}
 
 }

@@ -16,7 +16,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     @Override
     protected String getAllFields() {
-        return "id, title, abstract, draft_article, journal_id, author_id";
+        return "id, title, abstract, draft_article, journal_id, author_id, status";
     }
 
     @Override
@@ -26,7 +26,8 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     @Override
     protected String getModifyFields() {
-        return "title, abstract, draft_article, journal_id, author_id";
+        return "title, abstract, draft_article, journal_id, author_id, status";
+
     }
 
     @Override
@@ -36,6 +37,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         preparedStatement.setString(3, submission.getDraftArticle());
         preparedStatement.setInt(4, submission.getJournalId());
         preparedStatement.setInt(5, submission.getAuthorId());
+        preparedStatement.setString(6, submission.getStatus());
         return 5;
     }
 

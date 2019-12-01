@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JLayeredPane;
@@ -49,16 +50,10 @@ public class AddCoAuthors {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnGoBack = new JButton("Go back");
-		btnGoBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				NewArticle na = new NewArticle();
-				na.frame.setVisible(true);
-			}
-		});
-		btnGoBack.setBounds(6, 20, 117, 29);
-		frame.getContentPane().add(btnGoBack);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(285, 25, 61, 16);
+		frame.getContentPane().add(lbl42);
 		
 		JLabel lblNewLabel = new JLabel("Add co-authors");
 		lblNewLabel.setBounds(39, 68, 149, 16);
@@ -68,9 +63,13 @@ public class AddCoAuthors {
 		lblListOfCoauthors.setBounds(39, 105, 125, 16);
 		frame.getContentPane().add(lblListOfCoauthors);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(39, 140, 512, 192);
-		frame.getContentPane().add(textArea);
+		JTextArea txtCoAuthors = new JTextArea();
+		txtCoAuthors.setEditable(false);
+		JScrollPane spEditor = new JScrollPane(txtCoAuthors,
+	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    spEditor.setBounds(39, 140, 512, 192);
+		frame.getContentPane().add(spEditor);
 		
 		JButton btnNewAuthor = new JButton("Create New Author");
 		btnNewAuthor.addActionListener(new ActionListener() {
@@ -86,17 +85,28 @@ public class AddCoAuthors {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//if not registered then
 				frame.dispose();
 				ArticleSubmitted newArticle = new ArticleSubmitted();
 				newArticle.frame.setVisible(true);
+				/** if already registered
+				     frame.dispose();
+					RegisteredArticleSubmitted newArticle = new RegisteredArticleSubmitted();
+					newArticle.frame.setVisible(true);*/
 			}
 		});
 		btnSubmit.setBounds(401, 361, 150, 49);
 		frame.getContentPane().add(btnSubmit);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(285, 25, 61, 16);
-		frame.getContentPane().add(label);
+		JButton btnGoBack = new JButton("Go back");
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				NewArticle na = new NewArticle();
+				na.frame.setVisible(true);
+			}
+		});
+		btnGoBack.setBounds(6, 20, 117, 29);
+		frame.getContentPane().add(btnGoBack);
 	}
 }

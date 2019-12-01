@@ -47,10 +47,10 @@ public class ReadSubmission {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(258, 34, 60, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(258, 34, 60, 16);
+		frame.getContentPane().add(lbl42);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {

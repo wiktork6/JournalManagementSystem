@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -50,8 +51,11 @@ public class ExistingSubmissions {
 		
 		JList listSubmissions = new JList();
 		listSubmissions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listSubmissions.setBounds(46, 126, 511, 204);
-		frame.getContentPane().add(listSubmissions);
+		JScrollPane spEditor = new JScrollPane(listSubmissions,
+	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    spEditor.setBounds(46, 126, 511, 204);
+		frame.getContentPane().add(spEditor);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -81,10 +85,10 @@ public class ExistingSubmissions {
 		lblExistingSubmissions.setBounds(46, 83, 218, 31);
 		frame.getContentPane().add(lblExistingSubmissions);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(287, 36, 61, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(287, 36, 61, 16);
+		frame.getContentPane().add(lbl42);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {

@@ -1,18 +1,20 @@
 package app.views;
 
-import app.controllers.ArticleController;
-import app.controllers.Controllers;
-import app.pojo.Article;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.JPanel;
 
 public class WelcomePage extends JFrame{
 
@@ -61,38 +63,36 @@ public class WelcomePage extends JFrame{
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(btnBrowseArticles);
 		
-		JLabel lblTeam = new JLabel("TEAM 42");
-		lblTeam.setBounds(263, 28, 61, 16);
-		lblTeam.setHorizontalAlignment(SwingConstants.CENTER);
-		frame.getContentPane().add(lblTeam);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setBounds(263, 28, 61, 16);
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(lbl42);
 		
-		JButton btnLoginRegister = new JButton("Login/Register");
-		btnLoginRegister.setBounds(362, 110, 146, 29);
-		btnLoginRegister.addActionListener(new ActionListener() {
+		JButton btnLoginregister = new JButton("Login/Register");
+		btnLoginregister.setBounds(362, 110, 146, 29);
+		btnLoginregister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
 			}
 		});
-		frame.getContentPane().add(btnLoginRegister);
-
-		Article latestArticle = Controllers.ARTICLE.getLatest();
-		if (latestArticle != null) {
-			JLabel lblLatestArtice = new JLabel("Latest Article:");
-			lblLatestArtice.setBounds(94, 169, 107, 16);
-			frame.getContentPane().add(lblLatestArtice);
-
-
-			JTextArea txtArticle = new JTextArea();
-			txtArticle.setText(latestArticle.getTitle());
-			txtArticle.setBounds(94, 246, 409, 104);
-			frame.getContentPane().add(txtArticle);
-
-			JTextArea txtrArticleInfoHere = new JTextArea();
-			txtrArticleInfoHere.setText(latestArticle.getAbstractText());
-			txtrArticleInfoHere.setBounds(94, 197, 409, 29);
-			frame.getContentPane().add(txtrArticleInfoHere);
-		}
+		frame.getContentPane().add(btnLoginregister);
+		
+		JLabel lblLatestArtice = new JLabel("Latest Article:");
+		lblLatestArtice.setBounds(94, 169, 107, 16);
+		frame.getContentPane().add(lblLatestArtice);
+		
+		JTextArea txtFArticle = new JTextArea();
+		txtFArticle.setEditable(false);
+		txtFArticle.setText("Latest Article Here");
+		txtFArticle.setBounds(94, 246, 409, 104);
+		frame.getContentPane().add(txtFArticle);
+		
+		JTextArea txtFArticleInfoHere = new JTextArea();
+		txtFArticleInfoHere.setEditable(false);
+		txtFArticleInfoHere.setText("Article Info here");
+		txtFArticleInfoHere.setBounds(94, 197, 409, 29);
+		frame.getContentPane().add(txtFArticleInfoHere);
 	}
 }

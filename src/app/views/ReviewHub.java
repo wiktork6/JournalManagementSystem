@@ -45,10 +45,10 @@ public class ReviewHub {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(258, 34, 60, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(258, 34, 60, 16);
+		frame.getContentPane().add(lbl42);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -80,16 +80,16 @@ public class ReviewHub {
 		lblStatus.setBounds(439, 11, 135, 26);
 		frame.getContentPane().add(lblStatus);
 		
-		JButton btnNewButton = new JButton("Read Submission");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnReadSubmission = new JButton("Read Submission");
+		btnReadSubmission.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				ReadSubmission rdsub = new ReadSubmission();
 				rdsub.frame.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(62, 114, 158, 54);
-		frame.getContentPane().add(btnNewButton);
+		btnReadSubmission.setBounds(62, 114, 158, 54);
+		frame.getContentPane().add(btnReadSubmission);
 		
 		JButton btnInitialReview = new JButton("Initial Review");
 		btnInitialReview.addActionListener(new ActionListener() {

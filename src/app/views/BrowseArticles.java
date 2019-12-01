@@ -51,29 +51,29 @@ public class BrowseArticles {
 		lblBrowseArticles.setBounds(28, 53, 201, 86);
 		frame.getContentPane().add(lblBrowseArticles);
 		
-		JButton btnNewButton = new JButton("View Journals");
-		btnNewButton.setBounds(69, 197, 160, 86);
-		frame.getContentPane().add(btnNewButton);
+		JButton btnViewJournals = new JButton("View Journals");
+		btnViewJournals.setBounds(69, 197, 160, 86);
+		frame.getContentPane().add(btnViewJournals);
 		
-		JButton btnNewButton_1 = new JButton("Look for articles");
-		btnNewButton_1.setBounds(367, 197, 147, 86);
-		frame.getContentPane().add(btnNewButton_1);
+		JButton btnViewArticles = new JButton("Look for articles");
+		btnViewArticles.setBounds(367, 197, 147, 86);
+		frame.getContentPane().add(btnViewArticles);
 		
-		JButton btnNewButton_2 = new JButton("Go back");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btnGoBack = new JButton("Go back");
+		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				WelcomePage wlcmpge = new WelcomePage();
 				wlcmpge.frame.setVisible(true);
 			}
 		});
-		btnNewButton_2.setBounds(441, 356, 117, 29);
-		frame.getContentPane().add(btnNewButton_2);
+		btnGoBack.setBounds(441, 356, 117, 29);
+		frame.getContentPane().add(btnGoBack);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(267, 20, 61, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(267, 20, 61, 16);
+		frame.getContentPane().add(lbl42);
 	}
 
 }

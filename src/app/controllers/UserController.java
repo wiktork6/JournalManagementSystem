@@ -1,8 +1,15 @@
 package app.controllers;
 
 import app.controllers.generic.GenericController;
+import app.controllers.roles.Role;
 import app.pojo.User;
+import app.services.AuthorService;
+import app.services.EditorService;
+import app.services.ReviewerService;
 import app.services.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserController extends GenericController<User> {
@@ -48,5 +55,33 @@ public class UserController extends GenericController<User> {
     @Override
     protected boolean validateItem(User user) {
         return true;
+    }
+    public List<Role> getAvailableRoles() {
+        List<Role> roleList = new ArrayList<Role>();
+        if (isAuthor(this.loggedUser)) {
+            roleList.add(Controllers.AUTHOR);
+        }
+        if (isEditor(this.loggedUser)){
+            roleList.add(Controllers.EDITOR);
+        }
+        if (isReviewer(this.loggedUser)){
+            roleList.add(Controllers.REVIEWER);
+        }
+        return roleList;
+    }
+
+    private boolean isAuthor(User user){
+        AuthorService authorService = new AuthorService();
+        return authorService.getUserAuthor(user.getId()) !=null;
+    }
+    private boolean isEditor(User user){
+        EditorService editorService = new EditorService();
+        return editorService.getUserEditor(user.getId()) !=null;
+
+    }
+    private boolean isReviewer(User user){
+        ReviewerService reviewerService = new ReviewerService();
+        return reviewerService.getUserReviewer(user.getId()) !=null;
+
     }
 }

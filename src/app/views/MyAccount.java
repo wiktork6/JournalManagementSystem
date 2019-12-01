@@ -15,14 +15,14 @@ import java.awt.event.ActionEvent;
 public class MyAccount {
 
 	public JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
-	private JPasswordField passwordField_2;
+	private JTextField txtFUpdateTitle;
+	private JTextField txtFUpdateForename;
+	private JTextField txtFUpdateSurname;
+	private JTextField txtFUpdateUniversity;
+	private JTextField txtFUpdateEmail;
+	private JPasswordField passwordFieldOld;
+	private JPasswordField passwordFieldNew;
+	private JPasswordField passwordFieldRepeatNew;
 	private JLabel lblOldPassword;
 
 	/**
@@ -92,42 +92,42 @@ public class MyAccount {
 		lblRepeatNewPassword.setBounds(39, 313, 157, 16);
 		frame.getContentPane().add(lblRepeatNewPassword);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(225, 112, 130, 26);
-		frame.getContentPane().add(textField);
+		txtFUpdateTitle = new JTextField();
+		txtFUpdateTitle.setColumns(10);
+		txtFUpdateTitle.setBounds(225, 112, 130, 26);
+		frame.getContentPane().add(txtFUpdateTitle);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(225, 140, 130, 26);
-		frame.getContentPane().add(textField_1);
+		txtFUpdateForename = new JTextField();
+		txtFUpdateForename.setColumns(10);
+		txtFUpdateForename.setBounds(225, 140, 130, 26);
+		frame.getContentPane().add(txtFUpdateForename);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(225, 168, 130, 26);
-		frame.getContentPane().add(textField_2);
+		txtFUpdateSurname = new JTextField();
+		txtFUpdateSurname.setColumns(10);
+		txtFUpdateSurname.setBounds(225, 168, 130, 26);
+		frame.getContentPane().add(txtFUpdateSurname);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(225, 196, 130, 26);
-		frame.getContentPane().add(textField_3);
+		txtFUpdateUniversity = new JTextField();
+		txtFUpdateUniversity.setColumns(10);
+		txtFUpdateUniversity.setBounds(225, 196, 130, 26);
+		frame.getContentPane().add(txtFUpdateUniversity);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(225, 224, 130, 26);
-		frame.getContentPane().add(textField_4);
+		txtFUpdateEmail = new JTextField();
+		txtFUpdateEmail.setColumns(10);
+		txtFUpdateEmail.setBounds(225, 224, 130, 26);
+		frame.getContentPane().add(txtFUpdateEmail);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(225, 252, 130, 21);
-		frame.getContentPane().add(passwordField);
+		passwordFieldOld = new JPasswordField();
+		passwordFieldOld.setBounds(225, 252, 130, 21);
+		frame.getContentPane().add(passwordFieldOld);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(225, 280, 130, 21);
-		frame.getContentPane().add(passwordField_1);
+		passwordFieldNew = new JPasswordField();
+		passwordFieldNew.setBounds(225, 280, 130, 21);
+		frame.getContentPane().add(passwordFieldNew);
 		
-		passwordField_2 = new JPasswordField();
-		passwordField_2.setBounds(225, 310, 130, 21);
-		frame.getContentPane().add(passwordField_2);
+		passwordFieldRepeatNew = new JPasswordField();
+		passwordFieldRepeatNew.setBounds(225, 310, 130, 21);
+		frame.getContentPane().add(passwordFieldRepeatNew);
 		
 		lblOldPassword = new JLabel("Old Password");
 		lblOldPassword.setHorizontalAlignment(SwingConstants.RIGHT);

@@ -16,16 +16,16 @@ import java.awt.event.ActionEvent;
 public class NewArticle {
 
 	public JFrame frame;
-	private JTextField txtFArticleText;
+	private JTextField txtFArticleTitle;
 	private JTextField txtFISSN;
 	private JTextField txtFTitle;
 	private JTextField txtFForename;
 	private JTextField txtFSurname;
 	private JTextField txtFUni;
 	private JTextField txtFEmail;
-	private JTextField txtFArticleTitle;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldRepeat;
+	private JTextField txtFArticleText;
 
 	/**
 	 * Launch the application.
@@ -59,70 +59,60 @@ public class NewArticle {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel label = new JLabel("Register:");
-		label.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		label.setBounds(26, 75, 107, 29);
-		frame.getContentPane().add(label);
+		JLabel lblregister = new JLabel("Register:");
+		lblregister.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblregister.setBounds(26, 75, 107, 29);
+		frame.getContentPane().add(lblregister);
 		
-		JLabel label_1 = new JLabel("Title");
-		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_1.setBounds(72, 143, 61, 16);
-		frame.getContentPane().add(label_1);
+		JLabel lbltitle = new JLabel("Title");
+		lbltitle.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbltitle.setBounds(72, 143, 61, 16);
+		frame.getContentPane().add(lbltitle);
 		
-		JLabel label_2 = new JLabel("Forename");
-		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_2.setBounds(62, 171, 71, 16);
-		frame.getContentPane().add(label_2);
+		JLabel lblForename = new JLabel("Forename");
+		lblForename.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblForename.setBounds(62, 171, 71, 16);
+		frame.getContentPane().add(lblForename);
 		
-		JLabel label_3 = new JLabel("Surname");
-		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_3.setBounds(72, 199, 61, 16);
-		frame.getContentPane().add(label_3);
+		JLabel lblSurname = new JLabel("Surname");
+		lblSurname.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSurname.setBounds(72, 199, 61, 16);
+		frame.getContentPane().add(lblSurname);
 		
-		JLabel label_4 = new JLabel("University");
-		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setBounds(62, 227, 71, 16);
-		frame.getContentPane().add(label_4);
+		JLabel lblUniversity = new JLabel("University");
+		lblUniversity.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblUniversity.setBounds(62, 227, 71, 16);
+		frame.getContentPane().add(lblUniversity);
 		
-		JLabel label_5 = new JLabel("Email");
-		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_5.setBounds(72, 255, 61, 16);
-		frame.getContentPane().add(label_5);
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmail.setBounds(72, 255, 61, 16);
+		frame.getContentPane().add(lblEmail);
 		
-		JLabel label_6 = new JLabel("Password");
-		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_6.setBounds(62, 283, 71, 16);
-		frame.getContentPane().add(label_6);
-
-		JLabel lblNewJournalName = new JLabel("Journal ISSN number");
-		lblNewJournalName.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewJournalName.setBounds(375, 123, 130, 16);
-		frame.getContentPane().add(lblNewJournalName);
-
-		JLabel lblJournalIssnNumber = new JLabel("Article Text");
-		lblJournalIssnNumber.setHorizontalAlignment(SwingConstants.LEFT);
-		lblJournalIssnNumber.setBounds(375, 263, 164, 16);
-		frame.getContentPane().add(lblJournalIssnNumber);
-
-		txtFISSN = new JTextField();
-		txtFISSN.setColumns(10);
-		txtFISSN.setBounds(375, 146, 130, 26);
-		frame.getContentPane().add(txtFISSN);
-
-		txtFArticleText = new JTextField();
-		txtFArticleText.setColumns(10);
-		txtFArticleText.setBounds(375, 286, 130, 26);
-		frame.getContentPane().add(txtFArticleText);
-
-		JLabel lblTitle = new JLabel("Title");
-		lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTitle.setBounds(375, 196, 130, 16);
-		frame.getContentPane().add(lblTitle);
-
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPassword.setBounds(62, 283, 71, 16);
+		frame.getContentPane().add(lblPassword);
+		
+		JLabel lblArticleTitle = new JLabel("Title");
+		lblArticleTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArticleTitle.setBounds(429, 209, 130, 16);
+		frame.getContentPane().add(lblArticleTitle);
+		
+		JLabel lblISSN = new JLabel("Journal ISSN number");
+		lblISSN.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblISSN.setBounds(394, 148, 164, 16);
+		frame.getContentPane().add(lblISSN);
+		
 		txtFArticleTitle = new JTextField();
 		txtFArticleTitle.setColumns(10);
-		txtFArticleTitle.setBounds(375, 214, 130, 26);
+		txtFArticleTitle.setBounds(429, 227, 130, 26);
 		frame.getContentPane().add(txtFArticleTitle);
+		
+		txtFISSN = new JTextField();
+		txtFISSN.setColumns(10);
+		txtFISSN.setBounds(429, 166, 130, 26);
+		frame.getContentPane().add(txtFISSN);
 		
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
@@ -136,10 +126,10 @@ public class NewArticle {
 		btnNext.setBounds(427, 344, 130, 67);
 		frame.getContentPane().add(btnNext);
 		
-		JLabel label_9 = new JLabel("Repeat Password");
-		label_9.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_9.setBounds(16, 309, 117, 16);
-		frame.getContentPane().add(label_9);
+		JLabel lblRepeatPassword = new JLabel("Repeat Password");
+		lblRepeatPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRepeatPassword.setBounds(16, 309, 117, 16);
+		frame.getContentPane().add(lblRepeatPassword);
 		
 		JButton btnGoBack = new JButton("Go back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -185,10 +175,19 @@ public class NewArticle {
 		passwordFieldRepeat.setBounds(162, 311, 130, 21);
 		frame.getContentPane().add(passwordFieldRepeat);
 		
-		JLabel label_10 = new JLabel("TEAM 42");
-		label_10.setHorizontalAlignment(SwingConstants.CENTER);
-		label_10.setBounds(284, 26, 61, 16);
-		frame.getContentPane().add(label_10);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(284, 26, 61, 16);
+		frame.getContentPane().add(lbl42);
+		
+		JLabel lblArticleText = new JLabel("Article Text");
+		lblArticleText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArticleText.setBounds(429, 283, 130, 16);
+		frame.getContentPane().add(lblArticleText);
+		
+		txtFArticleText = new JTextField();
+		txtFArticleText.setColumns(10);
+		txtFArticleText.setBounds(429, 299, 130, 26);
+		frame.getContentPane().add(txtFArticleText);
 	}
-
 }

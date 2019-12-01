@@ -22,8 +22,8 @@ public class NewJournal {
 	private JTextField txtFEmail;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldRepeat;
+	private JTextField txtFJournalName;
 	private JTextField txtFISSN;
-	private JTextField txtFJournal;
 
 	/**
 	 * Launch the application.
@@ -70,15 +70,15 @@ public class NewJournal {
 		btnGoBack.setBounds(0, 19, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		
-		JLabel lblNewLabel = new JLabel("Register:");
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblNewLabel.setBounds(20, 60, 107, 29);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblRegister = new JLabel("Register:");
+		lblRegister.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblRegister.setBounds(20, 60, 107, 29);
+		frame.getContentPane().add(lblRegister);
 		
-		JLabel lblNewLabel_1 = new JLabel("Title");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(66, 128, 61, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblTitle = new JLabel("Title");
+		lblTitle.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTitle.setBounds(66, 128, 61, 16);
+		frame.getContentPane().add(lblTitle);
 		
 		JLabel lblForename = new JLabel("Forename");
 		lblForename.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -142,26 +142,16 @@ public class NewJournal {
 		passwordFieldRepeat = new JPasswordField();
 		passwordFieldRepeat.setBounds(149, 291, 130, 21);
 		frame.getContentPane().add(passwordFieldRepeat);
-
-		JLabel label_7 = new JLabel("New journal name");
-		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setBounds(415, 171, 130, 16);
-		frame.getContentPane().add(label_7);
-
-		JLabel label_8 = new JLabel("Journal ISSN number");
-		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_8.setBounds(393, 255, 164, 16);
-		frame.getContentPane().add(label_8);
-
-		txtFJournal = new JTextField();
-		txtFJournal.setColumns(10);
-		txtFJournal.setBounds(427, 194, 130, 26);
-		frame.getContentPane().add(txtFJournal);
-
-		txtFISSN = new JTextField();
-		txtFISSN.setColumns(10);
-		txtFISSN.setBounds(427, 278, 130, 26);
-		frame.getContentPane().add(txtFISSN);
+		
+		JLabel lblNewJournalName = new JLabel("Journal ISSN number");
+		lblNewJournalName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJournalName.setBounds(409, 240, 130, 16);
+		frame.getContentPane().add(lblNewJournalName);
+		
+		txtFJournalName = new JTextField();
+		txtFJournalName.setColumns(10);
+		txtFJournalName.setBounds(409, 190, 130, 26);
+		frame.getContentPane().add(txtFJournalName);
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
@@ -172,12 +162,22 @@ public class NewJournal {
 			}
 		});
 		btnSubmit.setBackground(new Color(0, 128, 0));
-		btnSubmit.setBounds(375, 333, 130, 67);
+		btnSubmit.setBounds(409, 333, 130, 67);
 		frame.getContentPane().add(btnSubmit);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(284, 24, 61, 16);
-		frame.getContentPane().add(label);
+		JLabel lblJournalName = new JLabel("New journal name");
+		lblJournalName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJournalName.setBounds(409, 173, 130, 16);
+		frame.getContentPane().add(lblJournalName);
+		
+		txtFISSN = new JTextField();
+		txtFISSN.setColumns(10);
+		txtFISSN.setBounds(409, 258, 130, 26);
+		frame.getContentPane().add(txtFISSN);
+		
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(284, 24, 61, 16);
+		frame.getContentPane().add(lbl42);
 	}
 }

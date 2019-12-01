@@ -66,6 +66,7 @@ public class CreateDb {
                     "draft_article TEXT, " +
                     "journal_id INTEGER, " +
                     "author_id INTEGER, " +
+                    "status VARCHAR(20), " +
                     "FOREIGN KEY (author_id) REFERENCES authors(id), " +
                     "FOREIGN KEY (journal_id) REFERENCES journals(id), " +
                     "PRIMARY KEY(id))");

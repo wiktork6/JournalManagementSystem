@@ -1,9 +1,5 @@
 package app.views;
 
-import app.controllers.Controllers;
-import app.controllers.UserController;
-import app.pojo.User;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,8 +14,8 @@ import javax.swing.SwingConstants;
 public class Login {
 
 	public JFrame frame;
-	private JTextField emailTextField;
-	private JTextField passwordTextField;
+	private JTextField txtFEmail;
+	private JTextField txtFPassword;
 
 	/**
 	 * Launch the application.
@@ -64,38 +60,32 @@ public class Login {
 		btnGoBack.setBounds(23, 26, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		
-		emailTextField = new JTextField();
-		emailTextField.setBounds(267, 147, 130, 29);
-		frame.getContentPane().add(emailTextField);
-		emailTextField.setColumns(10);
+		txtFEmail = new JTextField();
+		txtFEmail.setBounds(267, 147, 130, 29);
+		frame.getContentPane().add(txtFEmail);
+		txtFEmail.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Email:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(174, 153, 61, 16);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmail.setBounds(174, 153, 61, 16);
+		frame.getContentPane().add(lblEmail);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setBounds(172, 194, 63, 16);
 		frame.getContentPane().add(lblPassword);
 		
-		passwordTextField = new JTextField();
-		passwordTextField.setColumns(10);
-		passwordTextField.setBounds(267, 188, 130, 29);
-		frame.getContentPane().add(passwordTextField);
+		txtFPassword = new JTextField();
+		txtFPassword.setColumns(10);
+		txtFPassword.setBounds(267, 188, 130, 29);
+		frame.getContentPane().add(txtFPassword);
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User user = Controllers.USER.login(emailTextField.getText(), passwordTextField.getText());
-				if(user != null) {
-					frame.dispose();
-					UserWelcomePage usrwlcm = new UserWelcomePage();
-					usrwlcm.frame.setVisible(true);
-				}
-				else {
-
-				}
+				frame.dispose();
+				UserWelcomePage usrwlcm = new UserWelcomePage();
+				usrwlcm.frame.setVisible(true);
 			}
 		});
 		btnLogin.setBounds(280, 219, 117, 29);
@@ -106,9 +96,9 @@ public class Login {
 		lblLogin.setBounds(172, 98, 83, 23);
 		frame.getContentPane().add(lblLogin);
 		
-		JLabel lblDontHaveAn = new JLabel("Don't have an account? Register:");
-		lblDontHaveAn.setBounds(23, 260, 309, 29);
-		frame.getContentPane().add(lblDontHaveAn);
+		JLabel lblRegister = new JLabel("Don't have an account? Register:");
+		lblRegister.setBounds(23, 260, 309, 29);
+		frame.getContentPane().add(lblRegister);
 		
 		JButton btnNewArticle = new JButton("Register to submit article");
 		btnNewArticle.addActionListener(new ActionListener() {
@@ -132,9 +122,9 @@ public class Login {
 		btnNewJournal.setBounds(321, 300, 222, 29);
 		frame.getContentPane().add(btnNewJournal);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(267, 19, 61, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(267, 19, 61, 16);
+		frame.getContentPane().add(lbl42);
 	}
 }

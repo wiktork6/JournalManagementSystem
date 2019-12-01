@@ -9,13 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 public class SeeReview {
 
 	public JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -49,10 +50,10 @@ public class SeeReview {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel label = new JLabel("TEAM 42");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(281, 33, 61, 16);
-		frame.getContentPane().add(label);
+		JLabel lbl42 = new JLabel("TEAM 42");
+		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl42.setBounds(281, 33, 61, 16);
+		frame.getContentPane().add(lbl42);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -78,44 +79,29 @@ public class SeeReview {
 		
 		JLabel lblVerdict = new JLabel("Verdict");
 		lblVerdict.setHorizontalAlignment(SwingConstants.LEFT);
-		lblVerdict.setBounds(28, 121, 61, 16);
+		lblVerdict.setBounds(28, 107, 61, 16);
 		frame.getContentPane().add(lblVerdict);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(136, 116, 130, 26);
-		frame.getContentPane().add(textField);
 		
 		JLabel lblReview = new JLabel("Review");
 		lblReview.setHorizontalAlignment(SwingConstants.LEFT);
 		lblReview.setBounds(28, 154, 61, 16);
 		frame.getContentPane().add(lblReview);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(136, 148, 216, 118);
-		frame.getContentPane().add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(136, 271, 216, 71);
-		frame.getContentPane().add(textField_2);
-		
 		JLabel lblQuestions = new JLabel("Questions");
 		lblQuestions.setHorizontalAlignment(SwingConstants.LEFT);
 		lblQuestions.setBounds(28, 271, 84, 16);
 		frame.getContentPane().add(lblQuestions);
 		
-		JLabel label_1 = new JLabel("<Article Name>");
-		label_1.setHorizontalAlignment(SwingConstants.LEFT);
-		label_1.setBounds(28, 69, 135, 26);
-		frame.getContentPane().add(label_1);
+		JLabel lblArticleName = new JLabel("<Article Name>");
+		lblArticleName.setHorizontalAlignment(SwingConstants.LEFT);
+		lblArticleName.setBounds(28, 69, 135, 26);
+		frame.getContentPane().add(lblArticleName);
 		
 		//ADDFUNC - replace <number> with the review number
-		JLabel lblReview_1 = new JLabel("Review <Number>");
-		lblReview_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblReview_1.setBounds(439, 74, 135, 26);
-		frame.getContentPane().add(lblReview_1);
+		JLabel lblReviewNo = new JLabel("Review <Number>");
+		lblReviewNo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblReviewNo.setBounds(439, 74, 135, 26);
+		frame.getContentPane().add(lblReviewNo);
 		
 		//ADDFUNC - replace <status> with the status
 		JLabel lblStatus = new JLabel("Status: <Status>");
@@ -126,6 +112,23 @@ public class SeeReview {
 		JButton btnRespond = new JButton("Respond");
 		btnRespond.setBounds(457, 360, 117, 29);
 		frame.getContentPane().add(btnRespond);
+		
+		JTextPane txtVerdict = new JTextPane();
+		txtVerdict.setEditable(false);
+		txtVerdict.setBounds(136, 106, 206, 30);
+		frame.getContentPane().add(txtVerdict);
+		
+		JTextPane txtReview = new JTextPane();
+		txtReview.setEditable(false);
+		JScrollPane spEditor = new JScrollPane(txtReview,
+	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    spEditor.setBounds(136, 154, 206, 105);
+		frame.getContentPane().add(spEditor);
+		
+		JList lstQuestions = new JList();
+		lstQuestions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		lstQuestions.setBounds(136, 286, 206, 51);
+		frame.getContentPane().add(lstQuestions);
 	}
-
 }
