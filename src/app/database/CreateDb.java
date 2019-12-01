@@ -3,6 +3,9 @@ package app.database;
 import java.sql.*;
 
 public class CreateDb {
+    public static void main(String[] args) {
+        createTables();
+    }
 
     public static void createDatabase(){
         try(Connection conn = DriverManager.getConnection(DbConnection.SERVER_URL, DbConnection.USERNAME, DbConnection.PASSWORD);
