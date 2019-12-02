@@ -2,6 +2,7 @@ package app.controllers;
 
 
 import app.controllers.generic.GenericController;
+import app.controllers.tools.generic.ActionResult;
 import app.pojo.Journal;
 import app.services.JournalService;
 
@@ -10,7 +11,7 @@ public class JournalController extends GenericController<Journal> {
         super(new JournalService());
     }
 
-    public Journal getJournal(Integer journalId){
+    public ActionResult<Journal> getJournal(Integer journalId){
         return this.getItem(journalId);
     }
 

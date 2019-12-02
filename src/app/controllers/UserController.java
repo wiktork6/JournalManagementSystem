@@ -2,6 +2,8 @@ package app.controllers;
 
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
 import app.pojo.User;
 import app.services.AuthorService;
 import app.services.EditorService;
@@ -19,29 +21,34 @@ public class UserController extends GenericController<User> {
         super(new UserService());
     }
 
-    public User login(String email, String password){
-        this.loggedUser = ((UserService)this.service).authentecateUser(email, password);
-        return this.loggedUser;
+    public ActionResult<User> login(String email, String password){
+        User user = ((UserService)this.service).authentecateUser(email, password);
+        this.loggedUser = user;
+
+        if(user != null){
+            return new ActionResult<>(user, true, Messages.Info.SUCCESSFUL_LOGIN);
+        }
+        return new ActionResult<>(null, false, Messages.Error.WRONG_CREDENTIALS);
     }
 
-    public User register(String title, String forname, String surname, String university, String email, String password, String repeatPassword){
+    public ActionResult<User> register(String title, String forname, String surname, String university, String email, String password, String repeatPassword){
         if(password.equals(repeatPassword)) {
             return null;
         }
         return this.addItem(new User(title, forname, surname, university, email, password));
     }
 
-    public User updateAccount(Integer id, String title, String forname, String surname, String university, String email, String password, String repeatPassword)
+    public ActionResult<User> updateAccount(Integer id, String title, String forname, String surname, String university, String email, String password, String repeatPassword)
     {
         if(password != null && repeatPassword != null && !password.equals(repeatPassword)) {
             return null;
         }
-        User updated = this.updateItem(new User(id, title, forname, surname, university, email, password));
-        if(updated != null){
-            updated.setId(this.loggedUser.getId());
-            this.loggedUser = updated;
+        ActionResult<User> result = this.updateItem(new User(id, title, forname, surname, university, email, password));
+        if(result.getSuccess()){
+            result.getResult().setId(this.loggedUser.getId());
+            this.loggedUser = result.getResult();
         }
-        return updated;
+        return result;
     }
 
     public User getLoggedUser(){
