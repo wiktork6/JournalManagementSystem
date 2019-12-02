@@ -11,6 +11,7 @@ public interface DataAccessController<Item extends Identifiable> {
     Item getItemWhere(ArrayList<KVPair> filters);
     Integer addItem(Item item);
     Integer updateItem(Item item);
+    Integer removeItem(Integer id);
 
     //ArrayList<User> getUsers();
     //Integer getUserId(String email);

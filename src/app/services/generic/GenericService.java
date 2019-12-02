@@ -32,4 +32,8 @@ public class GenericService<Item extends Identifiable> implements Service<Item> 
     public Integer updateItem(Item item){
         return dac.updateItem(item);
     }
+
+    @Override
+    public Integer removeItem(Integer id) { return dac.removeItem(id); }
+
 }

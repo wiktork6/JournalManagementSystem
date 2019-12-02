@@ -39,6 +39,9 @@ public abstract class GenericController<Item extends Identifiable> implements Co
     protected ArrayList<Item> getItems(){
         return service.getItems();
     }
+    protected Item getItem(Integer id) { return service.getItem(id); }
 
     protected abstract boolean validateItem(Item item);
+
+    protected Integer removeItem(Integer id){ return service.removeItem(id); }
 }

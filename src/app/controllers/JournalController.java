@@ -10,6 +10,10 @@ public class JournalController extends GenericController<Journal> {
         super(new JournalService());
     }
 
+    public Journal getJournal(Integer journalId){
+        return this.getItem(journalId);
+    }
+
     @Override
     protected boolean validateItem(Journal journal) {
         return true;

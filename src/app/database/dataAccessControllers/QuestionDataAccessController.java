@@ -20,6 +20,11 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
     }
 
     @Override
+    protected String getIndexFields(){
+        return "id, question_number";
+    }
+
+    @Override
     protected Question readItem(ResultSet res) throws SQLException {
         Integer questionId = res.getInt(1);
         Integer questionNumber = res.getInt(2);

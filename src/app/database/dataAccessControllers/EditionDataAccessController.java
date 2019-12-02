@@ -18,6 +18,11 @@ public class EditionDataAccessController extends GenericDataAccessController<Edi
     }
 
     @Override
+    protected String getIndexFields(){
+        return "id, edition_number";
+    }
+
+    @Override
     protected Edition readItem(ResultSet res) throws SQLException {
         Integer id = res.getInt(1);
         Integer editionNumber = res.getInt(2);

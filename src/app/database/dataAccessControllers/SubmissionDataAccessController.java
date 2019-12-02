@@ -20,6 +20,11 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     }
 
     @Override
+    protected String getIndexFields(){
+        return "id, title";
+    }
+
+    @Override
     protected Submission readItem(ResultSet res) throws SQLException {
         return null;
     }

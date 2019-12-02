@@ -9,4 +9,5 @@ public interface Service<Item extends Identifiable> {
     Item getItem(Integer id);
     Integer addItem(Item item);
     Integer updateItem(Item item);
+    Integer removeItem(Integer id);
 }
