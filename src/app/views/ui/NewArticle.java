@@ -1,17 +1,17 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.pojo.*;
+
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class NewArticle {
 
@@ -26,6 +26,8 @@ public class NewArticle {
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldRepeat;
 	private JTextField txtFArticleText;
+	private JTextField txtFArticleAbstract;
+	private ArrayList<Journal> listOfJournals = Controllers.JOURNAL.getAllJournals();
 
 	/**
 	 * Launch the application.
@@ -94,29 +96,68 @@ public class NewArticle {
 		lblPassword.setBounds(62, 283, 71, 16);
 		frame.getContentPane().add(lblPassword);
 		
-		JLabel lblArticleTitle = new JLabel("Title");
+		JLabel lblArticleTitle = new JLabel("Article Title");
 		lblArticleTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArticleTitle.setBounds(429, 209, 130, 16);
+		lblArticleTitle.setBounds(429, 159, 130, 16);
 		frame.getContentPane().add(lblArticleTitle);
 		
 		JLabel lblISSN = new JLabel("Journal ISSN number");
 		lblISSN.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblISSN.setBounds(394, 148, 164, 16);
+		lblISSN.setBounds(394, 98, 164, 16);
 		frame.getContentPane().add(lblISSN);
+
+		JLabel lblAbstractText = new JLabel("Abstract Text");
+		lblAbstractText.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAbstractText.setBounds(404, 260, 130, 16);
+		frame.getContentPane().add(lblAbstractText);
+
+		txtFArticleAbstract = new JTextField();
+		txtFArticleAbstract.setColumns(10);
+		txtFArticleAbstract.setBounds(429, 280, 130, 26);
+		frame.getContentPane().add(txtFArticleAbstract);
 		
 		txtFArticleTitle = new JTextField();
 		txtFArticleTitle.setColumns(10);
-		txtFArticleTitle.setBounds(429, 227, 130, 26);
+		txtFArticleTitle.setBounds(429, 177, 130, 26);
 		frame.getContentPane().add(txtFArticleTitle);
-		
-		txtFISSN = new JTextField();
-		txtFISSN.setColumns(10);
-		txtFISSN.setBounds(429, 166, 130, 26);
-		frame.getContentPane().add(txtFISSN);
+
+		JList<String> journalList = new JList<>();
+
+		DefaultListModel defaultListModel = new DefaultListModel();
+		for(int i = 0; i<listOfJournals.size(); i++){
+			defaultListModel.add(0,listOfJournals.get(i).getIssn());
+		}
+		journalList.setModel(defaultListModel);
+
+		JScrollPane journalsScrollPane = new JScrollPane();
+		journalsScrollPane.setViewportView(journalList);
+		journalList.setLayoutOrientation(JList.VERTICAL);
+		journalsScrollPane.setBounds(429,116,130,40);
+		frame.getContentPane().add(journalsScrollPane);
+
+
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(150, 300, 150, 30);
+		frame.getContentPane().add(error);
 		
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				User user = Controllers.USER.register(txtFTitle.getText(),txtFForename.getText(), txtFSurname.getText(), txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+
+				if(user!=null){
+					Author author = Controllers.AUTHOR.register(user);
+					Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFArticleTitle.getText(),txtFArticleText.getText(),author.getId(),journalList.getSelectedValue(),"Submitted");
+					frame.dispose();
+					JournalCreated journalCreated = new JournalCreated();
+					journalCreated.frame.setVisible(true);
+				}else{
+					error.setText("Passwords do not match");
+
+				}
+
 				frame.dispose();
 				AddCoAuthors addCo = new AddCoAuthors();
 				addCo.frame.setVisible(true);
@@ -182,12 +223,12 @@ public class NewArticle {
 		
 		JLabel lblArticleText = new JLabel("Article Text");
 		lblArticleText.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArticleText.setBounds(429, 283, 130, 16);
+		lblArticleText.setBounds(429, 213, 130, 16);
 		frame.getContentPane().add(lblArticleText);
 		
 		txtFArticleText = new JTextField();
 		txtFArticleText.setColumns(10);
-		txtFArticleText.setBounds(429, 299, 130, 26);
+		txtFArticleText.setBounds(429, 229, 130, 26);
 		frame.getContentPane().add(txtFArticleText);
 	}
 }

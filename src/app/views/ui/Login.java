@@ -1,24 +1,23 @@
 package app.views.ui;
 
-import app.views.InterfaceFunctionallity;
+import app.controllers.Controllers;
+import app.pojo.Author;
+import app.pojo.User;
+
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 
 public class Login {
 
 	public JFrame frame;
 	private JTextField txtFEmail;
 	private JTextField txtFPassword;
-	private InterfaceFunctionallity interfaceFunctionallity;
+
 
 	/**
 	 * Launch the application.
@@ -42,7 +41,6 @@ public class Login {
 	public Login() {
 
 		initialize();
-		this.interfaceFunctionallity = new InterfaceFunctionallity();
 	}
 
 	/**
@@ -81,7 +79,7 @@ public class Login {
 		lblPassword.setBounds(172, 194, 63, 16);
 		frame.getContentPane().add(lblPassword);
 		
-		txtFPassword = new JTextField();
+		txtFPassword = new JPasswordField();
 		txtFPassword.setColumns(10);
 		txtFPassword.setBounds(267, 188, 130, 29);
 		frame.getContentPane().add(txtFPassword);
@@ -94,7 +92,15 @@ public class Login {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				interfaceFunctionallity.login(txtFEmail.getText(),txtFPassword.getText(),error, frame);
+				User user = Controllers.USER.login(txtFEmail.getText(),txtFPassword.getText());
+				if(user!=null && txtFEmail.getText().equals(null) && txtFPassword.getText().equals(null)){
+					frame.dispose();
+					UserWelcomePage usrwlcm = new UserWelcomePage();
+					usrwlcm.frame.setVisible(true);
+				}else{
+					error.setText("Invalid username or password");
+
+				}
 			}
 		});
 		btnLogin.setBounds(280, 219, 117, 29);

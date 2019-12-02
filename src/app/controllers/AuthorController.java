@@ -3,6 +3,8 @@ package app.controllers;
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
 import app.pojo.Author;
+import app.pojo.Editor;
+import app.pojo.User;
 import app.services.AuthorService;
 
 import java.util.ArrayList;
@@ -32,6 +34,14 @@ public class AuthorController extends GenericController<Author> implements Role 
         listOfAvailableActions.add("SEE MY ARTICLES");
         listOfAvailableActions.add("CREATE NEW JOURNAL");
         return listOfAvailableActions;
+    }
+
+    public Author register(User user){
+        Author author = new Author();
+        author.setUser(user);
+        Integer authorId = service.addItem(author);
+        author.setId(authorId);
+        return author;
     }
 
 

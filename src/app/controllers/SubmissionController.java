@@ -23,6 +23,7 @@ public class SubmissionController extends GenericController<Submission> {
     }
 
     public Submission addSubmission(String abstractText, String title, String draftArticle, Integer authorId, String issn, String status){
+//        Submission submission = new Submission(abstractText, title, draftArticle, authorId, status);
         Integer journalId = new JournalService().getJournalByISSN(issn).getId();
         return this.addItem(new Submission(abstractText, title, draftArticle, authorId, journalId, status));
     }

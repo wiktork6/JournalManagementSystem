@@ -12,6 +12,7 @@ public class Submission implements Identifiable {
     public Submission(){
     }
 
+
     public Submission(String abstractText, String title, String draftArticle, Integer authorId, Integer journalId, String status){
         this.abstractText = abstractText;
         this.title = title;

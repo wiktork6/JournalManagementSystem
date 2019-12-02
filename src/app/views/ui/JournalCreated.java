@@ -51,17 +51,17 @@ public class JournalCreated {
 		lbl42.setBounds(281, 33, 61, 16);
 		frame.getContentPane().add(lbl42);
 		
-		JLabel lblJournalSubmitted = new JLabel("Journal Submitted");
+		JLabel lblJournalSubmitted = new JLabel("Journal Created");
 		lblJournalSubmitted.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		lblJournalSubmitted.setBounds(208, 180, 291, 80);
 		frame.getContentPane().add(lblJournalSubmitted);
 		
-		JButton btnBack = new JButton("Back to main page");
+		JButton btnBack = new JButton("Back to login page");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				UserWelcomePage usrwlcmpg = new UserWelcomePage();
-				usrwlcmpg.frame.setVisible(true);
+				Login login = new Login();
+				login.frame.setVisible(true);
 			}
 		});
 		btnBack.setBounds(384, 308, 176, 68);

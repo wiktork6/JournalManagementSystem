@@ -92,7 +92,6 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement(this.insertItemQueryString() + ";", Statement.RETURN_GENERATED_KEYS)){
             this.setModifyPreparedStatement(preparedStatement, item);
-
             preparedStatement.execute();
             ResultSet res = preparedStatement.getGeneratedKeys();
 

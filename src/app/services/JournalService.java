@@ -27,4 +27,8 @@ public class JournalService extends GenericService<Journal> {
         filters.add(new KVPair("ISSN", issn));
         return dac.getItemWhere(filters);
     }
+
+    public ArrayList<Journal> getAllJournals(){
+        return dac.getItems();
+    }
 }

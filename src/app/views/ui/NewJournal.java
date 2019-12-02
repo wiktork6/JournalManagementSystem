@@ -1,5 +1,12 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.pojo.Editor;
+import app.pojo.Journal;
+import app.pojo.User;
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -152,13 +159,30 @@ public class NewJournal {
 		txtFJournalName.setColumns(10);
 		txtFJournalName.setBounds(409, 190, 130, 26);
 		frame.getContentPane().add(txtFJournalName);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(150, 300, 150, 30);
+		frame.getContentPane().add(error);
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				AccountCreated acct = new AccountCreated();
-				acct.frame.setVisible(true);
+				User user = Controllers.USER.register(txtFTitle.getText(),txtFForename.getText(), txtFSurname.getText(), txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+
+				if(user!=null){
+					Editor editor = Controllers.EDITOR.register(user);
+					Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJournalName.getText(), editor.getId()));
+					frame.dispose();
+					JournalCreated journalCreated = new JournalCreated();
+					journalCreated.frame.setVisible(true);
+				}else{
+					error.setText("Passwords do not match");
+
+				}
+
+
+
 			}
 		});
 		btnSubmit.setBackground(new Color(0, 128, 0));

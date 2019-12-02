@@ -25,7 +25,7 @@ public class UserController extends GenericController<User> {
     }
 
     public User register(String title, String forname, String surname, String university, String email, String password, String repeatPassword){
-        if(password.equals(repeatPassword)) {
+        if(!password.equals(repeatPassword)) {
             return null;
         }
         return this.addItem(new User(title, forname, surname, university, email, password));
