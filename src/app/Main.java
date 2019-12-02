@@ -5,7 +5,7 @@ import app.database.*;
 
 import app.pojo.*;
 import app.services.*;
-
+import app.views.ui.WelcomePage;
 
 
 import java.util.ArrayList;
@@ -18,8 +18,18 @@ public class Main {
        Integer submissionId = registerNewAuthorAndSubmissionButton("Mr", "Dawid", "Bogut", "Politechnika Gdanska", "DawidB@gmail.com","Brylant", "Brylant","A1234567", "Koszykowka najpiekniejszy sport", "Koszywkoa jest to niesamowity sport. zakochalem sie w nim od 3 klasy podstawiwki i do dzisiaj gram w kosza, super gra polecam", "O moim zyciu i koszykowce");
         addCoAuthorToSubmissionButtom("Mr", "Bob", "Black", "University of Manchester", "BobBlack@manchester.ac.uk","BB1234", "BB1234", submissionId);
 
+        runGUI();
+    }
 
 
+    public static void runGUI() {
+
+        try {
+            WelcomePage window = new WelcomePage();
+            window.frame.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

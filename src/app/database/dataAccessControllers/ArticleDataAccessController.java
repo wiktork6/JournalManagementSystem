@@ -19,6 +19,11 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
     }
 
     @Override
+    protected String getIndexFields(){
+        return "id, title";
+    }
+
+    @Override
     protected Article readItem(ResultSet res) throws SQLException {
         Integer id = res.getInt(1);
         String pageNumberRange = res.getString(2);

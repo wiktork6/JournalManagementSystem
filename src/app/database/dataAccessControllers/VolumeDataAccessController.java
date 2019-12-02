@@ -17,6 +17,11 @@ public class VolumeDataAccessController extends GenericDataAccessController<Volu
     }
 
     @Override
+    protected String getIndexFields(){
+        return "id, volume_number";
+    }
+
+    @Override
     protected Volume readItem(ResultSet res) throws SQLException {
         Integer id = res.getInt(1);
         Integer volumeNumber = res.getInt(2);

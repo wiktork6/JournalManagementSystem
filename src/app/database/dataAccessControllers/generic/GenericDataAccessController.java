@@ -57,6 +57,11 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
         return this.getItems(this.getItemsQueryString(), null);
     }
 
+//    public ArrayList<Item> getItemsIndex() {return this.getItems(
+//            this.getItemsQueryString(
+//                    this.getIndexFields()
+//            ), null);}
+
     @Override
     public Item getItemWhere(ArrayList<KVPair> filters){
         return this.getItem(this.getItemsWhereQueryString(filters), filters);
@@ -120,8 +125,23 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
         }
     }
 
+    public Integer removeItem(Integer id){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement(this.deleteItemQueryString() + ";")){
+            preparedStatement.setInt(1, id);
+
+            return preparedStatement.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
     protected abstract String getTableName();
     protected abstract String getAllFields();
+    protected String getIndexFields(){
+        return "id";
+    }
 
 
     protected String getItemsQueryString(String fields){
@@ -179,6 +199,12 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("id"));
         return updateItemsWhereQueryString(updates, filters);
+    }
+
+    protected String deleteItemQueryString() {
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("id"));
+        return this.appendWhereToQueryString("DELETE FROM " + this.getTableName(), filters);
     }
 
 

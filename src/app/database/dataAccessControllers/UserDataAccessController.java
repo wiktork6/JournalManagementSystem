@@ -17,6 +17,11 @@ public class UserDataAccessController extends GenericDataAccessController<User> 
         return "id, email, title, forname, surname, university";
     }
 
+    @Override
+    protected String getIndexFields(){
+        return "id, email";
+    }
+
 
     public Integer getUserId(String email) {
         try (Connection conn = DriverManager.getConnection(DbConnection.STRING);

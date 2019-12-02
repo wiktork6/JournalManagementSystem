@@ -18,6 +18,11 @@ public class JournalDataAccessController extends GenericDataAccessController<Jou
     }
 
     @Override
+    protected String getIndexFields(){
+        return "id, ISSN, namme_of_journal";
+    }
+
+    @Override
     protected Journal readItem(ResultSet res) throws SQLException {
         Integer id = res.getInt(1);
         String issn = res.getString(2);
