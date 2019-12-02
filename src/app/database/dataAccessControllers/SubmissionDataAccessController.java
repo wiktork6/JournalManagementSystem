@@ -30,13 +30,13 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         return "title, abstract, draft_article, journal_id, author_id, status";
 
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Submission submission) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Submission submission) throws SQLException {
         preparedStatement.setString(1, submission.getTitle());
         preparedStatement.setString(2, submission.getAbstractText());
         preparedStatement.setString(3, submission.getDraftArticle());

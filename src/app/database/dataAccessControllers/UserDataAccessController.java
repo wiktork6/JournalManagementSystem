@@ -55,18 +55,27 @@ public class UserDataAccessController extends GenericDataAccessController<User> 
     }
 
     @Override
-    protected String getModifyFields() {
-        return "title, forname, surname, university, email, password";
+    protected String getInsertFields() {
+        return this.getUpdateFields() + ", password";
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
+    protected String getUpdateFields() { return "title, forname, surname, university, email"; }
+
+    @Override
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
+        Integer lastSetId = this.setUpdatePreparedStatement(preparedStatement, user);
+        preparedStatement.setString(lastSetId + 1, user.getPassword());
+        return lastSetId + 1;
+    }
+
+    @Override
+    protected Integer setUpdatePreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
         preparedStatement.setString(1, user.getTitle());
         preparedStatement.setString(2, user.getForname());
         preparedStatement.setString(3, user.getSurname());
         preparedStatement.setString(4, user.getUniversity());
         preparedStatement.setString(5, user.getEmail());
-        preparedStatement.setString(6, user.getPassword());
-        return 6;
+        return 5;
     }
 }

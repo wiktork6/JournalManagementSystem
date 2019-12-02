@@ -96,7 +96,7 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
     public Integer addItem(Item item) {
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement(this.insertItemQueryString() + ";", Statement.RETURN_GENERATED_KEYS)){
-            this.setModifyPreparedStatement(preparedStatement, item);
+            this.setInsertPreparedStatement(preparedStatement, item);
             preparedStatement.execute();
             ResultSet res = preparedStatement.getGeneratedKeys();
 
@@ -115,7 +115,7 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
     public Integer updateItem(Item item){
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement(this.updateItemByIdQueryString() + ";")){
-            int lastSetId = this.setModifyPreparedStatement(preparedStatement, item);
+            int lastSetId = this.setUpdatePreparedStatement(preparedStatement, item);
             preparedStatement.setInt(lastSetId + 1, item.getId());
 
             return preparedStatement.executeUpdate();
@@ -191,7 +191,7 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
     }
 
     protected String updateItemByIdQueryString(){
-        String[] fields = this.getModifyFields().split(",");
+        String[] fields = this.getUpdateFields().split(",");
         ArrayList<KVPair> updates = new ArrayList<>();
         for(String field : fields){
             updates.add(new KVPair(field));
@@ -210,12 +210,19 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
 
     protected abstract Item readItem(ResultSet res) throws SQLException;
 
-    protected abstract String getModifyFields();
-    protected String insertItemQueryString(){
-        int amountOfQuestionMarks = this.getModifyFields().split(",").length;
-        String questionMarks = "?,".repeat(Math.max(0, amountOfQuestionMarks));
-        return "INSERT INTO " + getTableName() + "(" + this.getModifyFields() + ") VALUES(" + questionMarks.substring(0, questionMarks.length() -1) +")";
+    protected abstract String getInsertFields();
+    protected String getUpdateFields(){
+        return this.getInsertFields();
     }
-    protected abstract Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Item item) throws SQLException;
+
+    protected String insertItemQueryString(){
+        int amountOfQuestionMarks = this.getInsertFields().split(",").length;
+        String questionMarks = "?,".repeat(Math.max(0, amountOfQuestionMarks));
+        return "INSERT INTO " + getTableName() + "(" + this.getInsertFields() + ") VALUES(" + questionMarks.substring(0, questionMarks.length() -1) +")";
+    }
+    protected abstract Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Item item) throws SQLException;
+    protected Integer setUpdatePreparedStatement(PreparedStatement preparedStatement, Item item) throws SQLException {
+        return this.setInsertPreparedStatement(preparedStatement, item);
+    }
 
 }

@@ -1,13 +1,13 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.User;
+
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -91,11 +91,27 @@ public class MyAccount {
 		lblRepeatNewPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRepeatNewPassword.setBounds(39, 313, 157, 16);
 		frame.getContentPane().add(lblRepeatNewPassword);
-		
-		txtFUpdateTitle = new JTextField();
-		txtFUpdateTitle.setColumns(10);
-		txtFUpdateTitle.setBounds(225, 112, 130, 26);
-		frame.getContentPane().add(txtFUpdateTitle);
+
+
+		//Defoult List Model for titles
+		JList<String> titlesList = new JList<>();
+		DefaultListModel titlesListModel = new DefaultListModel();
+		titlesListModel.add(0,"Mr");
+		titlesListModel.add(1, "Mrs");
+		titlesListModel.add(2,"Miss");
+		titlesListModel.add(3,"Ms");
+		titlesListModel.add(4,"Dr");
+		titlesListModel.add(5,"Prof");
+
+		titlesList.setModel(titlesListModel);
+
+		//Titles Scroll Pane
+		JScrollPane titlesScrollPane = new JScrollPane();
+		titlesScrollPane.setViewportView(titlesList);
+		titlesList.setLayoutOrientation(JList.VERTICAL);
+		titlesScrollPane.setBounds(225, 80, 130, 50);
+		frame.getContentPane().add(titlesScrollPane);
+
 		
 		txtFUpdateForename = new JTextField();
 		txtFUpdateForename.setColumns(10);
@@ -128,6 +144,15 @@ public class MyAccount {
 		passwordFieldRepeatNew = new JPasswordField();
 		passwordFieldRepeatNew.setBounds(225, 310, 130, 21);
 		frame.getContentPane().add(passwordFieldRepeatNew);
+
+		User loggedUser = Controllers.USER.getLoggedUser();
+		if(loggedUser != null){
+			titlesList.setSelectedValue(loggedUser.getTitle(), true);
+			txtFUpdateForename.setText(loggedUser.getForname());
+			txtFUpdateSurname.setText(loggedUser.getSurname());
+			txtFUpdateUniversity.setText(loggedUser.getUniversity());
+			txtFUpdateEmail.setText(loggedUser.getEmail());
+		}
 		
 		lblOldPassword = new JLabel("Old Password");
 		lblOldPassword.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -137,17 +162,49 @@ public class MyAccount {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(407, 347, 149, 52);
 		frame.getContentPane().add(btnUpdate);
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(loggedUser != null) {
+					ActionResult<User> ar = Controllers.USER.updateAccount(
+							loggedUser.getId(),
+							titlesList.getSelectedValue(),
+							txtFUpdateForename.getText(),
+							txtFUpdateSurname.getText(),
+							txtFUpdateUniversity.getText(),
+							txtFUpdateEmail.getText()
+					);
+					if(ar.getSuccess()){
+
+					}
+					else{
+						
+					}
+				}
+			}
+		});
 		
 		JLabel lblRegister = new JLabel("My account");
 		lblRegister.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblRegister.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRegister.setBounds(57, 61, 139, 26);
 		frame.getContentPane().add(lblRegister);
+
+		JButton btnGoBack = new JButton("Go back");
+		btnGoBack.setBounds(130, 6, 117, 29);
+		frame.getContentPane().add(btnGoBack);
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				UserWelcomePage uwp = new UserWelcomePage(loggedUser);
+				uwp.frame.setVisible(true);
+			}
+		});
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				Controllers.USER.logout();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
 			}

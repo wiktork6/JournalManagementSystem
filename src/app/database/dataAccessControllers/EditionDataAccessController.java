@@ -32,12 +32,12 @@ public class EditionDataAccessController extends GenericDataAccessController<Edi
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Edition edition) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Edition edition) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }

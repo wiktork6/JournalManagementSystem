@@ -36,13 +36,13 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         throw new UnsupportedOperationException();
     }
 
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Article article) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Article article) throws SQLException {
         throw new UnsupportedOperationException();
     }
 

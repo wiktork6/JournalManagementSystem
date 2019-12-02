@@ -41,12 +41,9 @@ public class UserController extends GenericController<User> {
         return this.addItem(new User(title, forname, surname, university, email, password));
     }
 
-    public ActionResult<User> updateAccount(Integer id, String title, String forname, String surname, String university, String email, String password, String repeatPassword)
+    public ActionResult<User> updateAccount(Integer id, String title, String forname, String surname, String university, String email)
     {
-        if(password != null && repeatPassword != null && !password.equals(repeatPassword)) {
-            return null;
-        }
-        ActionResult<User> result = this.updateItem(new User(id, title, forname, surname, university, email, password));
+        ActionResult<User> result = this.updateItem(new User(id, title, forname, surname, university, email));
         if(result.getSuccess()){
             result.getResult().setId(this.loggedUser.getId());
             this.loggedUser = result.getResult();
