@@ -1,7 +1,11 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
 import app.pojo.Author;
+import app.pojo.Journal;
 import app.pojo.User;
 
 
@@ -86,20 +90,24 @@ public class Login {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(267, 250, 150, 30);
+		error.setBounds(267, 250, 200, 30);
 		frame.getContentPane().add(error);
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User user = Controllers.USER.login(txtFEmail.getText(),txtFPassword.getText());
-				if(user!=null && txtFEmail.getText().equals(null) && txtFPassword.getText().equals(null)){
-					frame.dispose();
-					UserWelcomePage usrwlcm = new UserWelcomePage();
-					usrwlcm.frame.setVisible(true);
-				}else{
-					error.setText("Invalid username or password");
+				if(!txtFEmail.getText().equals("") && !txtFPassword.getText().equals("")){
+					ActionResult<User> userActionResult = Controllers.USER.login(txtFEmail.getText(),txtFPassword.getText());
+					if(userActionResult.getSuccess()){
+						frame.dispose();
+						UserWelcomePage usrwlcm = new UserWelcomePage(userActionResult.getResult());
+						usrwlcm.frame.setVisible(true);
+					}else{
+						error.setText(userActionResult.getMessage());
+					}
 
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}
 			}
 		});

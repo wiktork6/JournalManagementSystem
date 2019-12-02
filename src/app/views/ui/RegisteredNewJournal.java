@@ -50,15 +50,15 @@ public class RegisteredNewJournal {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnGoBack = new JButton("Go back");
-		btnGoBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				frame.dispose();
-				UserWelcomePage usrwlcmpg = new UserWelcomePage();
-				usrwlcmpg.frame.setVisible(true);
-					
-			}
-		});
+//		btnGoBack.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//
+//				frame.dispose();
+//				UserWelcomePage usrwlcmpg = new UserWelcomePage();
+//				usrwlcmpg.frame.setVisible(true);
+//
+//			}
+//		});
 		btnGoBack.setBounds(0, 19, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		

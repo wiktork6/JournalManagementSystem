@@ -32,8 +32,11 @@ public class UserController extends GenericController<User> {
     }
 
     public ActionResult<User> register(String title, String forname, String surname, String university, String email, String password, String repeatPassword){
-        if(password.equals(repeatPassword)) {
-            return null;
+        if(!password.equals(repeatPassword)) {
+            ActionResult<User> userActionResult = new ActionResult<>();
+            userActionResult.setSuccess(false);
+            userActionResult.setMessage(Messages.Error.PASSWORD_NOT_MATCH);
+            return userActionResult;
         }
         return this.addItem(new User(title, forname, surname, university, email, password));
     }

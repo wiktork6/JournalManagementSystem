@@ -1,6 +1,8 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
 import app.pojo.*;
 
 import java.awt.EventQueue;
@@ -28,6 +30,7 @@ public class NewArticle {
 	private JTextField txtFArticleText;
 	private JTextField txtFArticleAbstract;
 	private ArrayList<Journal> listOfJournals = Controllers.JOURNAL.getAllJournals();
+
 
 	/**
 	 * Launch the application.
@@ -128,39 +131,67 @@ public class NewArticle {
 			defaultListModel.add(0,listOfJournals.get(i).getIssn());
 		}
 		journalList.setModel(defaultListModel);
-
+		//Journals Scroll Pane
 		JScrollPane journalsScrollPane = new JScrollPane();
 		journalsScrollPane.setViewportView(journalList);
 		journalList.setLayoutOrientation(JList.VERTICAL);
 		journalsScrollPane.setBounds(429,116,130,40);
 		frame.getContentPane().add(journalsScrollPane);
 
+		//Defoult List Model for titles
+		JList<String> titlesList = new JList<>();
+		DefaultListModel titlesListModel = new DefaultListModel();
+		titlesListModel.add(0,"Mr");
+		titlesListModel.add(1, "Mrs");
+		titlesListModel.add(2,"Miss");
+		titlesListModel.add(3,"Ms");
+		titlesListModel.add(4,"Dr");
+		titlesListModel.add(5,"Prof");
+
+		titlesList.setModel(titlesListModel);
+
+		//Titles Scroll Pane
+		JScrollPane titlesScrollPane = new JScrollPane();
+		titlesScrollPane.setViewportView(titlesList);
+		titlesList.setLayoutOrientation(JList.VERTICAL);
+		titlesScrollPane.setBounds(162, 120, 130, 50);
+		frame.getContentPane().add(titlesScrollPane);
+
 
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(150, 300, 150, 30);
+		error.setBounds(150, 325, 150, 30);
 		frame.getContentPane().add(error);
 		
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User user = Controllers.USER.register(txtFTitle.getText(),txtFForename.getText(), txtFSurname.getText(), txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+				if (titlesList.getSelectedValue()!=null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") && !txtFUni.getText().equals("") &&
+						!txtFEmail.getText().equals("") && !passwordField.getText().equals("") && !passwordFieldRepeat.getText().equals("") && !txtFArticleAbstract.equals("") &&
+						!txtFArticleTitle.getText().equals("") && !txtFArticleText.getText().equals("") && journalList.getSelectedValue()!=null) {
+					ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
+							txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
 
-				if(user!=null){
-					Author author = Controllers.AUTHOR.register(user);
-					Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFArticleTitle.getText(),txtFArticleText.getText(),author.getId(),journalList.getSelectedValue(),"Submitted");
-					frame.dispose();
-					JournalCreated journalCreated = new JournalCreated();
-					journalCreated.frame.setVisible(true);
-				}else{
-					error.setText("Passwords do not match");
 
+					if (userActionResult.getSuccess()) {
+						Author author = Controllers.AUTHOR.register(userActionResult.getResult());
+						ActionResult<Submission> submissionActionResult = Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFArticleTitle.getText(), txtFArticleText.getText(), author.getId(), journalList.getSelectedValue(), "Submitted");
+						if (submissionActionResult.getSuccess()) {
+							frame.dispose();
+							AddCoAuthors addCo = new AddCoAuthors();
+							addCo.frame.setVisible(true);
+						} else {
+							error.setText(submissionActionResult.getMessage());
+						}
+
+					} else {
+						error.setText(userActionResult.getMessage());
+
+					}
+				} else {
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}
-
-				frame.dispose();
-				AddCoAuthors addCo = new AddCoAuthors();
-				addCo.frame.setVisible(true);
 			}
 		});
 		btnNext.setBackground(new Color(0, 128, 0));
@@ -182,11 +213,7 @@ public class NewArticle {
 		});
 		btnGoBack.setBounds(26, 21, 117, 29);
 		frame.getContentPane().add(btnGoBack);
-		
-		txtFTitle = new JTextField();
-		txtFTitle.setColumns(10);
-		txtFTitle.setBounds(162, 143, 130, 26);
-		frame.getContentPane().add(txtFTitle);
+
 		
 		txtFForename = new JTextField();
 		txtFForename.setColumns(10);

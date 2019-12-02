@@ -2,6 +2,8 @@ package app.views.ui;
 
 import app.controllers.Controllers;
 import app.controllers.generic.Controller;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
 import app.pojo.Editor;
 import app.pojo.Journal;
 import app.pojo.User;
@@ -9,13 +11,8 @@ import app.pojo.User;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,7 +20,6 @@ import java.awt.event.ActionEvent;
 public class NewJournal {
 
 	public JFrame frame;
-	private JTextField txtFTitle;
 	private JTextField txtFForename;
 	private JTextField txtFSurname;
 	private JTextField txtFEmail;
@@ -31,6 +27,7 @@ public class NewJournal {
 	private JPasswordField passwordFieldRepeat;
 	private JTextField txtFJournalName;
 	private JTextField txtFISSN;
+
 
 	/**
 	 * Launch the application.
@@ -116,11 +113,25 @@ public class NewJournal {
 		lblRepeatPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRepeatPassword.setBounds(10, 296, 117, 16);
 		frame.getContentPane().add(lblRepeatPassword);
-		
-		txtFTitle = new JTextField();
-		txtFTitle.setBounds(149, 123, 130, 26);
-		frame.getContentPane().add(txtFTitle);
-		txtFTitle.setColumns(10);
+
+		JList<String> titlesList = new JList<>();
+		DefaultListModel titlesListModel = new DefaultListModel();
+		titlesListModel.add(0,"Mr");
+		titlesListModel.add(1, "Mrs");
+		titlesListModel.add(2,"Miss");
+		titlesListModel.add(3,"Ms");
+		titlesListModel.add(4,"Dr");
+		titlesListModel.add(5,"Prof");
+
+		titlesList.setModel(titlesListModel);
+
+		//Titles Scroll Pane
+		JScrollPane titlesScrollPane = new JScrollPane();
+		titlesScrollPane.setViewportView(titlesList);
+		titlesList.setLayoutOrientation(JList.VERTICAL);
+		titlesScrollPane.setBounds(149, 100, 130, 50);
+		frame.getContentPane().add(titlesScrollPane);
+
 		
 		txtFForename = new JTextField();
 		txtFForename.setColumns(10);
@@ -168,20 +179,32 @@ public class NewJournal {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User user = Controllers.USER.register(txtFTitle.getText(),txtFForename.getText(), txtFSurname.getText(), txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+				if(titlesList.getSelectedValue()!=null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") &&
+						!txtFUni.getText().equals("") && !txtFEmail.getText().equals("") && !passwordField.getText().equals("") &&
+						!passwordFieldRepeat.getText().equals("") && !txtFISSN.getText().equals("") && !txtFJournalName.getText().equals("")){
 
-				if(user!=null){
-					Editor editor = Controllers.EDITOR.register(user);
-					Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJournalName.getText(), editor.getId()));
-					frame.dispose();
-					JournalCreated journalCreated = new JournalCreated();
-					journalCreated.frame.setVisible(true);
+					ActionResult<User> user = Controllers.USER.register(titlesList.getSelectedValue(),txtFForename.getText(), txtFSurname.getText(),
+							txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+
+					if(user.getSuccess()){
+						Editor editor = Controllers.EDITOR.register(user.getResult());
+						ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJournalName.getText(), editor.getId()));
+						if(journalActionResult.getSuccess()){
+							frame.dispose();
+							JournalCreated journalCreated = new JournalCreated();
+							journalCreated.frame.setVisible(true);
+						}else{
+							error.setText(journalActionResult.getMessage());
+						}
+
+					}else{
+						error.setText(user.getMessage());
+
+					}
 				}else{
-					error.setText("Passwords do not match");
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
 
 				}
-
-
 
 			}
 		});

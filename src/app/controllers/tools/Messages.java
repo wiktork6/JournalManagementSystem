@@ -9,6 +9,8 @@ public class Messages {
         public static String ITEM_NOT_FOUND = "The item was not found.";
         public static String ITEM_NOT_DELETED = "The item could not be deleted.";
         public static String COAUTHOR_NOT_ADDED = "The co author could not be added";
+        public static String FIELD_IS_EMPTY = "Please fill all the required fields";
+        public static String PASSWORD_NOT_MATCH = "Passwords do not match";
     }
 
     public static class Info {

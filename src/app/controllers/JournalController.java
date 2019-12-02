@@ -22,7 +22,7 @@ public class JournalController extends GenericController<Journal> {
         return true;
     }
 
-    public Journal register(Journal journal){
+    public ActionResult<Journal> register(Journal journal){
         return this.addItem(journal);
     }
 

@@ -1,5 +1,9 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Article;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,6 +17,7 @@ import javax.swing.JTextArea;
 public class WelcomePage extends JFrame{
 
 	public JFrame frame;
+	private ActionResult<Article> latestArticle = Controllers.ARTICLE.getLatest();
 
 	/**
 	 * Launch the application.
@@ -79,13 +84,13 @@ public class WelcomePage extends JFrame{
 		
 		JTextArea txtFArticle = new JTextArea();
 		txtFArticle.setEditable(false);
-		txtFArticle.setText("Latest Article Here");
+		txtFArticle.setText(latestArticle.getResult().getFullArticle());
 		txtFArticle.setBounds(94, 246, 409, 104);
 		frame.getContentPane().add(txtFArticle);
 		
 		JTextArea txtFArticleInfoHere = new JTextArea();
 		txtFArticleInfoHere.setEditable(false);
-		txtFArticleInfoHere.setText("Article Info here");
+		txtFArticleInfoHere.setText(latestArticle.getResult().getTitle());
 		txtFArticleInfoHere.setBounds(94, 197, 409, 29);
 		frame.getContentPane().add(txtFArticleInfoHere);
 	}

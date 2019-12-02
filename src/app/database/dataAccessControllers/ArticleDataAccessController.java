@@ -30,8 +30,8 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
         String abstractText = res.getString(3);
         String title = res.getString(4);
         String fullArticle = res.getString(5);
-        Integer mainAuthorId = res.getInt(7);
-        Integer editionId = res.getInt(8);
+        Integer mainAuthorId = res.getInt(6);
+        Integer editionId = res.getInt(7);
         return new Article(id, pageNumberRange, abstractText, title, fullArticle, mainAuthorId, editionId);
     }
 
