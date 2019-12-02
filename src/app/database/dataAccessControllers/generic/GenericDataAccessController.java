@@ -34,6 +34,7 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
             PreparedStatement preparedStatement = this.getPreparedStatement(filters, conn, queryString)){
             ResultSet res = preparedStatement.executeQuery();
 
+
             if(res.next()) {
                 return this.readItem(res);
             }
@@ -82,10 +83,10 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
 
         else {
             PreparedStatement preparedStatement = conn.prepareStatement(queryString);
+
             for(int i = 0; i < filters.size(); i++){
                 preparedStatement.setObject(i+1, filters.get(i).getValue());
             }
-
             return preparedStatement;
         }
 

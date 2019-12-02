@@ -20,31 +20,5 @@ public class JournalController extends GenericController<Journal> {
     }
 
 
-//    public boolean changeChiefEditor(){
-//
-//    }
-//    public boolean addNewEditor(){
-//
-//    }
-//
-//    public boolean getSubmissionsList(){
-//
-//    }
-//
-////    public boolean retire(Editor editor){
-////        if(editor.getId() != journal.getChiefEditorId()){
-////            dataAccessController.removeEditor();
-////        }
-////
-////    }
-//    public boolean publishArticle(){
-//
-//    }
-//    public boolean rejectArticle(){
-//
-//    }
-//
-//    public boolean publishNextEdition() {
-//
-//    }
+
 }

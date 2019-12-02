@@ -3,6 +3,9 @@ package app.database;
 import java.sql.*;
 
 public class CreateDb {
+    public static void main(String[] args) {
+        createTables();
+    }
 
     public static void createDatabase(){
         try(Connection conn = DriverManager.getConnection(DbConnection.SERVER_URL, DbConnection.USERNAME, DbConnection.PASSWORD);
@@ -66,6 +69,7 @@ public class CreateDb {
                     "draft_article TEXT, " +
                     "journal_id INTEGER, " +
                     "author_id INTEGER, " +
+                    "status VARCHAR(20), " +
                     "FOREIGN KEY (author_id) REFERENCES authors(id), " +
                     "FOREIGN KEY (journal_id) REFERENCES journals(id), " +
                     "PRIMARY KEY(id))");

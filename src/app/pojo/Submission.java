@@ -7,20 +7,22 @@ public class Submission implements Identifiable {
     private String draftArticle;
     private Integer authorId;
     private Integer journalId;
+    private String status;
 
     public Submission(){
     }
 
-    public Submission(String abstractText, String title, String draftArticle, Integer authorId, Integer journalId){
+    public Submission(String abstractText, String title, String draftArticle, Integer authorId, Integer journalId, String status){
         this.abstractText = abstractText;
         this.title = title;
         this.draftArticle = draftArticle;
         this.authorId = authorId;
         this.journalId = journalId;
+        this.status = status;
     }
 
-    public Submission(Integer id, String abstractText, String title, String draftArticle, Integer authorId, Integer journalId) {
-        this(abstractText, title, draftArticle, authorId, journalId);
+    public Submission(Integer id, String abstractText, String title, String draftArticle, Integer authorId, Integer journalId, String status) {
+        this(abstractText, title, draftArticle, authorId, journalId, status);
         this.id = id;
     }
 
@@ -70,5 +72,13 @@ public class Submission implements Identifiable {
 
     public void setJournalId(Integer journalId){
         this.journalId = journalId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

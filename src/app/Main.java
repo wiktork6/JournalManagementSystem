@@ -2,10 +2,11 @@ package app;
 
 import app.database.*;
 
-import app.database.dataAccessControllers.*;
+
 import app.pojo.*;
 import app.services.*;
-import app.views.WelcomePage;
+import app.views.ui.WelcomePage;
+
 
 import java.util.ArrayList;
 
@@ -16,19 +17,10 @@ public class Main {
        registerNewAuthorAndSubmissionButton("Mrs", "Emma", "Norling", "The University of Sheffield", "Norling@Sheffield.ac.uk","abcd", "abcd","A1234567", "AI modern way", "This is article text ver sophisticated article", "abstract article sophisticated");
        Integer submissionId = registerNewAuthorAndSubmissionButton("Mr", "Dawid", "Bogut", "Politechnika Gdanska", "DawidB@gmail.com","Brylant", "Brylant","A1234567", "Koszykowka najpiekniejszy sport", "Koszywkoa jest to niesamowity sport. zakochalem sie w nim od 3 klasy podstawiwki i do dzisiaj gram w kosza, super gra polecam", "O moim zyciu i koszykowce");
         addCoAuthorToSubmissionButtom("Mr", "Bob", "Black", "University of Manchester", "BobBlack@manchester.ac.uk","BB1234", "BB1234", submissionId);
-       //        viewJournalsButton();
+
         runGUI();
     }
-//    public static boolean loginButton(String email, String password){
-//        DataAccessController dataAccessController = new MySqlDataAccessController();
-//        Login login = new Login(dataAccessController);
-//        if(login.login(email, password)!=0){
-//
-//        }else{
-//            System.out.println("Incorrect email or password");
-//            return false;
-//        }
-//    }
+
 
     public static void runGUI() {
 
@@ -40,6 +32,7 @@ public class Main {
         }
 
     }
+
 
     //It needs to print author to the box, to be added later
     public static Integer addCoAuthorToSubmissionButtom(String title, String forname, String surname, String university, String email, String password, String repeatPassword, Integer submissionId){
@@ -64,7 +57,7 @@ public class Main {
         Integer authorId = as.addItem(new Author(userId));
 
         SubmissionService ss = new SubmissionService();
-        Integer submissionId = ss.addItem(new Submission(-1, abstractText, articleTitle, text, authorId, 1));
+        Integer submissionId = ss.addItem(new Submission(-1, abstractText, articleTitle, text, authorId, 1, "Submitted"));
         return  submissionId;
     }
 
