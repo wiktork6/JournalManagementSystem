@@ -31,12 +31,12 @@ public class ReviewDataAccessController extends GenericDataAccessController<Revi
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Review review) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Review review) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }

@@ -32,12 +32,12 @@ public class VolumeDataAccessController extends GenericDataAccessController<Volu
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Volume volume) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Volume volume) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }

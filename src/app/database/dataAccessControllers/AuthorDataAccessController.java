@@ -25,13 +25,13 @@ public class AuthorDataAccessController extends GenericDataAccessController<Auth
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         return "user_id";
     }
 
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Author author) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Author author) throws SQLException {
         preparedStatement.setInt(1, author.getUser().getId() );
         return 1;
     }

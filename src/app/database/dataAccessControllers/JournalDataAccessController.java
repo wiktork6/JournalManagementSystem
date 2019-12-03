@@ -32,13 +32,13 @@ public class JournalDataAccessController extends GenericDataAccessController<Jou
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         return "ISSN, name_of_journal, chief_editor_id";
     }
 
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Journal journal) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Journal journal) throws SQLException {
         preparedStatement.setString(1, journal.getIssn());
         preparedStatement.setString(2, journal.getName());
         preparedStatement.setInt(3, journal.getChiefEditorId());

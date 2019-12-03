@@ -35,12 +35,12 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Question question) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Question question) throws SQLException {
         throw new UnsupportedOperationException();
     }
 }

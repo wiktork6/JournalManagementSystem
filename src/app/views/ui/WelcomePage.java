@@ -77,21 +77,23 @@ public class WelcomePage extends JFrame{
 			}
 		});
 		frame.getContentPane().add(btnLoginregister);
-		
-		JLabel lblLatestArtice = new JLabel("Latest Article:");
-		lblLatestArtice.setBounds(94, 169, 107, 16);
-		frame.getContentPane().add(lblLatestArtice);
-		
-		JTextArea txtFArticle = new JTextArea();
-		txtFArticle.setEditable(false);
-		txtFArticle.setText(latestArticle.getResult().getFullArticle());
-		txtFArticle.setBounds(94, 246, 409, 104);
-		frame.getContentPane().add(txtFArticle);
-		
-		JTextArea txtFArticleInfoHere = new JTextArea();
-		txtFArticleInfoHere.setEditable(false);
-		txtFArticleInfoHere.setText(latestArticle.getResult().getTitle());
-		txtFArticleInfoHere.setBounds(94, 197, 409, 29);
-		frame.getContentPane().add(txtFArticleInfoHere);
+
+		if(this.latestArticle.getResult() != null) {
+			JLabel lblLatestArtice = new JLabel("Latest Article:");
+			lblLatestArtice.setBounds(94, 169, 107, 16);
+			frame.getContentPane().add(lblLatestArtice);
+
+			JTextArea txtFArticle = new JTextArea();
+			txtFArticle.setEditable(false);
+			txtFArticle.setText(latestArticle.getResult().getFullArticle());
+			txtFArticle.setBounds(94, 246, 409, 104);
+			frame.getContentPane().add(txtFArticle);
+
+			JTextArea txtFArticleInfoHere = new JTextArea();
+			txtFArticleInfoHere.setEditable(false);
+			txtFArticleInfoHere.setText(latestArticle.getResult().getTitle());
+			txtFArticleInfoHere.setBounds(94, 197, 409, 29);
+			frame.getContentPane().add(txtFArticleInfoHere);
+		}
 	}
 }

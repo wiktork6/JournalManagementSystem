@@ -26,12 +26,12 @@ public class EditorDataAccessController extends GenericDataAccessController<Edit
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         return "user_id";
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Editor editor) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Editor editor) throws SQLException {
         preparedStatement.setInt(1, editor.getUser().getId());
         return 1;
     }

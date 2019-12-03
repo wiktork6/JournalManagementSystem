@@ -26,12 +26,12 @@ public class ReviewerDataAccessController extends GenericDataAccessController<Re
     }
 
     @Override
-    protected String getModifyFields() {
+    protected String getInsertFields() {
         return "user_id";
     }
 
     @Override
-    protected Integer setModifyPreparedStatement(PreparedStatement preparedStatement, Reviewer reviewer) throws SQLException {
+    protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Reviewer reviewer) throws SQLException {
         preparedStatement.setInt(1, reviewer.getUser().getId());
         return 1;
     }
