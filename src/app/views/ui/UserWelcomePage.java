@@ -21,7 +21,6 @@ import java.util.Map;
 public class UserWelcomePage {
 
 	public JFrame frame;
-	private User loggedUser;
 
 	/**
 	 * Launch the application.
@@ -42,8 +41,7 @@ public class UserWelcomePage {
 	/**
 	 * Create the application.
 	 */
-	public UserWelcomePage(User loggedUser) {
-		this.loggedUser = loggedUser;
+	public UserWelcomePage() {
 		initialize();
 	}
 
@@ -58,7 +56,7 @@ public class UserWelcomePage {
 		
 		
 		//ADD FUNC - Replace <User> with the user logged in
-		JLabel lblWelcome = new JLabel("Welcome " + loggedUser.getForname() + " " + loggedUser.getSurname());
+		JLabel lblWelcome = new JLabel("Welcome " + Controllers.USER.getLoggedUser().getForname() + " " + Controllers.USER.getLoggedUser().getSurname());
 		lblWelcome.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcome.setBounds(156, 70, 282, 38);
@@ -86,7 +84,6 @@ public class UserWelcomePage {
 		});
 		btnLogout.setBounds(6, 6, 117, 29);
 		frame.getContentPane().add(btnLogout);
-		System.out.println(Controllers.USER.getLoggedUser().getForname());
 
 
 		Integer initialX = 39;

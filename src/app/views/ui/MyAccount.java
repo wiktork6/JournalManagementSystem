@@ -1,7 +1,7 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
-import app.controllers.generic.Controller;
+
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.User;
 
@@ -93,7 +93,7 @@ public class MyAccount {
 		frame.getContentPane().add(lblRepeatNewPassword);
 
 
-		//Defoult List Model for titles
+		//Default List Model for titles
 		JList<String> titlesList = new JList<>();
 		DefaultListModel titlesListModel = new DefaultListModel();
 		titlesListModel.add(0,"Mr");
@@ -111,6 +111,8 @@ public class MyAccount {
 		titlesList.setLayoutOrientation(JList.VERTICAL);
 		titlesScrollPane.setBounds(225, 80, 130, 50);
 		frame.getContentPane().add(titlesScrollPane);
+
+
 
 		
 		txtFUpdateForename = new JTextField();
@@ -195,7 +197,7 @@ public class MyAccount {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				UserWelcomePage uwp = new UserWelcomePage(loggedUser);
+				UserWelcomePage uwp = new UserWelcomePage();
 				uwp.frame.setVisible(true);
 			}
 		});

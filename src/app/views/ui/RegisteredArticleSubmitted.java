@@ -59,13 +59,13 @@ public class RegisteredArticleSubmitted {
 		frame.getContentPane().add(lblArticlesubmitted);
 		
 		JButton btnBack = new JButton("Back to main page");
-//		btnBack.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				frame.dispose();
-//				UserWelcomePage usrwlcmpg = new UserWelcomePage();
-//				usrwlcmpg.frame.setVisible(true);
-//			}
-//		});
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				UserWelcomePage usrwlcmpg = new UserWelcomePage();
+				usrwlcmpg.frame.setVisible(true);
+			}
+		});
 		btnBack.setBounds(384, 308, 176, 68);
 		frame.getContentPane().add(btnBack);
 	}

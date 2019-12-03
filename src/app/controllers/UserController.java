@@ -77,18 +77,38 @@ public class UserController extends GenericController<User> {
         return roleList;
     }
 
-    private boolean isAuthor(User user){
+    public boolean isAuthor(User user){
         AuthorService authorService = new AuthorService();
-        return authorService.getUserAuthor(user.getId()) !=null;
+        return authorService.getUserAuthor(user.getId()) != null;
     }
-    private boolean isEditor(User user){
+    public boolean isEditor(User user){
         EditorService editorService = new EditorService();
-        return editorService.getUserEditor(user.getId()) !=null;
+        return editorService.getUserEditor(user.getId()) != null;
 
     }
     private boolean isReviewer(User user){
         ReviewerService reviewerService = new ReviewerService();
-        return reviewerService.getUserReviewer(user.getId()) !=null;
+        return reviewerService.getUserReviewer(user.getId()) != null;
 
+    }
+
+    public ActionResult<User> getUserByEmail(String email){
+        Integer userId = ((UserService)this.service).getUserId(email);
+        ActionResult<User> userActionResult = new ActionResult<>();
+        User user = this.service.getItem(userId);
+        userActionResult.setResult(user);
+        if(userActionResult.getResult()!=null){
+            userActionResult.setSuccess(true);
+            userActionResult.setMessage(Messages.Info.COAUTHOR_ADDED);
+        }else{
+            userActionResult.setSuccess(false);
+            userActionResult.setMessage(Messages.Error.COAUTHOR_NOT_FOUND);
+        }
+        return userActionResult;
+    }
+
+    public boolean isEmailTaken(String email){
+        ActionResult<User> userActionResult = getUserByEmail(email);
+        return !userActionResult.getSuccess();
     }
 }

@@ -45,12 +45,12 @@ public class JournalDataAccessController extends GenericDataAccessController<Jou
         return 3;
     }
 
-    public boolean insertJournalEditor(String journalId, Integer editorId) {
+    public boolean insertJournalEditor(Integer journalId, Integer editorId) {
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO journal_editor(journal_id, editor_id) " +
                     "VALUES(?,?);")){
 
-            preparedStatement.setString(1, journalId);
+            preparedStatement.setInt(1, journalId);
             preparedStatement.setInt(2, editorId);
 
             preparedStatement.execute();

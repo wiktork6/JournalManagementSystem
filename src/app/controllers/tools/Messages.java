@@ -8,9 +8,14 @@ public class Messages {
         public static String ITEM_NOT_UPDATED = "The item could not be updated.";
         public static String ITEM_NOT_FOUND = "The item was not found.";
         public static String ITEM_NOT_DELETED = "The item could not be deleted.";
-        public static String COAUTHOR_NOT_ADDED = "The co author could not be added";
+        public static String COAUTHOR_NOT_FOUND = "The co author was not found.";
         public static String FIELD_IS_EMPTY = "Please fill all the required fields";
         public static String PASSWORD_NOT_MATCH = "Passwords do not match";
+        public static String JOURNAL_ALREADY_EXISTS = "Journal already exists";
+        public static String COAUTHOR_NOT_ADDED = "Co author could not be added";
+        public static String CANT_ADD_YOURSELF_AS_COAUTHOR = "You can not add yourself as a co-author";
+        public static String ALREADY_ADDED = "User is already added as an co-author";
+        public static String EMAIL_TAKEN = "User with this email already exists.";
     }
 
     public static class Info {

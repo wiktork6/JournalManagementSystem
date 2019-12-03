@@ -1,6 +1,12 @@
 package app.views.ui;
 
-import java.awt.EventQueue;
+import app.controllers.Controllers;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Editor;
+import app.pojo.Journal;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.Color;
 
 public class RegisteredNewJournal {
 
@@ -48,17 +53,32 @@ public class RegisteredNewJournal {
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(267, 400, 200, 30);
+		frame.getContentPane().add(error);
 		
 		JButton btnGoBack = new JButton("Go back");
-//		btnGoBack.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//
-//				frame.dispose();
-//				UserWelcomePage usrwlcmpg = new UserWelcomePage();
-//				usrwlcmpg.frame.setVisible(true);
-//
-//			}
-//		});
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Editor editor = Controllers.EDITOR.register(Controllers.USER.getLoggedUser());
+				ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFISSN.getText(), editor.getId()));
+				if(!txtFISSN.getText().equals("") && txtFJornalName.equals("")){
+					if(journalActionResult.getSuccess()){
+						Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
+						frame.dispose();
+						UserWelcomePage usrwlcmpg = new UserWelcomePage();
+						usrwlcmpg.frame.setVisible(true);
+					}else{
+						error.setText(Messages.Error.JOURNAL_ALREADY_EXISTS);
+					}
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
+
+			}
+		});
 		btnGoBack.setBounds(0, 19, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		

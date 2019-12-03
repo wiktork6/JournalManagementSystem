@@ -1,6 +1,7 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.generic.Controller;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.*;
@@ -161,33 +162,40 @@ public class NewArticle {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(150, 325, 150, 30);
+		error.setBounds(150, 325, 200, 30);
 		frame.getContentPane().add(error);
-		
+
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (titlesList.getSelectedValue()!=null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") && !txtFUni.getText().equals("") &&
+				if (titlesList.getSelectedValue() != null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") && !txtFUni.getText().equals("") &&
 						!txtFEmail.getText().equals("") && !passwordField.getText().equals("") && !passwordFieldRepeat.getText().equals("") && !txtFArticleAbstract.equals("") &&
-						!txtFArticleTitle.getText().equals("") && !txtFArticleText.getText().equals("") && journalList.getSelectedValue()!=null) {
-					ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
-							txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+						!txtFArticleTitle.getText().equals("") && !txtFArticleText.getText().equals("") && journalList.getSelectedValue() != null) {
+					if (Controllers.USER.isEmailTaken(txtFEmail.getText())) {
+						ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
+								txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
 
 
-					if (userActionResult.getSuccess()) {
-						Author author = Controllers.AUTHOR.register(userActionResult.getResult());
-						ActionResult<Submission> submissionActionResult = Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFArticleTitle.getText(), txtFArticleText.getText(), author.getId(), journalList.getSelectedValue(), "Submitted");
-						if (submissionActionResult.getSuccess()) {
-							frame.dispose();
-							AddCoAuthors addCo = new AddCoAuthors();
-							addCo.frame.setVisible(true);
+						if (userActionResult.getSuccess()) {
+							Author author = Controllers.AUTHOR.register(userActionResult.getResult());
+							ActionResult<Submission> submissionActionResult = Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFArticleTitle.getText(), txtFArticleText.getText(), author.getId(), journalList.getSelectedValue(), "Submitted");
+							if (submissionActionResult.getSuccess()) {
+								Controllers.SUBMISSION.addCoAuthor(submissionActionResult.getResult().getId(), author.getId());
+								ArrayList<User> listOfCoAuthors = new ArrayList<>();
+								frame.dispose();
+								AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submissionActionResult.getResult());
+								addCo.frame.setVisible(true);
+							} else {
+								error.setText(submissionActionResult.getMessage());
+							}
+
 						} else {
-							error.setText(submissionActionResult.getMessage());
+							error.setText(userActionResult.getMessage());
+
 						}
 
 					} else {
-						error.setText(userActionResult.getMessage());
-
+						error.setText(Messages.Error.EMAIL_TAKEN);
 					}
 				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);

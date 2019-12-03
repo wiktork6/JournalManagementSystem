@@ -25,7 +25,7 @@ public class CreateDb {
             //Creating users table
             statement.execute("CREATE TABLE IF NOT EXISTS users(" +
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
-                    "email VARCHAR (50) NOT NULL, " +
+                    "email VARCHAR (50) NOT NULL UNIQUE, " +
                     "title VARCHAR (5), " +
                     "forname VARCHAR (30), " +
                     "surname VARCHAR (30), " +

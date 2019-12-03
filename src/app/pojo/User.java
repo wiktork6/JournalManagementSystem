@@ -88,4 +88,19 @@ public class User implements Identifiable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isEqual(User user){
+        return user.getEmail().equals(this.email);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return this.email.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return object instanceof User &&  this.email.equals(((User)object).email);
+    }
 }

@@ -1,16 +1,21 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.controllers.tools.ActionSuccess;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Author;
+import app.pojo.Submission;
+import app.pojo.User;
+
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class RegisterAuthor {
 
@@ -22,27 +27,31 @@ public class RegisterAuthor {
 	private JTextField txtFEmail;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldRepeat;
+	private ArrayList<User> listOfCoAuthors;
+	private Submission submission;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterAuthor window = new RegisterAuthor();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					RegisterAuthor window = new RegisterAuthor();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public RegisterAuthor() {
+	public RegisterAuthor(ArrayList<User> listOfCoAuthors, Submission submission) {
+		this.listOfCoAuthors = listOfCoAuthors;
+		this.submission = submission;
 		initialize();
 	}
 
@@ -94,11 +103,25 @@ public class RegisterAuthor {
 		lblRepeatPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRepeatPassword.setBounds(6, 316, 117, 16);
 		frame.getContentPane().add(lblRepeatPassword);
-		
-		txtFTitle = new JTextField();
-		txtFTitle.setColumns(10);
-		txtFTitle.setBounds(145, 143, 130, 26);
-		frame.getContentPane().add(txtFTitle);
+
+		//Defoult List Model for titles
+		JList<String> titlesList = new JList<>();
+		DefaultListModel titlesListModel = new DefaultListModel();
+		titlesListModel.add(0,"Mr");
+		titlesListModel.add(1, "Mrs");
+		titlesListModel.add(2,"Miss");
+		titlesListModel.add(3,"Ms");
+		titlesListModel.add(4,"Dr");
+		titlesListModel.add(5,"Prof");
+
+		titlesList.setModel(titlesListModel);
+
+		//Titles Scroll Pane
+		JScrollPane titlesScrollPane = new JScrollPane();
+		titlesScrollPane.setViewportView(titlesList);
+		titlesList.setLayoutOrientation(JList.VERTICAL);
+		titlesScrollPane.setBounds(145, 120, 130, 50);
+		frame.getContentPane().add(titlesScrollPane);
 		
 		txtFForename = new JTextField();
 		txtFForename.setColumns(10);
@@ -127,12 +150,17 @@ public class RegisterAuthor {
 		passwordFieldRepeat = new JPasswordField();
 		passwordFieldRepeat.setBounds(145, 311, 130, 21);
 		frame.getContentPane().add(passwordFieldRepeat);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(100, 350, 200, 30);
+		frame.getContentPane().add(error);
 		
 		JButton btnGoBack = new JButton("Go back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				AddCoAuthors addCo = new AddCoAuthors();
+				AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission);
 			    addCo.frame.setVisible(true);
 			}
 		});
@@ -142,9 +170,24 @@ public class RegisterAuthor {
 		JButton btnAddAuthor = new JButton("Add author");
 		btnAddAuthor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				AddCoAuthors addCo = new AddCoAuthors();
-			    addCo.frame.setVisible(true);
+				if (titlesList.getSelectedValue()!=null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") && !txtFUniversity.getText().equals("") &&
+						!txtFEmail.getText().equals("") && !passwordField.getText().equals("") && !passwordFieldRepeat.getText().equals("")) {
+					if(Controllers.USER.isEmailTaken(txtFEmail.getText())){
+						if (passwordField.getText().equals(passwordFieldRepeat.getText())) {
+							ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(),txtFForename.getText(),txtFSurname.getText(),txtFUniversity.getText(),txtFEmail.getText(),passwordField.getText(),passwordFieldRepeat.getText());
+							listOfCoAuthors.add(userActionResult.getResult());
+							frame.dispose();
+							AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission);
+							addCo.frame.setVisible(true);
+						} else {
+							error.setText(Messages.Error.PASSWORD_NOT_MATCH);
+						}
+					}else{
+						error.setText(Messages.Error.EMAIL_TAKEN);
+					}
+				} else {
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
 		btnAddAuthor.setBounds(416, 334, 154, 64);

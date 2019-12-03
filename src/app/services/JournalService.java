@@ -12,7 +12,7 @@ public class JournalService extends GenericService<Journal> {
         super(new JournalDataAccessController());
     }
 
-    public boolean insertJournalEditor(String journalId, Integer editorId){
+    public boolean insertJournalEditor(Integer journalId, Integer editorId){
         return ((JournalDataAccessController)dac).insertJournalEditor(journalId, editorId);
     }
 
@@ -31,4 +31,5 @@ public class JournalService extends GenericService<Journal> {
     public ArrayList<Journal> getAllJournals(){
         return dac.getItems();
     }
+
 }

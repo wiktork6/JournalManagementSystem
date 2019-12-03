@@ -23,11 +23,16 @@ public class JournalController extends GenericController<Journal> {
     }
 
     public ActionResult<Journal> register(Journal journal){
+
         return this.addItem(journal);
     }
 
     public ArrayList<Journal> getAllJournals(){
         return service.getItems();
+    }
+
+    public boolean addNewEditorToJournal(Integer journalId, Integer editorId){
+        return ((JournalService)this.service).insertJournalEditor(journalId,editorId);
     }
 
 

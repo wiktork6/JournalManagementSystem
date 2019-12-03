@@ -1,5 +1,8 @@
 package app.views.ui;
 
+import app.pojo.Submission;
+import app.pojo.User;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class RegisteredNewArticle {
 
@@ -17,6 +21,7 @@ public class RegisteredNewArticle {
 	private JTextField txtFTitle;
 	private JTextField txtFISSN;
 	private JTextField txtFArticle;
+
 
 	/**
 	 * Launch the application.
@@ -51,15 +56,15 @@ public class RegisteredNewArticle {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnGoBack = new JButton("Go back");
-//		btnGoBack.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//
-//				frame.dispose();
-//				UserWelcomePage usrwlcmpg = new UserWelcomePage();
-//				usrwlcmpg.frame.setVisible(true);
-//
-//			}
-//		});
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				frame.dispose();
+				UserWelcomePage usrwlcmpg = new UserWelcomePage();
+				usrwlcmpg.frame.setVisible(true);
+
+			}
+		});
 		btnGoBack.setBounds(0, 19, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		
@@ -89,13 +94,14 @@ public class RegisteredNewArticle {
 		frame.getContentPane().add(txtFISSN);
 		
 		JButton btnNext = new JButton("Next");
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				AddCoAuthors addCo = new AddCoAuthors();
-				addCo.frame.setVisible(true);
-			}
-		});
+//		btnNext.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				ArrayList<User> listOfCoAuthors = new ArrayList<>();
+//				frame.dispose();
+//				AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission);
+//				addCo.frame.setVisible(true);
+//			}
+//		});
 		btnNext.setBackground(new Color(0, 128, 0));
 		btnNext.setBounds(242, 300, 130, 67);
 		frame.getContentPane().add(btnNext);

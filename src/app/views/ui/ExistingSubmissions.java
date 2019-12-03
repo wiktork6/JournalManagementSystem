@@ -58,13 +58,13 @@ public class ExistingSubmissions {
 		frame.getContentPane().add(spEditor);
 		
 		JButton btnGoBack = new JButton("Go Back");
-//		btnGoBack.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				frame.dispose();
-//				UserWelcomePage usrwlcm = new UserWelcomePage();
-//				usrwlcm.frame.setVisible(true);
-//			}
-//		});
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				UserWelcomePage usrwlcm = new UserWelcomePage();
+				usrwlcm.frame.setVisible(true);
+			}
+		});
 		btnGoBack.setBounds(46, 360, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		
