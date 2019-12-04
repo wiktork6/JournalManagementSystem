@@ -1,10 +1,12 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.generic.Controller;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Editor;
 import app.pojo.Journal;
+import app.pojo.User;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -56,26 +58,15 @@ public class RegisteredNewJournal {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(267, 400, 200, 30);
+		error.setBounds(235, 260, 250, 30);
 		frame.getContentPane().add(error);
 		
 		JButton btnGoBack = new JButton("Go back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Editor editor = Controllers.EDITOR.register(Controllers.USER.getLoggedUser());
-				ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFISSN.getText(), editor.getId()));
-				if(!txtFISSN.getText().equals("") && txtFJornalName.equals("")){
-					if(journalActionResult.getSuccess()){
-						Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
-						frame.dispose();
-						UserWelcomePage usrwlcmpg = new UserWelcomePage();
-						usrwlcmpg.frame.setVisible(true);
-					}else{
-						error.setText(Messages.Error.JOURNAL_ALREADY_EXISTS);
-					}
-				}else{
-					error.setText(Messages.Error.FIELD_IS_EMPTY);
-				}
+				frame.dispose();
+				UserWelcomePage usrwlcmpg = new UserWelcomePage();
+				usrwlcmpg.frame.setVisible(true);
 
 			}
 		});
@@ -100,9 +91,27 @@ public class RegisteredNewJournal {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				JournalCreated jrnlcrtd = new JournalCreated();
-				jrnlcrtd.frame.setVisible(true);
+				User loggedUser = Controllers.USER.getLoggedUser();
+				Editor editor = null;
+				if(!Controllers.USER.isEditor(loggedUser)){
+					editor = Controllers.EDITOR.register(loggedUser);
+				}else{
+					editor = Controllers.EDITOR.getEditor(loggedUser);
+				}
+				if(!txtFISSN.getText().equals("") && !txtFJornalName.equals("")){
+					ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJornalName.getText(), editor.getId()));
+					if(journalActionResult.getSuccess()){
+						Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
+						frame.dispose();
+						JournalCreated jrnlcrtd = new JournalCreated();
+						jrnlcrtd.frame.setVisible(true);
+
+					}else{
+						error.setText(Messages.Error.JOURNAL_ALREADY_EXISTS);
+					}
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
 		btnSubmit.setBackground(new Color(0, 128, 0));

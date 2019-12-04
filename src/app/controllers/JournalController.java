@@ -19,7 +19,8 @@ public class JournalController extends GenericController<Journal> {
 
     @Override
     protected boolean validateItem(Journal journal) {
-        return true;
+        return ((((JournalService)this.service).getJournalByISSN(journal.getIssn()) == null) && (((JournalService)this.service).getJournalByName(journal.getName())==null));
+
     }
 
     public ActionResult<Journal> register(Journal journal){
@@ -35,6 +36,9 @@ public class JournalController extends GenericController<Journal> {
         return ((JournalService)this.service).insertJournalEditor(journalId,editorId);
     }
 
+    public boolean isExist(String issn, String name){
+        return ((((JournalService)this.service).getJournalByISSN(issn) == null) && (((JournalService)this.service).getJournalByName(name)==null));
+    }
 
 
 }

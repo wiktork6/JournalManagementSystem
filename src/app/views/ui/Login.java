@@ -111,7 +111,7 @@ public class Login {
 				}
 			}
 		});
-		btnLogin.setBounds(280, 219, 117, 29);
+		btnLogin.setBounds(275, 219, 117, 29);
 		frame.getContentPane().add(btnLogin);
 		
 		JLabel lblLogin = new JLabel("Login:");

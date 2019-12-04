@@ -173,45 +173,42 @@ public class NewJournal {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(150, 300, 200, 30);
+		error.setBounds(150, 300, 250, 30);
 		frame.getContentPane().add(error);
-		
+
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(titlesList.getSelectedValue()!=null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") &&
+				if (titlesList.getSelectedValue() != null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") &&
 						!txtFUni.getText().equals("") && !txtFEmail.getText().equals("") && !passwordField.getText().equals("") &&
-						!passwordFieldRepeat.getText().equals("") && !txtFISSN.getText().equals("") && !txtFJournalName.getText().equals("")){
-					if(Controllers.USER.isEmailTaken(txtFEmail.getText())){
-						ActionResult<User> user = Controllers.USER.register(titlesList.getSelectedValue(),txtFForename.getText(), txtFSurname.getText(),
-								txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
-
-						if(user.getSuccess()){
-							Editor editor = Controllers.EDITOR.register(user.getResult());
-							ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJournalName.getText(), editor.getId()));
-							if(journalActionResult.getSuccess()){
-								Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
-								frame.dispose();
-								JournalCreated journalCreated = new JournalCreated();
-								journalCreated.frame.setVisible(true);
-							}else{
-								error.setText(journalActionResult.getMessage());
+						!passwordFieldRepeat.getText().equals("") && !txtFISSN.getText().equals("") && !txtFJournalName.getText().equals("")) {
+					if (Controllers.USER.isEmailTaken(txtFEmail.getText())) {
+						if (Controllers.JOURNAL.isExist(txtFISSN.getText(), txtFJournalName.getText())) {
+							ActionResult<User> user = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
+									txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+							if (user.getSuccess()) {
+								Editor editor = Controllers.EDITOR.register(user.getResult());
+								ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJournalName.getText(), editor.getId()));
+								if (journalActionResult.getSuccess()) {
+									Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
+									frame.dispose();
+									JournalCreated journalCreated = new JournalCreated();
+									journalCreated.frame.setVisible(true);
+								} else {
+									error.setText(journalActionResult.getMessage());
+								}
+							} else {
+								error.setText(user.getMessage());
 							}
-
-						}else{
-							error.setText(user.getMessage());
-
+						} else {
+							error.setText(Messages.Error.JOURNAL_ALREADY_EXISTS);
 						}
-
-					}else{
+					} else {
 						error.setText(Messages.Error.EMAIL_TAKEN);
 					}
-
-				}else{
+				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
-
 				}
-
 			}
 		});
 		btnSubmit.setBackground(new Color(0, 128, 0));

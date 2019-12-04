@@ -29,6 +29,7 @@ public class RegisterAuthor {
 	private JPasswordField passwordFieldRepeat;
 	private ArrayList<User> listOfCoAuthors;
 	private Submission submission;
+	private User mainAuthor;
 
 	/**
 	 * Launch the application.
@@ -49,7 +50,8 @@ public class RegisterAuthor {
 	/**
 	 * Create the application.
 	 */
-	public RegisterAuthor(ArrayList<User> listOfCoAuthors, Submission submission) {
+	public RegisterAuthor(ArrayList<User> listOfCoAuthors, Submission submission, User mainAuthor) {
+		this.mainAuthor = mainAuthor;
 		this.listOfCoAuthors = listOfCoAuthors;
 		this.submission = submission;
 		initialize();
@@ -160,7 +162,7 @@ public class RegisterAuthor {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission);
+				AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission, mainAuthor);
 			    addCo.frame.setVisible(true);
 			}
 		});
@@ -177,7 +179,7 @@ public class RegisterAuthor {
 							ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(),txtFForename.getText(),txtFSurname.getText(),txtFUniversity.getText(),txtFEmail.getText(),passwordField.getText(),passwordFieldRepeat.getText());
 							listOfCoAuthors.add(userActionResult.getResult());
 							frame.dispose();
-							AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission);
+							AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission,mainAuthor);
 							addCo.frame.setVisible(true);
 						} else {
 							error.setText(Messages.Error.PASSWORD_NOT_MATCH);

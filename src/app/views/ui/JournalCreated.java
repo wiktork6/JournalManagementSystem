@@ -1,5 +1,7 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -55,15 +57,26 @@ public class JournalCreated {
 		lblJournalSubmitted.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		lblJournalSubmitted.setBounds(208, 180, 291, 80);
 		frame.getContentPane().add(lblJournalSubmitted);
+
+
+
 		
-		JButton btnBack = new JButton("Back to login page");
+		JButton btnBack = new JButton("Please log in");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				frame.dispose();
 				Login login = new Login();
 				login.frame.setVisible(true);
 			}
 		});
+
+		if(Controllers.USER.getLoggedUser()!=null){
+			Controllers.USER.logout();
+			btnBack.setText("Please log in again");
+		}else{
+			btnBack.setText("You can now log in");
+		}
 		btnBack.setBounds(384, 308, 176, 68);
 		frame.getContentPane().add(btnBack);
 	}

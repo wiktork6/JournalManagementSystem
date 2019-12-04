@@ -183,7 +183,7 @@ public class NewArticle {
 								Controllers.SUBMISSION.addCoAuthor(submissionActionResult.getResult().getId(), author.getId());
 								ArrayList<User> listOfCoAuthors = new ArrayList<>();
 								frame.dispose();
-								AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submissionActionResult.getResult());
+								AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submissionActionResult.getResult(),userActionResult.getResult());
 								addCo.frame.setVisible(true);
 							} else {
 								error.setText(submissionActionResult.getMessage());

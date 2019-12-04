@@ -27,6 +27,7 @@ public class AddCoAuthors {
 	private JTextField txtFEmail;
 	private ArrayList<User> listOfCoAuthors;
 	private Submission submission;
+	private User mainAuthor;
 
 	/**
 	 * Launch the application.
@@ -48,7 +49,8 @@ public class AddCoAuthors {
 	 * Create the application.
 	 */
 
-	public AddCoAuthors(ArrayList<User> listOfCoAuthors, Submission submission) {
+	public AddCoAuthors(ArrayList<User> listOfCoAuthors, Submission submission, User mainAuthor) {
+		this.mainAuthor = mainAuthor;
 		this.listOfCoAuthors = listOfCoAuthors;
 		this.submission = submission;
 		initialize();
@@ -95,7 +97,7 @@ public class AddCoAuthors {
 			btnNewAuthor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					frame.dispose();
-					RegisterAuthor rgstr = new RegisterAuthor(listOfCoAuthors, submission);
+					RegisterAuthor rgstr = new RegisterAuthor(listOfCoAuthors, submission, mainAuthor);
 					rgstr.frame.setVisible(true);
 				}
 			});
@@ -140,7 +142,7 @@ public class AddCoAuthors {
 
 			JLabel error = new JLabel();
 			error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-			error.setBounds(100, 250, 200, 30);
+			error.setBounds(60, 250, 200, 30);
 			frame.getContentPane().add(error);
 
 			JButton btnAdd = new JButton("Add");
@@ -151,22 +153,27 @@ public class AddCoAuthors {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (!txtFEmail.getText().equals("")) {
-						String email = txtFEmail.getText(); // cant add yourself
+						String email = txtFEmail.getText();
 						ActionResult<User> userActionResult = Controllers.USER.getUserByEmail(txtFEmail.getText());
+						if (userActionResult.getSuccess()) {
 
-						if (userActionResult.getSuccess())
-							if (!listOfCoAuthors.contains(userActionResult.getResult())) {
-								listOfCoAuthors.add(userActionResult.getResult());
-								String authors = "";
-								for (int i = 0; i < listOfCoAuthors.size(); i++) {
-									authors += listOfCoAuthors.get(i).getTitle() + " " + listOfCoAuthors.get(i).getForname() + " " + listOfCoAuthors.get(i).getSurname() + " " + listOfCoAuthors.get(i).getUniversity() + "\n";
-									txtCoAuthors.setText(authors);
+							if (!mainAuthor.getEmail().equals(email)) {
+								if (!listOfCoAuthors.contains(userActionResult.getResult())) {
+									listOfCoAuthors.add(userActionResult.getResult());
+									String authors = "";
+									for (int i = 0; i < listOfCoAuthors.size(); i++) {
+										authors += listOfCoAuthors.get(i).getTitle() + " " + listOfCoAuthors.get(i).getForname() + " " + listOfCoAuthors.get(i).getSurname() + " " + listOfCoAuthors.get(i).getUniversity() + "\n";
+										txtCoAuthors.setText(authors);
+									}
+								} else {
+									error.setText(Messages.Error.ALREADY_ADDED);
 								}
+
 							} else {
-								error.setText(Messages.Error.ALREADY_ADDED);
+								error.setText(Messages.Error.CANT_ADD_YOURSELF_AS_COAUTHOR);
 							}
 
-						else {
+						} else {
 							error.setText(userActionResult.getMessage());
 						}
 					} else {

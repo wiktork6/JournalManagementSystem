@@ -59,7 +59,7 @@ public class UserWelcomePage {
 		JLabel lblWelcome = new JLabel("Welcome " + Controllers.USER.getLoggedUser().getForname() + " " + Controllers.USER.getLoggedUser().getSurname());
 		lblWelcome.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcome.setBounds(156, 70, 282, 38);
+		lblWelcome.setBounds(156, 50, 282, 38);
 		frame.getContentPane().add(lblWelcome);
 		
 		JButton btnMyAccount = new JButton("My Account");
@@ -70,8 +70,34 @@ public class UserWelcomePage {
 				acct.frame.setVisible(true);
 			}
 		});
-		btnMyAccount.setBounds(477, 6, 117, 29);
+		btnMyAccount.setBounds(450, 6, 120, 29);
 		frame.getContentPane().add(btnMyAccount);
+
+		JButton btnNewSubmission = new JButton("CREATE NEW SUBMISSION");
+		btnNewSubmission.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				RegisteredNewArticle na = new RegisteredNewArticle();
+				na.frame.setVisible(true);
+			}
+		});
+		btnNewSubmission.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		btnNewSubmission.setBounds(100, 100, 190, 29);
+		frame.getContentPane().add(btnNewSubmission);
+
+		JButton btnNewJournal = new JButton("CREATE NEW JOURNAL");
+		btnNewJournal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				RegisteredNewJournal nj = new RegisteredNewJournal();
+				nj.frame.setVisible(true);
+			}
+		});
+		btnNewJournal.setBounds(350, 100, 190, 29);
+		btnNewJournal.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		frame.getContentPane().add(btnNewJournal);
+
+
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {

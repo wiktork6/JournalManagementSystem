@@ -2,8 +2,10 @@ package app.controllers;
 
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
+import app.pojo.Author;
 import app.pojo.Editor;
 import app.pojo.User;
+import app.services.AuthorService;
 import app.services.EditorService;
 import app.views.ui.RegisteredNewArticle;
 
@@ -51,4 +53,7 @@ public class EditorController extends GenericController<Editor> implements Role 
         return availableActions;
     }
 
+    public Editor getEditor(User user) {
+        return ((EditorService) service).getUserEditor(user.getId());
+    }
 }

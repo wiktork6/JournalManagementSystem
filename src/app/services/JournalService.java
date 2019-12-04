@@ -28,6 +28,12 @@ public class JournalService extends GenericService<Journal> {
         return dac.getItemWhere(filters);
     }
 
+    public Journal getJournalByName(String name){
+        ArrayList<KVPair> filters = new ArrayList<>();
+        filters.add(new KVPair("name_of_journal", name));
+        return dac.getItemWhere(filters);
+    }
+
     public ArrayList<Journal> getAllJournals(){
         return dac.getItems();
     }

@@ -38,14 +38,6 @@ public class AuthorController extends GenericController<Author> implements Role 
     public HashMap<String, ActionListener> getAvailableActions(JFrame frame) {
         HashMap<String, ActionListener> availableActions = new HashMap<>();
 
-        availableActions.put("CREATE NEW SUBMISSION", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                RegisteredNewArticle na = new RegisteredNewArticle();
-                na.frame.setVisible(true);
-            }
-        });
         availableActions.put("CHECK STATUS OF EXISTING SUBMISSIONS", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,15 +49,6 @@ public class AuthorController extends GenericController<Author> implements Role 
         availableActions.put("SEE MY ARTICLES", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        availableActions.put("CREATE NEW JOURNAL", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                RegisteredNewJournal nj = new RegisteredNewJournal();
-                nj.frame.setVisible(true);
 
             }
         });

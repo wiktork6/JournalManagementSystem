@@ -56,8 +56,8 @@ public class CreateDb {
             //Creating journals table
             statement.execute("CREATE TABLE IF NOT EXISTS journals(" +
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
-                    "ISSN VARCHAR(8) NOT NULL, " +
-                    "name_of_journal VARCHAR(50) NOT NULL, " +
+                    "ISSN VARCHAR(8) NOT NULL UNIQUE, " +
+                    "name_of_journal VARCHAR(50) NOT NULL UNIQUE, " +
                     "chief_editor_id INTEGER, " +
                     "FOREIGN KEY(chief_editor_id) REFERENCES editors(id), " +
                     "PRIMARY KEY(id))");

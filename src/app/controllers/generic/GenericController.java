@@ -17,7 +17,7 @@ public abstract class GenericController<Item extends Identifiable> implements Co
 
     protected ActionResult<Item> addItem(Item item) {
         if(!validateItem(item)){
-            return new ActionResult<>(null, false, Messages.Error.ITEM_NOT_VALID);
+            return new ActionResult<>(null, false, Messages.Error.JOURNAL_ALREADY_EXISTS);
         }
         Integer itemId = this.service.addItem(item);
         if(itemId != null && itemId > 0){

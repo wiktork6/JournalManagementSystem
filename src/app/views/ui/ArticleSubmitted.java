@@ -1,5 +1,7 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -51,18 +53,27 @@ public class ArticleSubmitted {
 		lbl42.setBounds(251, 24, 61, 16);
 		frame.getContentPane().add(lbl42);
 		
-		JLabel lblAccountCreated = new JLabel("Account created!");
+		JLabel lblAccountCreated = new JLabel();
 		lblAccountCreated.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		lblAccountCreated.setBounds(157, 107, 291, 80);
 		frame.getContentPane().add(lblAccountCreated);
 		
-		JLabel lblArticlesubmitted = new JLabel("Article submitted!");
+		JLabel lblArticlesubmitted = new JLabel();
 		lblArticlesubmitted.setVerticalAlignment(SwingConstants.TOP);
 		lblArticlesubmitted.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		lblArticlesubmitted.setBounds(157, 171, 291, 70);
 		frame.getContentPane().add(lblArticlesubmitted);
 		
-		JButton btnLogin = new JButton("Login Page");
+		JButton btnLogin = new JButton();
+		if(Controllers.USER.getLoggedUser()!=null){
+			Controllers.USER.logout();
+			btnLogin.setText("Please log in again");
+			lblArticlesubmitted.setText("Article submitted!");
+		}else{
+			lblAccountCreated.setText("Acount created!");
+			lblArticlesubmitted.setText("Article submitted!");
+			btnLogin.setText("You can now log in");
+		}
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
