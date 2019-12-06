@@ -1,18 +1,16 @@
 package app.views.ui;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-public class BrowseArticles {
+public class ReadArticle {
 
 	public JFrame frame;
 
@@ -23,7 +21,7 @@ public class BrowseArticles {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BrowseArticles window = new BrowseArticles();
+					ReadArticle window = new ReadArticle();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +33,7 @@ public class BrowseArticles {
 	/**
 	 * Create the application.
 	 */
-	public BrowseArticles() {
+	public ReadArticle() {
 		initialize();
 	}
 
@@ -53,40 +51,40 @@ public class BrowseArticles {
 		lbl42.setBounds(267, 19, 61, 16);
 		frame.getContentPane().add(lbl42);
 		
-		JList lstJournals = new JList();
-		JScrollPane spEditor = new JScrollPane(lstJournals,
-	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	    spEditor.setBounds(46, 126, 511, 204);
-		frame.getContentPane().add(spEditor);
+		
+		JTextPane textPAbstract = new JTextPane();
+		textPAbstract.setEditable(false);
+		textPAbstract.setBounds(79, 102, 427, 163);
+		frame.getContentPane().add(textPAbstract);
+		
+		JLabel lblArticleName = new JLabel("<Article Name>");
+		lblArticleName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArticleName.setBounds(211, 62, 169, 28);
+		frame.getContentPane().add(lblArticleName);
+		
+		JTextPane txtPArticleInfo = new JTextPane();
+		txtPArticleInfo.setEditable(false);
+		txtPArticleInfo.setBounds(79, 277, 427, 59);
+		frame.getContentPane().add(txtPArticleInfo);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				BrowseEditions brws = new BrowseEditions();
+				BrowseArticles brws = new BrowseArticles();
 				brws.frame.setVisible(true);
 			}
 		});
 		btnGoBack.setBounds(46, 360, 117, 29);
 		frame.getContentPane().add(btnGoBack);
 		
-		JButton btnSelect = new JButton("Select");
-		btnSelect.addActionListener(new ActionListener() {
+		JButton btnDownload = new JButton("Download");
+		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ReadArticle read = new ReadArticle();
-				read.frame.setVisible(true);
+				//Code to download article
 			}
 		});
-		btnSelect.setBounds(440, 360, 117, 29);
-		frame.getContentPane().add(btnSelect);
-		
-		JLabel lblArticles = new JLabel("Articles");
-		lblArticles.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
-		lblArticles.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArticles.setBounds(217, 85, 162, 29);
-		frame.getContentPane().add(lblArticles);
+		btnDownload.setBounds(440, 360, 117, 29);
+		frame.getContentPane().add(btnDownload);
 	}
-
 }

@@ -12,7 +12,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-public class BrowseArticles {
+public class BrowseEditions {
 
 	public JFrame frame;
 
@@ -23,7 +23,7 @@ public class BrowseArticles {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BrowseArticles window = new BrowseArticles();
+					BrowseEditions window = new BrowseEditions();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class BrowseArticles {
 	/**
 	 * Create the application.
 	 */
-	public BrowseArticles() {
+	public BrowseEditions() {
 		initialize();
 	}
 
@@ -64,7 +64,7 @@ public class BrowseArticles {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				BrowseEditions brws = new BrowseEditions();
+				BrowseVolumes brws = new BrowseVolumes();
 				brws.frame.setVisible(true);
 			}
 		});
@@ -75,18 +75,18 @@ public class BrowseArticles {
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ReadArticle read = new ReadArticle();
-				read.frame.setVisible(true);
+				BrowseArticles brws = new BrowseArticles();
+				brws.frame.setVisible(true);
 			}
 		});
 		btnSelect.setBounds(440, 360, 117, 29);
 		frame.getContentPane().add(btnSelect);
 		
-		JLabel lblArticles = new JLabel("Articles");
-		lblArticles.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
-		lblArticles.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArticles.setBounds(217, 85, 162, 29);
-		frame.getContentPane().add(lblArticles);
+		JLabel lblEditions = new JLabel("Editions");
+		lblEditions.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+		lblEditions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEditions.setBounds(217, 85, 162, 29);
+		frame.getContentPane().add(lblEditions);
 	}
 
 }

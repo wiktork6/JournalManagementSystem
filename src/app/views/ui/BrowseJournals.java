@@ -1,18 +1,18 @@
 package app.views.ui;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+import java.awt.Font;
 
-public class BrowseArticles {
+public class BrowseJournals {
 
 	public JFrame frame;
 
@@ -23,7 +23,7 @@ public class BrowseArticles {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BrowseArticles window = new BrowseArticles();
+					BrowseJournals window = new BrowseJournals();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class BrowseArticles {
 	/**
 	 * Create the application.
 	 */
-	public BrowseArticles() {
+	public BrowseJournals() {
 		initialize();
 	}
 
@@ -64,8 +64,8 @@ public class BrowseArticles {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				BrowseEditions brws = new BrowseEditions();
-				brws.frame.setVisible(true);
+				WelcomePage wlcm = new WelcomePage();
+				wlcm.frame.setVisible(true);
 			}
 		});
 		btnGoBack.setBounds(46, 360, 117, 29);
@@ -75,18 +75,17 @@ public class BrowseArticles {
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ReadArticle read = new ReadArticle();
-				read.frame.setVisible(true);
+				BrowseVolumes brws = new BrowseVolumes();
+				brws.frame.setVisible(true);
 			}
 		});
 		btnSelect.setBounds(440, 360, 117, 29);
 		frame.getContentPane().add(btnSelect);
 		
-		JLabel lblArticles = new JLabel("Articles");
-		lblArticles.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
-		lblArticles.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArticles.setBounds(217, 85, 162, 29);
-		frame.getContentPane().add(lblArticles);
+		JLabel lblJournals = new JLabel("Journals");
+		lblJournals.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+		lblJournals.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJournals.setBounds(217, 85, 162, 29);
+		frame.getContentPane().add(lblJournals);
 	}
-
 }

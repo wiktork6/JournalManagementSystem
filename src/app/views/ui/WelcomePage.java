@@ -55,8 +55,8 @@ public class WelcomePage extends JFrame{
 		btnBrowseArticles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				BrowseArticles brws = new BrowseArticles();
-				brws.frame.setVisible(true);
+				BrowseJournals browseJournals = new BrowseJournals();
+				browseJournals.frame.setVisible(true);
 			}
 		});
 		frame.getContentPane().setLayout(null);
