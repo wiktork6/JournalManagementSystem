@@ -184,21 +184,26 @@ public class NewJournal {
 						!passwordFieldRepeat.getText().equals("") && !txtFISSN.getText().equals("") && !txtFJournalName.getText().equals("")) {
 					if (Controllers.USER.isEmailTaken(txtFEmail.getText())) {
 						if (Controllers.JOURNAL.isExist(txtFISSN.getText(), txtFJournalName.getText())) {
-							ActionResult<User> user = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
-									txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
-							if (user.getSuccess()) {
-								Editor editor = Controllers.EDITOR.register(user.getResult());
-								ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJournalName.getText(), editor.getId()));
-								if (journalActionResult.getSuccess()) {
-									Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
-									frame.dispose();
-									JournalCreated journalCreated = new JournalCreated();
-									journalCreated.frame.setVisible(true);
+							if (txtFISSN.getText().length() == 8) {
+
+								ActionResult<User> user = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
+										txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
+								if (user.getSuccess()) {
+									Editor editor = Controllers.EDITOR.register(user.getResult());
+									ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJournalName.getText(), editor.getId()));
+									if (journalActionResult.getSuccess()) {
+										Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
+										frame.dispose();
+										JournalCreated journalCreated = new JournalCreated();
+										journalCreated.frame.setVisible(true);
+									} else {
+										error.setText(journalActionResult.getMessage());
+									}
 								} else {
-									error.setText(journalActionResult.getMessage());
+									error.setText(user.getMessage());
 								}
 							} else {
-								error.setText(user.getMessage());
+								error.setText(Messages.Error.ISSN_LENGTH);
 							}
 						} else {
 							error.setText(Messages.Error.JOURNAL_ALREADY_EXISTS);

@@ -92,24 +92,29 @@ public class RegisteredNewJournal {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User loggedUser = Controllers.USER.getLoggedUser();
-				Editor editor = null;
-				if(!Controllers.USER.isEditor(loggedUser)){
-					editor = Controllers.EDITOR.register(loggedUser);
-				}else{
-					editor = Controllers.EDITOR.getEditor(loggedUser);
-				}
-				if(!txtFISSN.getText().equals("") && !txtFJornalName.equals("")){
-					ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJornalName.getText(), editor.getId()));
-					if(journalActionResult.getSuccess()){
-						Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
-						frame.dispose();
-						JournalCreated jrnlcrtd = new JournalCreated();
-						jrnlcrtd.frame.setVisible(true);
 
-					}else{
-						error.setText(Messages.Error.JOURNAL_ALREADY_EXISTS);
+				if (!txtFISSN.getText().equals("") && !txtFJornalName.equals("")) {
+					if (txtFISSN.getText().length() == 8) {
+						Editor editor = null;
+						if(!Controllers.USER.isEditor(loggedUser)){
+							editor = Controllers.EDITOR.register(loggedUser);
+						} else {
+							editor = Controllers.EDITOR.getEditor(loggedUser);
+						}
+						ActionResult<Journal> journalActionResult = Controllers.JOURNAL.register(new Journal(txtFISSN.getText(), txtFJornalName.getText(), editor.getId()));
+						if (journalActionResult.getSuccess()) {
+							Controllers.JOURNAL.addNewEditorToJournal(journalActionResult.getResult().getId(), editor.getId());
+							frame.dispose();
+							JournalCreated jrnlcrtd = new JournalCreated();
+							jrnlcrtd.frame.setVisible(true);
+
+						} else {
+							error.setText(Messages.Error.JOURNAL_ALREADY_EXISTS);
+						}
+					} else {
+						error.setText(Messages.Error.ISSN_LENGTH);
 					}
-				}else{
+				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}
 			}

@@ -3,6 +3,7 @@ package app.services;
 import app.database.dataAccessControllers.EditorDataAccessController;
 import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Editor;
+import app.pojo.Journal;
 import app.services.generic.GenericService;
 
 import java.util.ArrayList;
@@ -16,5 +17,8 @@ public class EditorService extends GenericService<Editor> {
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("user_id", userId));
         return dac.getItemWhere(filters);
+    }
+    public ArrayList<Editor> getJournalsEditors(Journal journal){
+        return ((EditorDataAccessController)dac).getJournalsEditors(journal);
     }
 }

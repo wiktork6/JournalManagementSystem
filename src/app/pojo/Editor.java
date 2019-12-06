@@ -33,4 +33,9 @@ public class Editor implements Identifiable {
     public void setUser(User user){
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return user.getTitle() + " " + user.getForname() + " " + user.getSurname() + " " + user.getEmail();
+    }
 }

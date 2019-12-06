@@ -1,5 +1,8 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.pojo.Submission;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,10 +15,12 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class ExistingSubmissions {
 
 	public JFrame frame;
+//	private ArrayList<Submission> listOfSubmissions = Controllers.SUBMISSION.ge
 
 	/**
 	 * Launch the application.

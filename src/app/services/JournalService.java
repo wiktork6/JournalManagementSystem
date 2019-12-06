@@ -2,6 +2,7 @@ package app.services;
 
 import app.database.dataAccessControllers.JournalDataAccessController;
 import app.database.dataAccessControllers.generic.KVPair;
+import app.pojo.Editor;
 import app.pojo.Journal;
 import app.services.generic.GenericService;
 
@@ -36,6 +37,14 @@ public class JournalService extends GenericService<Journal> {
 
     public ArrayList<Journal> getAllJournals(){
         return dac.getItems();
+    }
+
+    public ArrayList<Journal> getEditorsJournals(Editor editor){
+        return ((JournalDataAccessController)dac).getEditorsJournals(editor);
+    }
+
+    public boolean retireEditorFromJournal(Editor editor, Journal journal){
+        return ((JournalDataAccessController)dac).deleteEditorFromJournal(editor,journal);
     }
 
 }

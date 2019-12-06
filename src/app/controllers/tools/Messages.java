@@ -16,6 +16,11 @@ public class Messages {
         public static String CANT_ADD_YOURSELF_AS_COAUTHOR = "You can not add yourself as a co-author";
         public static String ALREADY_ADDED = "User is already added as an co-author";
         public static String EMAIL_TAKEN = "User with this email already exists.";
+        public static String ISSN_LENGTH = "ISSN number has to be 8 digit long";
+        public static String JOURNAL_DOES_NOT_EXIST = "Journal with following credentials does not exist";
+        public static String CANT_RETIRE = "You can't retire if you are the only editor of a journal";
+        public static String FUNCTION_NOT_ALLOWED = "Only chief editors are allowed to use this function";
+        public static String SUBMISSION_NOT_FOUND = "Submissions not found";
     }
 
     public static class Info {

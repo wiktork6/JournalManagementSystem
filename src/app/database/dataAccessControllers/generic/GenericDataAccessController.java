@@ -11,11 +11,13 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
     protected ArrayList<Item> getItems(String queryString, ArrayList<KVPair> filters) {
         try (Connection conn = DriverManager.getConnection(DbConnection.STRING);
              PreparedStatement preparedStatement = getPreparedStatement(filters, conn, queryString)) {
-            ResultSet res = preparedStatement.executeQuery(queryString);
+
+            ResultSet res = preparedStatement.executeQuery();
             ArrayList<Item> itemsList = new ArrayList<>();
 
             while (res.next()) {
                 Item item = readItem(res);
+
                 itemsList.add(item);
             }
             res.close();

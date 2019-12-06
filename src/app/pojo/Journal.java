@@ -38,4 +38,14 @@ public class Journal implements Identifiable {
     public Integer getChiefEditorId() {
         return chiefEditorId;
     }
+
+    @Override
+    public String toString() {
+        return issn + '\'' + " " +
+                name + '\'';
+    }
+
+    public void setChiefEditorId(Integer chiefEditorId) {
+        this.chiefEditorId = chiefEditorId;
+    }
 }

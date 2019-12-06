@@ -26,7 +26,14 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     @Override
     protected Submission readItem(ResultSet res) throws SQLException {
-        return null;
+        Integer id = res.getInt(1);
+        String title = res.getString(2);
+        String abstractText =res.getString(3);
+        String draftArticle = res.getString(4);
+        Integer journal_id = res.getInt(5);
+        Integer author_id = res.getInt(6);
+        String status = res.getString(7);
+        return new Submission(id,title,abstractText,draftArticle,journal_id,author_id,status);
     }
 
     @Override
@@ -80,4 +87,19 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
             return false;
         }
     }
+
+//    public ArrayList<Submission> getSubmissionsIds(Author author){
+//        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+//            PreparedStatement preparedStatement = conn.prepareStatement("SELECT " + getAllFields() + " FROM submissions s WHERE author_id = ?;")){
+//            preparedStatement.setInt(1, author.getId());
+//            ResultSet res = preparedStatement.executeQuery();
+//
+//            preparedStatement.execute();
+//            return true;
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//            return false;
+//        }
+//
+//    }
 }
