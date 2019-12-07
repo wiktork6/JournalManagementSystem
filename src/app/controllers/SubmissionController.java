@@ -14,6 +14,7 @@ import app.services.SubmissionService;
 import java.util.ArrayList;
 
 public class SubmissionController extends GenericController<Submission> {
+    private Submission selectedSubmission;
 
     public SubmissionController() {
         super(new SubmissionService());
@@ -40,11 +41,19 @@ public class SubmissionController extends GenericController<Submission> {
     protected boolean validateItem(Submission submission) {
         return true;
     }
-//
-//    public ActionResult<ArrayList<Submission>> getSubmissions(Author author){
-//        ArrayList<Submission> listOfSubmissions = new ArrayList<>();
-//
-//    }
+
+    public ActionResult<ArrayList<Submission>> getSubmissions(Author author){
+        ActionResult<ArrayList<Submission>> actionResult = new ActionResult<>();
+        ArrayList<Submission> submissions = ((SubmissionService)this.service).getSubmissions(author);
+        actionResult.setResult(submissions);
+        if(actionResult.getResult().size()==0){
+            actionResult.setSuccess(false);
+            actionResult.setMessage(Messages.Error.SUBMISSION_NOT_FOUND);
+        }else{
+            actionResult.setSuccess(true);
+        }
+        return actionResult;
+    }
     public ActionResult<ArrayList<Submission>> getJournalsSubmissions(Journal journal){
         ActionResult<ArrayList<Submission>> result = new ActionResult<>();
         result.setResult(((SubmissionService)service).getJournalsSubmissions(journal));
@@ -64,4 +73,13 @@ public class SubmissionController extends GenericController<Submission> {
         }
         return actionResult;
     }
+
+    public void setSelectedSubmission(Submission submission){
+        this.selectedSubmission = submission;
+    }
+
+    public Submission getSelectedSubmission(){
+        return this.selectedSubmission;
+    }
+
 }

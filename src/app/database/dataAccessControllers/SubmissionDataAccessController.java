@@ -88,17 +88,21 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         }
     }
 
-//    public ArrayList<Submission> getSubmissionsIds(Author author){
+//    public ArrayList<Submission> getSubmissions(Author author){
 //        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
 //            PreparedStatement preparedStatement = conn.prepareStatement("SELECT " + getAllFields() + " FROM submissions s WHERE author_id = ?;")){
 //            preparedStatement.setInt(1, author.getId());
+//            ArrayList<Submission> submissionsList = new ArrayList<>();
 //            ResultSet res = preparedStatement.executeQuery();
+//            while(res.next()){
+//                Submission submission = readItem(res);
+//                submissionsList.add(submission);
+//            }
 //
-//            preparedStatement.execute();
-//            return true;
+//            return submissionsList;
 //        }catch(SQLException ex){
 //            ex.printStackTrace();
-//            return false;
+//            return null;
 //        }
 //
 //    }

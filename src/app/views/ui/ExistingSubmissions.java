@@ -1,17 +1,15 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Article;
 import app.pojo.Submission;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 public class ExistingSubmissions {
 
 	public JFrame frame;
-//	private ArrayList<Submission> listOfSubmissions = Controllers.SUBMISSION.ge
+	private ActionResult<ArrayList<Submission>> listOfSubmissions = Controllers.SUBMISSION.getSubmissions(Controllers.AUTHOR.getAuthor(Controllers.USER.getLoggedUser()));
 
 	/**
 	 * Launch the application.
@@ -53,13 +51,27 @@ public class ExistingSubmissions {
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JList listSubmissions = new JList();
-		listSubmissions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JScrollPane spEditor = new JScrollPane(listSubmissions,
-	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	    spEditor.setBounds(46, 126, 511, 204);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
+
+
+
+		JList submissionList = new JList();
+		//Default List Model for titles
+		DefaultListModel volumesListModel = new DefaultListModel();
+		for(int i = 0; i<listOfSubmissions.getResult().size();i++){
+			volumesListModel.add(i,listOfSubmissions.getResult().get(i).getTitle());
+		}
+		submissionList.setModel(volumesListModel);
+
+
+		JScrollPane spEditor = new JScrollPane(submissionList,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		spEditor.setBounds(46, 126, 511, 204);
 		frame.getContentPane().add(spEditor);
 		
 		JButton btnGoBack = new JButton("Go Back");
@@ -76,9 +88,17 @@ public class ExistingSubmissions {
 		JButton btnSelect = new JButton("Select");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				Reviews rev = new Reviews();
-				rev.frame.setVisible(true);
+
+				if(submissionList.getSelectedIndex()!=-1){
+					Submission chosenSubmission = listOfSubmissions.getResult().get(submissionList.getSelectedIndex());
+					Controllers.SUBMISSION.setSelectedSubmission(chosenSubmission);
+
+					frame.dispose();
+					Reviews rev = new Reviews();
+					rev.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
 		btnSelect.setBounds(440, 360, 117, 29);
@@ -98,14 +118,19 @@ public class ExistingSubmissions {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.USER.logout();
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
 			}
 		});
-		
 		btnLogout.setBounds(6, 6, 117, 29);
 		frame.getContentPane().add(btnLogout);
+
+		if(!listOfSubmissions.getSuccess()){
+			error.setText(listOfSubmissions.getMessage());
+			btnSelect.setVisible(false);
+		}
 		
 	}
 }

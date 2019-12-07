@@ -24,11 +24,11 @@ public class SubmissionService extends GenericService<Submission> {
         return ((SubmissionDataAccessController) dac).getSubmissionsCoAuthors(submissionId);
     }
 
-//    public ArrayList<Integer> getSubmissions(Author author){
-//        ArrayList<KVPair> filters = new ArrayList<>();
-//        filters.add(new KVPair("author_id",author.getId()));
-//        return dac.getItemsWhere(filters);
-//    }
+    public ArrayList<Submission> getSubmissions(Author author){
+        ArrayList<KVPair> filters = new ArrayList<>();
+        filters.add(new KVPair("author_id",author.getId()));
+        return dac.getItemsWhere(filters);
+    }
 
     public ArrayList<Submission> getJournalsSubmissions(Journal journal){
 
