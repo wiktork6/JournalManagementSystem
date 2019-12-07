@@ -33,7 +33,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         String abstractText =res.getString(3);
         File draftArticle;
         try {
-            draftArticle = BlobFileConverter.getFileFromBlob(res.getBlob(4), id.toString());
+            draftArticle = BlobFileConverter.getFileFromBlob(res.getBlob(4), id.toString() + ".pdf");
         } catch (IOException e) {
             e.printStackTrace();
             return null;

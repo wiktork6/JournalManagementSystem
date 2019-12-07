@@ -198,7 +198,7 @@ public class NewArticle {
 			public void actionPerformed(ActionEvent e) {
 				if (titlesList.getSelectedValue() != null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") && !txtFUni.getText().equals("") &&
 						!txtFEmail.getText().equals("") && !passwordField.getText().equals("") && !passwordFieldRepeat.getText().equals("") && !txtFArticleAbstract.equals("") &&
-						!txtFArticleTitle.getText().equals("") && !txtFArticleText.getText().equals("") && journalList.getSelectedValue() != null && selectedFile[0] != null) {
+						!txtFArticleTitle.getText().equals("") && journalList.getSelectedValue() != null && selectedFile[0] != null) {
 					if (Controllers.USER.isEmailTaken(txtFEmail.getText())) {
 						ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
 								txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
