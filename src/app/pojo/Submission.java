@@ -1,10 +1,12 @@
 package app.pojo;
 
+import java.io.File;
+
 public class Submission implements Identifiable {
     private Integer id;
     private String abstractText;
     private String title;
-    private String draftArticle;
+    private File draftArticle;
     private Integer authorId;
     private Integer journalId;
     private String status;
@@ -13,7 +15,7 @@ public class Submission implements Identifiable {
     }
 
 
-    public Submission(String abstractText, String title, String draftArticle, Integer authorId, Integer journalId, String status){
+    public Submission(String abstractText, String title, File draftArticle, Integer authorId, Integer journalId, String status){
         this.abstractText = abstractText;
         this.title = title;
         this.draftArticle = draftArticle;
@@ -22,7 +24,7 @@ public class Submission implements Identifiable {
         this.status = status;
     }
 
-    public Submission(Integer id, String abstractText, String title, String draftArticle, Integer authorId, Integer journalId, String status) {
+    public Submission(Integer id, String abstractText, String title, File draftArticle, Integer authorId, Integer journalId, String status) {
         this(abstractText, title, draftArticle, authorId, journalId, status);
         this.id = id;
     }
@@ -51,11 +53,11 @@ public class Submission implements Identifiable {
         this.title = title;
     }
 
-    public String getDraftArticle() {
+    public File getDraftArticle() {
         return draftArticle;
     }
 
-    public void setDraftArticle(String draftArticle) {
+    public void setDraftArticle(File draftArticle) {
         this.draftArticle = draftArticle;
     }
 

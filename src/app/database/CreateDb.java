@@ -68,7 +68,7 @@ public class CreateDb {
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "title VARCHAR(255) NOT NULL, " +
                     "abstract TINYTEXT, " +
-                    "draft_article TEXT, " +
+                    "draft_article BLOB, " +
                     "journal_id INTEGER, " +
                     "author_id INTEGER, " +
                     "status VARCHAR(20), " +
@@ -135,7 +135,7 @@ public class CreateDb {
                     "page_number_range VARCHAR(5) NOT NULL, " +
                     "abstract TINYTEXT, " +
                     "title VARCHAR(255), " +
-                    "final_full_article TEXT, " +
+                    "final_full_article BLOB, " +
                     "main_author_id INTEGER NOT NULL, " +
                     "edition_id INTEGER NOT NULL, " +
                     "FOREIGN KEY(main_author_id) REFERENCES authors(id), " +

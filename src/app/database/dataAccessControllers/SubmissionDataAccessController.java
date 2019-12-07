@@ -1,10 +1,12 @@
 package app.database.dataAccessControllers;
 
 import app.database.DbConnection;
+import app.database.dataAccessControllers.Tools.BlobFileConverter;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.pojo.Author;
 import app.pojo.Submission;
 
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -29,7 +31,13 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         Integer id = res.getInt(1);
         String title = res.getString(2);
         String abstractText =res.getString(3);
-        String draftArticle = res.getString(4);
+        File draftArticle;
+        try {
+            draftArticle = BlobFileConverter.getFileFromBlob(res.getBlob(4), id.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
         Integer journal_id = res.getInt(5);
         Integer author_id = res.getInt(6);
         String status = res.getString(7);
@@ -46,7 +54,12 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Submission submission) throws SQLException {
         preparedStatement.setString(1, submission.getTitle());
         preparedStatement.setString(2, submission.getAbstractText());
-        preparedStatement.setString(3, submission.getDraftArticle());
+        try {
+            preparedStatement.setBlob(3, new ByteArrayInputStream(BlobFileConverter.getByteArrayFromFile(submission.getDraftArticle())));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
         preparedStatement.setInt(4, submission.getJournalId());
         preparedStatement.setInt(5, submission.getAuthorId());
         preparedStatement.setString(6, submission.getStatus());

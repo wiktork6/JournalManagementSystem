@@ -1,8 +1,12 @@
 package app.database.dataAccessControllers;
 
+import app.database.dataAccessControllers.Tools.BlobFileConverter;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.pojo.Article;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +33,13 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
         String pageNumberRange = res.getString(2);
         String abstractText = res.getString(3);
         String title = res.getString(4);
-        String fullArticle = res.getString(5);
+        File fullArticle;
+        try {
+            fullArticle = BlobFileConverter.getFileFromBlob(res.getBlob(5), id.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
         Integer mainAuthorId = res.getInt(6);
         Integer editionId = res.getInt(7);
         return new Article(id, pageNumberRange, abstractText, title, fullArticle, mainAuthorId, editionId);
@@ -37,13 +47,24 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
 
     @Override
     protected String getInsertFields() {
-        throw new UnsupportedOperationException();
+        return "page_number_range, abstract, title, final_full_article, main_author_id, edition_id";
     }
 
 
     @Override
     protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Article article) throws SQLException {
-        throw new UnsupportedOperationException();
+        preparedStatement.setString(1, article.getPageNumberRange());
+        preparedStatement.setString(2, article.getAbstractText());
+        preparedStatement.setString(3, article.getTitle());
+        try {
+            preparedStatement.setBlob(4, new ByteArrayInputStream(BlobFileConverter.getByteArrayFromFile(article.getFullArticle())));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        preparedStatement.setInt(5, article.getMainAuthorId());
+        preparedStatement.setInt(6, article.getEditionId());
+        return 6;
     }
 
     public Article getLatest(){

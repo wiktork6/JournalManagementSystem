@@ -1,11 +1,13 @@
 package app.pojo;
 
+import java.io.File;
+
 public class Article implements Identifiable {
     private Integer id;
     private String pageNumberRange;
     private String abstractText;
     private String title;
-    private String fullArticle;
+    private File fullArticle;
     private Integer mainAuthorId;
     private Integer editionId;
 
@@ -13,7 +15,7 @@ public class Article implements Identifiable {
     {
     }
 
-    public Article(Integer id, String pageNumberRange, String abstractText, String title, String fullArticle, Integer mainAuthorId, Integer editionId) {
+    public Article(Integer id, String pageNumberRange, String abstractText, String title, File fullArticle, Integer mainAuthorId, Integer editionId) {
         this.id = id;
         this.pageNumberRange = pageNumberRange;
         this.abstractText = abstractText;
@@ -44,7 +46,7 @@ public class Article implements Identifiable {
         return title;
     }
 
-    public String getFullArticle() {
+    public File getFullArticle() {
         return fullArticle;
     }
 

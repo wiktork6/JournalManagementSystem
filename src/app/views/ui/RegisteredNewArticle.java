@@ -131,7 +131,7 @@ public class RegisteredNewArticle {
 					} else {
 						author = Controllers.AUTHOR.getAuthor(loggedUser);
 					}
-					ActionResult<Submission> submissionActionResult = Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFTitle.getText(), txtFArticle.getText(), author.getId(), journalList.getSelectedValue(), "Submitted");
+					ActionResult<Submission> submissionActionResult = Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFTitle.getText(), null, author.getId(), journalList.getSelectedValue(), "Submitted");
 					if (submissionActionResult.getSuccess()) {
 						Controllers.SUBMISSION.addCoAuthor(submissionActionResult.getResult().getId(), author.getId());
 						ArrayList<User> listOfCoAuthors = new ArrayList<>();
