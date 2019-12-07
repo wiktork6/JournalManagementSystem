@@ -95,17 +95,11 @@ public class CreateDb {
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "question_number INTEGER NOT NULL, " +
                     "question VARCHAR(255), " +
+                    "response VARCHAR(255), " +
                     "review_id INTEGER NOT NULL, " +
                     "FOREIGN KEY(review_id) REFERENCES reviews(id), " +
                     "PRIMARY KEY(id))");
 
-            //Creating responses table
-            statement.execute("CREATE TABLE IF NOT EXISTS reponses(" +
-                    "id INTEGER NOT NULL AUTO_INCREMENT, " +
-                    "response VARCHAR(255) NOT NULL, " +
-                    "question_id INTEGER NOT NULL, " +
-                    "FOREIGN KEY(question_id) REFERENCES questions(id), " +
-                    "PRIMARY KEY(id))");
 
 
             //Creating journal_editor table
