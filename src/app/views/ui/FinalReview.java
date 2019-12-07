@@ -23,7 +23,7 @@ public class FinalReview {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FinalReview window = new FinalReview();
+					CheckFinalReview window = new CheckFinalReview();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
