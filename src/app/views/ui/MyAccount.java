@@ -173,7 +173,11 @@ public class MyAccount {
 							txtFUpdateForename.getText(),
 							txtFUpdateSurname.getText(),
 							txtFUpdateUniversity.getText(),
-							txtFUpdateEmail.getText()
+							txtFUpdateEmail.getText(),
+							passwordFieldOld.getText(),
+							passwordFieldNew.getText(),
+							passwordFieldRepeatNew.getText()
+
 					);
 					if(ar.getSuccess()){
 

@@ -19,7 +19,7 @@ public class UserService extends GenericService<User> {
     public User authentecateUser(String email, String password){
         ArrayList<KVPair> filters = new ArrayList<>();
         filters.add(new KVPair("email", email));
-        filters.add(new KVPair("password", password));
+        filters.add(new KVPair("password", ((UserDataAccessController)dac).getSaltedPassword(password)));
         return dac.getItemWhere(filters);
     }
 }
