@@ -94,8 +94,9 @@ public class ExistingSubmissions {
 					Controllers.SUBMISSION.setSelectedSubmission(chosenSubmission);
 
 					frame.dispose();
-					Reviews rev = new Reviews();
-					rev.frame.setVisible(true);
+					UploadOrReview uploadOrReview = new UploadOrReview();
+
+					uploadOrReview.frame.setVisible(true);
 				}else{
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}

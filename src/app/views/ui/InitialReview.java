@@ -26,7 +26,7 @@ public class InitialReview {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InitialReview window = new InitialReview();
+					CheckInitialReview window = new CheckInitialReview();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
