@@ -94,10 +94,9 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
 
     }
 
-    @Override
-    public Integer addItem(Item item) {
+    protected Integer addItem(Item item, String queryString) {
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
-            PreparedStatement preparedStatement = conn.prepareStatement(this.insertItemQueryString() + ";", Statement.RETURN_GENERATED_KEYS)){
+            PreparedStatement preparedStatement = conn.prepareStatement(queryString + ";", Statement.RETURN_GENERATED_KEYS)){
             this.setInsertPreparedStatement(preparedStatement, item);
             preparedStatement.execute();
             ResultSet res = preparedStatement.getGeneratedKeys();
@@ -114,9 +113,14 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
     }
 
     @Override
-    public Integer updateItem(Item item){
+    public Integer addItem(Item item){
+        return this.addItem(item, this.insertItemQueryString());
+    }
+
+
+    protected Integer updateItem(Item item, String queryString){
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
-            PreparedStatement preparedStatement = conn.prepareStatement(this.updateItemByIdQueryString() + ";")){
+            PreparedStatement preparedStatement = conn.prepareStatement(queryString + ";")){
             int lastSetId = this.setUpdatePreparedStatement(preparedStatement, item);
             preparedStatement.setInt(lastSetId + 1, item.getId());
 
@@ -125,6 +129,11 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
             ex.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Integer updateItem(Item item){
+        return this.updateItem(item, this.updateItemByIdQueryString());
     }
 
     public Integer removeItem(Integer id){
@@ -162,7 +171,7 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
 
         sb.append(filters.get(0).getKey()).append(" = ? ");
         for(int i = 1; i < filters.size(); i++){
-            sb.append(" and ").append(filters.get(i).getKey()).append(" = ? ");
+            sb.append(" and ").append(filters.get(i).getKey()).append("= ? ");
         }
 
         return sb.toString();
@@ -192,8 +201,8 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
         return appendWhereToQueryString(updateItemsQueryString(updates), filters);
     }
 
-    protected String updateItemByIdQueryString(){
-        String[] fields = this.getUpdateFields().split(",");
+    protected String updateItemByIdQueryString(String updateFields){
+        String[] fields = updateFields.split(",");
         ArrayList<KVPair> updates = new ArrayList<>();
         for(String field : fields){
             updates.add(new KVPair(field));
@@ -201,6 +210,10 @@ public abstract class GenericDataAccessController<Item extends Identifiable> imp
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("id"));
         return updateItemsWhereQueryString(updates, filters);
+    }
+
+    protected String updateItemByIdQueryString(){
+        return this.updateItemByIdQueryString(this.getUpdateFields());
     }
 
     protected String deleteItemQueryString() {

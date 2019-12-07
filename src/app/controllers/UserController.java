@@ -9,6 +9,7 @@ import app.services.AuthorService;
 import app.services.EditorService;
 import app.services.ReviewerService;
 import app.services.UserService;
+import com.mysql.cj.util.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -44,9 +45,24 @@ public class UserController extends GenericController<User> {
         return this.addItem(new User(title, forname, surname, university, email, password));
     }
 
-    public ActionResult<User> updateAccount(Integer id, String title, String forname, String surname, String university, String email)
+    public ActionResult<User> updateAccount(Integer id, String title, String forname, String surname, String university,
+                                            String email, String oldPassword, String newPassword, String repeatPassword)
     {
-        ActionResult<User> result = this.updateItem(new User(id, title, forname, surname, university, email));
+        User user = new User(id, title, forname, surname, university, email);
+        if(!StringUtils.isNullOrEmpty(oldPassword) && !StringUtils.isNullOrEmpty(newPassword) && !StringUtils.isNullOrEmpty(repeatPassword)) {
+            if (!newPassword.equals(repeatPassword)) {
+                ActionResult<User> userActionResult = new ActionResult<>();
+                userActionResult.setSuccess(false);
+                userActionResult.setMessage(Messages.Error.PASSWORD_NOT_MATCH);
+                return userActionResult;
+            }
+            ActionResult<User> authenticationResult = login(this.loggedUser.getEmail(), oldPassword);
+            if(!authenticationResult.getSuccess()){
+                return authenticationResult;
+            }
+            user.setPassword(newPassword);
+        }
+         ActionResult<User> result = this.updateItem(user);
         if(result.getSuccess()){
             result.getResult().setId(this.loggedUser.getId());
             this.loggedUser = result.getResult();

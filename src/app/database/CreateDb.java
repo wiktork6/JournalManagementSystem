@@ -1,5 +1,7 @@
 package app.database;
 
+import app.database.dataAccessControllers.Tools.Encryption;
+
 import java.sql.*;
 
 public class CreateDb {
@@ -30,7 +32,7 @@ public class CreateDb {
                     "forname VARCHAR (30), " +
                     "surname VARCHAR (30), " +
                     "university VARCHAR (50), " +
-                    "password VARCHAR (100) NOT NULL, " +
+                    "password VARCHAR (" + Encryption.PASSWORD_FIELD_LENGTH + ") NOT NULL, " +
                     "PRIMARY KEY (id))");
 
             //Creating authors table
