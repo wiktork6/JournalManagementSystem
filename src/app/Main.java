@@ -80,9 +80,9 @@ public class Main {
     public static ArrayList<Journal> viewJournalsButton(){
         return new JournalService().getItems();
     }
-    public static ArrayList<Volume> viewVolumesButtom(String issn){
-        return new VolumeService().getJournalVolumes(issn);
-    }
+//    public static ArrayList<Volume> viewVolumesButtom(String issn){
+//        return new VolumeService().getJournalVolumes(issn);
+//    }
 
     public static ArrayList<Edition> viewEditionsButtom(Integer volumeId){
         return new EditionService().getVolumeEditions(volumeId);

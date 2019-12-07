@@ -1,20 +1,23 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.controllers.tools.Messages;
+import app.pojo.Journal;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import java.awt.Font;
+import java.security.cert.CertificateRevokedException;
+import java.util.ArrayList;
 
 public class BrowseJournals {
 
 	public JFrame frame;
+	private ArrayList<Journal> listOfAllJournals = Controllers.JOURNAL.getAllJournals();
 
 	/**
 	 * Launch the application.
@@ -52,13 +55,33 @@ public class BrowseJournals {
 		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl42.setBounds(267, 19, 61, 16);
 		frame.getContentPane().add(lbl42);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
 		
-		JList lstJournals = new JList();
-		JScrollPane spEditor = new JScrollPane(lstJournals,
-	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		JList journalsList = new JList();
+
+
+
+		//Default List Model for titles
+		DefaultListModel journalsListModel = new DefaultListModel();
+		for(int i = 0; i<listOfAllJournals.size();i++){
+			journalsListModel.add(i,listOfAllJournals.get(i).getIssn() + " " + listOfAllJournals.get(i).getName());
+		}
+		journalsList.setModel(journalsListModel);
+
+
+		JScrollPane spEditor = new JScrollPane(journalsList,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	    spEditor.setBounds(46, 126, 511, 204);
 		frame.getContentPane().add(spEditor);
+
+
+
+
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -74,9 +97,16 @@ public class BrowseJournals {
 		JButton btnSelect = new JButton("Select");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				BrowseVolumes brws = new BrowseVolumes();
-				brws.frame.setVisible(true);
+
+				if(journalsList.getSelectedIndex()!=-1){
+					Journal selectedJournal = listOfAllJournals.get(journalsList.getSelectedIndex());
+					Controllers.JOURNAL.setChosenJournal(selectedJournal);
+					frame.dispose();
+					BrowseVolumes brws = new BrowseVolumes();
+					brws.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
 		btnSelect.setBounds(440, 360, 117, 29);

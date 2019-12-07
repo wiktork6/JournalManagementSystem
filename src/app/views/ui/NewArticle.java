@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 public class NewArticle {
@@ -158,6 +159,24 @@ public class NewArticle {
 		titlesScrollPane.setBounds(162, 120, 130, 50);
 		frame.getContentPane().add(titlesScrollPane);
 
+
+		JButton btnChooseFile = new JButton("Choose file");
+		btnChooseFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				fc.setDialogTitle("Select an article");
+				fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int result = fc.showOpenDialog(frame);
+				if (result == JFileChooser.APPROVE_OPTION) {
+
+					File selectedFile = fc.getSelectedFile();
+
+				}
+			}
+		});
+		btnChooseFile.setBounds(46, 350, 149, 54);
+		frame.getContentPane().add(btnChooseFile);
 
 
 		JLabel error = new JLabel();

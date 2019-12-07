@@ -12,7 +12,7 @@ public class VolumeService extends GenericService<Volume> {
         super(new VolumeDataAccessController());
     }
 
-    public ArrayList<Volume> getJournalVolumes(String journalId){
+    public ArrayList<Volume> getJournalVolumes(Integer journalId){
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("journal_id", journalId));
         return dac.getItemsWhere(filters);

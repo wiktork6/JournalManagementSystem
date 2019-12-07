@@ -10,4 +10,6 @@ public class Controllers {
     public static ReviewerController REVIEWER = new ReviewerController();
     public static SubmissionController SUBMISSION = new SubmissionController();
     public static UserController USER = new UserController();
+    public static VolumeController VOLUME = new VolumeController();
+    public static EditionController EDITION = new EditionController();
 }

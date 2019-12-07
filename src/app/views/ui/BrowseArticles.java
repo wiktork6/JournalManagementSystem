@@ -1,20 +1,23 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Article;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class BrowseArticles {
 
 	public JFrame frame;
+
+	private ActionResult<ArrayList<Article>> listOfArticles = Controllers.ARTICLE.getEditionArticles(Controllers.EDITION.getChosenEdition());
 
 	/**
 	 * Launch the application.
@@ -52,17 +55,33 @@ public class BrowseArticles {
 		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl42.setBounds(267, 19, 61, 16);
 		frame.getContentPane().add(lbl42);
-		
-		JList lstJournals = new JList();
-		JScrollPane spEditor = new JScrollPane(lstJournals,
-	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	    spEditor.setBounds(46, 126, 511, 204);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
+
+
+
+		JList articlesList = new JList();
+		//Default List Model for titles
+		DefaultListModel volumesListModel = new DefaultListModel();
+		for(int i = 0; i<listOfArticles.getResult().size();i++){
+			volumesListModel.add(i,listOfArticles.getResult().get(i).getPageNumberRange() + listOfArticles.getResult().get(i).getTitle());
+		}
+		articlesList.setModel(volumesListModel);
+
+
+		JScrollPane spEditor = new JScrollPane(articlesList,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		spEditor.setBounds(46, 126, 511, 204);
 		frame.getContentPane().add(spEditor);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.EDITION.setChosenEdition(null);
 				frame.dispose();
 				BrowseEditions brws = new BrowseEditions();
 				brws.frame.setVisible(true);
@@ -74,13 +93,26 @@ public class BrowseArticles {
 		JButton btnSelect = new JButton("Select");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ReadArticle read = new ReadArticle();
-				read.frame.setVisible(true);
+				if(articlesList.getSelectedIndex()!=-1){
+					Article chosenArticle = listOfArticles.getResult().get(articlesList.getSelectedIndex());
+					Controllers.ARTICLE.setChosenArticle(chosenArticle);
+
+					frame.dispose();
+					ReadArticle read = new ReadArticle();
+					read.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
+
 			}
 		});
 		btnSelect.setBounds(440, 360, 117, 29);
 		frame.getContentPane().add(btnSelect);
+
+		if(!listOfArticles.getSuccess()){
+			error.setText(listOfArticles.getMessage());
+			btnSelect.setVisible(false);
+		}
 		
 		JLabel lblArticles = new JLabel("Articles");
 		lblArticles.setFont(new Font("Lucida Grande", Font.PLAIN, 24));

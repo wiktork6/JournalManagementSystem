@@ -1,5 +1,7 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,22 +56,25 @@ public class ReadArticle {
 		
 		JTextPane textPAbstract = new JTextPane();
 		textPAbstract.setEditable(false);
+		textPAbstract.setText(Controllers.ARTICLE.getChosenArticle().getAbstractText());
 		textPAbstract.setBounds(79, 102, 427, 163);
 		frame.getContentPane().add(textPAbstract);
 		
-		JLabel lblArticleName = new JLabel("<Article Name>");
+		JLabel lblArticleName = new JLabel(Controllers.ARTICLE.getChosenArticle().getTitle());
 		lblArticleName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArticleName.setBounds(211, 62, 169, 28);
 		frame.getContentPane().add(lblArticleName);
 		
 		JTextPane txtPArticleInfo = new JTextPane();
 		txtPArticleInfo.setEditable(false);
+		txtPArticleInfo.setText("Page number range: " + Controllers.ARTICLE.getChosenArticle().getPageNumberRange() + "\n"+ "Author: " );
 		txtPArticleInfo.setBounds(79, 277, 427, 59);
 		frame.getContentPane().add(txtPArticleInfo);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.ARTICLE.setChosenArticle(null);
 				frame.dispose();
 				BrowseArticles brws = new BrowseArticles();
 				brws.frame.setVisible(true);
