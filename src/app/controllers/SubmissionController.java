@@ -11,6 +11,7 @@ import app.pojo.Submission;
 import app.services.JournalService;
 import app.services.SubmissionService;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SubmissionController extends GenericController<Submission> {
@@ -32,7 +33,7 @@ public class SubmissionController extends GenericController<Submission> {
                 ((SubmissionService)service).getSubmissionsCoAuthors(submissionId), true, "");
     }
 
-    public ActionResult<Submission> addSubmission(String abstractText, String title, String draftArticle, Integer authorId, String issn, String status){
+    public ActionResult<Submission> addSubmission(String abstractText, String title, File draftArticle, Integer authorId, String issn, String status){
         Integer journalId = new JournalService().getJournalByISSN(issn).getId();
         return this.addItem(new Submission(abstractText, title, draftArticle, authorId, journalId, status));
     }

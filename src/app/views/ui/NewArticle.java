@@ -161,6 +161,10 @@ public class NewArticle {
 
 
 		JButton btnChooseFile = new JButton("Choose file");
+		final File[] selectedFile = new File[1];
+		JLabel lblSelectedFile = new JLabel("No file selected.");
+		lblSelectedFile.setBounds(210, 350, 117, 16);
+		frame.getContentPane().add(lblSelectedFile);
 		btnChooseFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
@@ -169,10 +173,15 @@ public class NewArticle {
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int result = fc.showOpenDialog(frame);
 				if (result == JFileChooser.APPROVE_OPTION) {
+					selectedFile[0] = fc.getSelectedFile();
 
-					File selectedFile = fc.getSelectedFile();
+					lblSelectedFile.setText(selectedFile[0].getName());
+
+				} else {
+					lblSelectedFile.setText("File not approved.");
 
 				}
+
 			}
 		});
 		btnChooseFile.setBounds(46, 350, 149, 54);
@@ -189,7 +198,7 @@ public class NewArticle {
 			public void actionPerformed(ActionEvent e) {
 				if (titlesList.getSelectedValue() != null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") && !txtFUni.getText().equals("") &&
 						!txtFEmail.getText().equals("") && !passwordField.getText().equals("") && !passwordFieldRepeat.getText().equals("") && !txtFArticleAbstract.equals("") &&
-						!txtFArticleTitle.getText().equals("") && !txtFArticleText.getText().equals("") && journalList.getSelectedValue() != null) {
+						!txtFArticleTitle.getText().equals("") && !txtFArticleText.getText().equals("") && journalList.getSelectedValue() != null && selectedFile[0] != null) {
 					if (Controllers.USER.isEmailTaken(txtFEmail.getText())) {
 						ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(), txtFForename.getText(), txtFSurname.getText(),
 								txtFUni.getText(), txtFEmail.getText(), passwordField.getText(), passwordFieldRepeat.getText());
@@ -197,7 +206,7 @@ public class NewArticle {
 
 						if (userActionResult.getSuccess()) {
 							Author author = Controllers.AUTHOR.register(userActionResult.getResult());
-							ActionResult<Submission> submissionActionResult = Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFArticleTitle.getText(), txtFArticleText.getText(), author.getId(), journalList.getSelectedValue(), "Submitted");
+							ActionResult<Submission> submissionActionResult = Controllers.SUBMISSION.addSubmission(txtFArticleAbstract.getText(), txtFArticleTitle.getText(), selectedFile[0], author.getId(), journalList.getSelectedValue(), "Submitted");
 							if (submissionActionResult.getSuccess()) {
 								Controllers.SUBMISSION.addCoAuthor(submissionActionResult.getResult().getId(), author.getId());
 								ArrayList<User> listOfCoAuthors = new ArrayList<>();
@@ -274,15 +283,6 @@ public class NewArticle {
 		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl42.setBounds(284, 26, 61, 16);
 		frame.getContentPane().add(lbl42);
-		
-		JLabel lblArticleText = new JLabel("Article Text");
-		lblArticleText.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArticleText.setBounds(429, 213, 130, 16);
-		frame.getContentPane().add(lblArticleText);
-		
-		txtFArticleText = new JTextField();
-		txtFArticleText.setColumns(10);
-		txtFArticleText.setBounds(429, 229, 130, 26);
-		frame.getContentPane().add(txtFArticleText);
+
 	}
 }

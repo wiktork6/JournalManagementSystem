@@ -85,7 +85,7 @@ public class WelcomePage extends JFrame{
 
 			JTextArea txtFArticle = new JTextArea();
 			txtFArticle.setEditable(false);
-			txtFArticle.setText(latestArticle.getResult().getFullArticle());
+			txtFArticle.setText(latestArticle.getResult().getAbstractText());
 			txtFArticle.setBounds(94, 246, 409, 104);
 			frame.getContentPane().add(txtFArticle);
 
