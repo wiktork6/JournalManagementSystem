@@ -35,7 +35,7 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
         String title = res.getString(4);
         File fullArticle;
         try {
-            fullArticle = BlobFileConverter.getFileFromBlob(res.getBlob(5), id.toString());
+            fullArticle = BlobFileConverter.getFileFromBlob(res.getBlob(5), id.toString() + ".pdf");
         } catch (IOException e) {
             e.printStackTrace();
             return null;

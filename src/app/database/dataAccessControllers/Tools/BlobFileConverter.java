@@ -19,6 +19,7 @@ public class BlobFileConverter {
 
     public static File getFileFromBlob(Blob blob, String fileName) throws IOException, SQLException {
         File file = new File(fileName);
+        file.createNewFile();
         InputStream in = blob.getBinaryStream();
         OutputStream out = new FileOutputStream(file);
         byte[] buff = new byte[4096];  // how much of the blob to read/write at a time
