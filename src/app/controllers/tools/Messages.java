@@ -31,6 +31,8 @@ public class Messages {
     }
 
     public static class Info {
+        public static String NO_AVAILABLE_SUBMISSION = "There are no submissions to be reviewed.";
+        public static String NO_NEED_TO_REVIEW = "You do not need to review any more submissions.";
         public static String SUCCESSFUL_LOGIN = "You logged in successfully.";
         public static String ITEM_ADDED_SUCCESSFULLY = "The item was added successfully.";
         public static String ITEM_UPDATED_SUCCESSFULLY = "The item was updated successfully.";

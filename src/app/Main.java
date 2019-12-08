@@ -59,7 +59,7 @@ public class Main {
         Integer authorId = as.addItem(new Author(userId));
 
         SubmissionService ss = new SubmissionService();
-        Integer submissionId = ss.addItem(new Submission(-1, abstractText, articleTitle, new File("C:\\Users\\dgton\\Desktop\\Haskell_Cipher\\Main.hs"), authorId, 1, "Submitted"));
+        Integer submissionId = ss.addItem(new Submission(-1, abstractText, articleTitle, new File("C:\\Users\\dgton\\Desktop\\Haskell_Cipher\\Main.hs"), authorId, 1, "Submitted", 0));
         return  submissionId;
     }
 
