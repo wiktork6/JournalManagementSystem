@@ -101,12 +101,15 @@ public class NominationPage {
 		btnYes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Integer index = listAvailableEditors.getSelectedIndex();
-				Editor newChiefEditor = editorsList.get(index);
-				Controllers.JOURNAL.changeChiefEditor(newChiefEditor,Controllers.JOURNAL.getChosenJournal());
-				frame.dispose();
-				JournalOf jo=new JournalOf();
-				jo.frame.setVisible(true);
+				if(listAvailableEditors.getSelectedIndex()!=-1){
+					Integer index = listAvailableEditors.getSelectedIndex();
+					Editor newChiefEditor = editorsList.get(index);
+					Controllers.JOURNAL.changeChiefEditor(newChiefEditor,Controllers.JOURNAL.getChosenJournal());
+					frame.dispose();
+					JournalOf jo=new JournalOf();
+					jo.frame.setVisible(true);
+
+				}
 			}
 		});
 		btnYes.setBackground(Color.GREEN);

@@ -1,5 +1,7 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -48,9 +50,13 @@ public class UploadOrReview {
 		lblTeam.setBounds(254, 11, 57, 14);
 		frame.getContentPane().add(lblTeam);
 		
-		JLabel label = new JLabel("<SUBMISSION.NAME>");
-		label.setBounds(222, 36, 128, 14);
-		frame.getContentPane().add(label);
+		JLabel submissionTitle = new JLabel(Controllers.SUBMISSION.getSelectedSubmission().getTitle());
+		submissionTitle.setBounds(222, 36, 128, 14);
+		frame.getContentPane().add(submissionTitle);
+
+		JLabel submissionStatus = new JLabel("Status: " + Controllers.SUBMISSION.getSelectedSubmission().getStatus());
+		submissionStatus.setBounds(400, 36, 128, 14);
+		frame.getContentPane().add(submissionStatus);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -62,17 +68,20 @@ public class UploadOrReview {
 		});
 		btnGoBack.setBounds(10, 377, 89, 23);
 		frame.getContentPane().add(btnGoBack);
-		
-		JButton btnUploadEditedArticle = new JButton("UPLOAD EDITED ARTICLE");
-		btnUploadEditedArticle.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				UploadArticlePage upa = new UploadArticlePage();
-				upa.frame.setVisible(true);
-			}
-		});
-		btnUploadEditedArticle.setBounds(73, 205, 157, 23);
-		frame.getContentPane().add(btnUploadEditedArticle);
+
+		if(Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Reviews received")){
+			JButton btnUploadEditedArticle = new JButton("UPLOAD EDITED ARTICLE");
+			btnUploadEditedArticle.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.dispose();
+					UploadArticlePage upa = new UploadArticlePage();
+					upa.frame.setVisible(true);
+				}
+			});
+			btnUploadEditedArticle.setBounds(73, 205, 157, 23);
+			frame.getContentPane().add(btnUploadEditedArticle);
+		}
+
 		
 		JButton btnSeeReviews = new JButton("SEE REVIEWS");
 		btnSeeReviews.addActionListener(new ActionListener() {

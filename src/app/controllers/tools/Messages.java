@@ -24,6 +24,7 @@ public class Messages {
         public static String VOLUMES_NOT_FOUND = "No volumes were found for this journal";
         public static String EDITIONS_NOT_FOUND = "No editions were found for this volume";
         public static String ARTICLES_NOT_FOUND = "No articles were found for this edition";
+        public static String REVIEW_NOT_FOUND = "Reviews not found";
     }
 
     public static class Info {
