@@ -12,7 +12,7 @@ public class ReviewService extends GenericService<Review> {
         super(new ReviewDataAccessController());
     }
 
-    public ArrayList<Review> getSubmissionReviews(String submissionId){
+    public ArrayList<Review> getSubmissionReviews(Integer submissionId){
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("submission_id", submissionId));
         return dac.getItemsWhere(filters);

@@ -1,38 +1,45 @@
 package app.views.ui;
 
-import java.awt.EventQueue;
+import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Question;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
+import java.awt.*;
+
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class QuestionPage {
 
 	public JFrame frame;
+	private Integer reviewNumber;
+	private ActionResult<ArrayList<Question>> questionActionResult = Controllers.QUESTION.getReviewQuestions(Controllers.REVIEW.getSelectedReview());
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					QuestionPage window = new QuestionPage();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					QuestionPage window = new QuestionPage();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public QuestionPage() {
+	public QuestionPage(Integer reviewNumber) {
+		this.reviewNumber = reviewNumber;
 		initialize();
 	}
 
@@ -50,20 +57,43 @@ public class QuestionPage {
 		frame.getContentPane().add(label);
 		
 		JLabel lblListOfQuestions = new JLabel("List of questions");
-		lblListOfQuestions.setBounds(73, 99, 92, 14);
+		lblListOfQuestions.setBounds(73, 99, 120, 14);
 		frame.getContentPane().add(lblListOfQuestions);
-		
-		JTextPane txtpnQ = new JTextPane();
-		txtpnQ.setEditable(false);
-		txtpnQ.setText("Q1");
-		txtpnQ.setBounds(73, 124, 433, 157);
-		frame.getContentPane().add(txtpnQ);
+
+
+
+
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
+
+
+
+		JList questionList = new JList();
+		//Default List Model for titles
+		DefaultListModel questionListModel = new DefaultListModel();
+		for(int i = 0; i<questionActionResult.getResult().size();i++){
+			questionListModel.add(i,questionActionResult.getResult().get(i).getQuestion());
+		}
+		questionList.setModel(questionListModel);
+
+
+		JScrollPane spEditor = new JScrollPane(questionList,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		spEditor.setBounds(46, 126, 511, 204);
+		frame.getContentPane().add(spEditor);
+
+
+
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ReviewPage revp = new ReviewPage();
+				ReviewPage revp = new ReviewPage(reviewNumber);
 				revp.frame.setVisible(true);
 			}
 		});
@@ -73,18 +103,26 @@ public class QuestionPage {
 		JButton btnSelect = new JButton("SELECT");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				SubmitResponse sresp = new SubmitResponse();
-				sresp.frame.setVisible(true);
-				
+				if(questionList.getSelectedIndex()!=-1){
+					Integer index = questionList.getSelectedIndex();
+					Controllers.QUESTION.setSelectedQuestion(questionActionResult.getResult().get(index));
+					frame.dispose();
+					SubmitResponse sresp = new SubmitResponse(reviewNumber);
+					sresp.frame.setVisible(true);;
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
-		btnSelect.setBounds(417, 294, 89, 23);
+		btnSelect.setBounds(450, 377, 89, 23);
 		frame.getContentPane().add(btnSelect);
 		
 		JButton btnLogin = new JButton("LOGOUT");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.USER.logout();
+				Controllers.REVIEW.setSelectedReview(null);
+				Controllers.SUBMISSION.setSelectedSubmission(null);
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
@@ -92,5 +130,12 @@ public class QuestionPage {
 		});
 		btnLogin.setBounds(10, 7, 89, 23);
 		frame.getContentPane().add(btnLogin);
+
+		if(!questionActionResult.getSuccess()){
+			error.setText(questionActionResult.getMessage());
+			btnSelect.setVisible(false);
+		}
 	}
+
+
 }

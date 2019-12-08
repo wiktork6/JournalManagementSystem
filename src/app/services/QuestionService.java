@@ -12,9 +12,15 @@ public class QuestionService extends GenericService<Question> {
         super(new QuestionDataAccessController());
     }
 
-    public ArrayList<Question> getReviewQuestions(String reviewId){
+    public ArrayList<Question> getReviewQuestions(Integer reviewId){
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("review_id", reviewId));
         return dac.getItemsWhere(filters);
+    }
+
+    public Integer answerQuestion(Question question, String response){
+        question.setResponse(response);
+       // question.setIsAnswered(true);
+        return dac.updateItem(question);
     }
 }

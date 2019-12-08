@@ -24,6 +24,10 @@ public class Messages {
         public static String VOLUMES_NOT_FOUND = "No volumes were found for this journal";
         public static String EDITIONS_NOT_FOUND = "No editions were found for this volume";
         public static String ARTICLES_NOT_FOUND = "No articles were found for this edition";
+        public static String REVIEW_NOT_FOUND = "Reviews not found";
+        public static String FINAL_VERDICT_NOT_SUBMITTED = "Final verdict is not submitted";
+        public static String REVIEWER_NO_QUESTION = "Reviewer of you submission did not submit any questions";
+        public static String TYPOGRAPHICALL_ERRORS_NOT_SUBMITTED = "Reviewer of you submission did not submit any typographicall errors";
     }
 
     public static class Info {

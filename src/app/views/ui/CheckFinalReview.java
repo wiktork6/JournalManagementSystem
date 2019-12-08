@@ -1,5 +1,8 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.tools.Messages;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,27 +17,29 @@ import java.awt.event.ActionEvent;
 public class CheckFinalReview {
 
 	public JFrame frame;
+	private Integer reviewNumber;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CheckFinalReview window = new CheckFinalReview();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					CheckFinalReview window = new CheckFinalReview();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public CheckFinalReview() {
+	public CheckFinalReview(Integer reviewNumber) {
+		this.reviewNumber = reviewNumber;
 		initialize();
 	}
 
@@ -58,41 +63,48 @@ public class CheckFinalReview {
 		frame.getContentPane().add(label_1);
 		
 		JTextPane textPane = new JTextPane();
-		textPane.setText("<Verdict>");
+		if(Controllers.REVIEW.getSelectedReview().getFinalVerdict()==null){
+			textPane.setText(Messages.Error.FINAL_VERDICT_NOT_SUBMITTED);
+		}else{
+			textPane.setText(Controllers.REVIEW.getSelectedReview().getFinalVerdict());
+		}
 		textPane.setEditable(false);
 		textPane.setBounds(133, 104, 258, 58);
 		frame.getContentPane().add(textPane);
 		
-		JLabel label_2 = new JLabel("REVIEW");
-		label_2.setForeground(Color.BLACK);
-		label_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_2.setBounds(65, 248, 58, 14);
-		frame.getContentPane().add(label_2);
-		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setText("<Review>");
-		textPane_1.setEditable(false);
-		textPane_1.setBounds(133, 230, 258, 58);
-		frame.getContentPane().add(textPane_1);
+//		JLabel label_2 = new JLabel("REVIEW");
+//		label_2.setForeground(Color.BLACK);
+//		label_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+//		label_2.setBounds(65, 248, 58, 14);
+//		frame.getContentPane().add(label_2);
+//
+//		JTextPane textPane_1 = new JTextPane();
+//		textPane_1.setText("<Review>");
+//		textPane_1.setEditable(false);
+//		textPane_1.setBounds(133, 230, 258, 58);
+//		frame.getContentPane().add(textPane_1);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ReviewPage revp = new ReviewPage();
+				ReviewPage revp = new ReviewPage(reviewNumber);
 				revp.frame.setVisible(true);
 			}
 		});
 		btnGoBack.setBounds(10, 377, 89, 23);
 		frame.getContentPane().add(btnGoBack);
 		
-		JLabel lblFinalReview = new JLabel("FINAL REVIEW");
-		lblFinalReview.setBounds(246, 40, 71, 14);
+		JLabel lblFinalReview = new JLabel("FINAL VERDICT");
+		lblFinalReview.setBounds(246, 40, 100, 14);
 		frame.getContentPane().add(lblFinalReview);
 		
 		JButton btnLogin = new JButton("LOGOUT");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.USER.logout();
+				Controllers.REVIEW.setSelectedReview(null);
+				Controllers.SUBMISSION.setSelectedSubmission(null);
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);

@@ -1,17 +1,22 @@
 package app.views.ui;
 
-import java.awt.EventQueue;
+import app.controllers.Controllers;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Review;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
+import java.awt.*;
+
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class ViewReviews {
 
 	public JFrame frame;
+
+	private ActionResult<ArrayList<Review>> reviewsActionResult = Controllers.REVIEW.getSubmissionReviews(Controllers.SUBMISSION.getSelectedSubmission());
 
 	/**
 	 * Launch the application.
@@ -49,15 +54,29 @@ public class ViewReviews {
 		label.setBounds(254, 11, 70, 14);
 		frame.getContentPane().add(label);
 		
-		JLabel lblReviews = new JLabel("Reviews");
-		lblReviews.setBounds(97, 64, 46, 14);
+		JLabel lblReviews = new JLabel("Available reviews");
+		lblReviews.setBounds(97, 64, 150, 14);
 		frame.getContentPane().add(lblReviews);
-		
-		JTextPane textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setText("1.");
-		textPane.setBounds(97, 77, 413, 186);
-		frame.getContentPane().add(textPane);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
+
+		JList reviewsList = new JList();
+		//Default List Model for titles
+		DefaultListModel reviewsListModel = new DefaultListModel();
+		for(int i = 0; i<reviewsActionResult.getResult().size();i++){
+			reviewsListModel.add(i,"Review " + (i+1));
+		}
+		reviewsList.setModel(reviewsListModel);
+
+
+		JScrollPane spEditor = new JScrollPane(reviewsList,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		spEditor.setBounds(46, 126, 511, 204);
+		frame.getContentPane().add(spEditor);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -73,12 +92,23 @@ public class ViewReviews {
 		JButton btnSelect = new JButton("SELECT");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ReviewPage revp = new ReviewPage();
-				revp.frame.setVisible(true);
+				if(reviewsList.getSelectedIndex()!=-1){
+					Integer index = reviewsList.getSelectedIndex();
+					Controllers.REVIEW.setSelectedReview(reviewsActionResult.getResult().get(index));
+					frame.dispose();
+					ReviewPage reviewPage = new ReviewPage(reviewsList.getSelectedIndex()+1);
+					reviewPage.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
-		btnSelect.setBounds(421, 274, 89, 23);
+		btnSelect.setBounds(440, 360, 117, 29);
 		frame.getContentPane().add(btnSelect);
+
+		if(!reviewsActionResult.getSuccess()){
+			error.setText(reviewsActionResult.getMessage());
+			btnSelect.setVisible(false);
+		}
 	}
 }
