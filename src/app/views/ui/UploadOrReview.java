@@ -82,7 +82,7 @@ public class UploadOrReview {
 			frame.getContentPane().add(btnUploadEditedArticle);
 		}
 
-		
+
 		JButton btnSeeReviews = new JButton("SEE REVIEWS");
 		btnSeeReviews.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

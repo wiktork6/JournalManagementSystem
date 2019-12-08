@@ -43,7 +43,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         Integer journal_id = res.getInt(5);
         Integer author_id = res.getInt(6);
         String status = res.getString(7);
-        return new Submission(id,abstractText,title,draftArticle,journal_id,author_id,status);
+        return new Submission(id,abstractText,title,draftArticle,author_id,journal_id,status);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         preparedStatement.setInt(4, submission.getJournalId());
         preparedStatement.setInt(5, submission.getAuthorId());
         preparedStatement.setString(6, submission.getStatus());
-        return 5;
+        return 6;
     }
 
     public ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId) {

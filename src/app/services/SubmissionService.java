@@ -53,4 +53,10 @@ public class SubmissionService extends GenericService<Submission> {
     public ArrayList<Submission> getSelectedSubmissions(Integer reviewerId){
         return ((SubmissionDataAccessController)dac).getSelectedSubmissions(reviewerId);
     }
+
+    public Integer changeSubmissionStatus(Submission submission, String status){
+        Submission updatedSubmission = submission;
+        updatedSubmission.setStatus(status);
+        return dac.updateItem(updatedSubmission);
+    }
 }
