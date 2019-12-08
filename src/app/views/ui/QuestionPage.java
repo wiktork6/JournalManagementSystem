@@ -102,14 +102,19 @@ public class QuestionPage {
 		JButton btnSelect = new JButton("SELECT");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(questionList.getSelectedIndex()!=-1){
-					Integer index = questionList.getSelectedIndex();
-					Controllers.QUESTION.setSelectedQuestion(questionActionResult.getResult().get(index));
-					frame.dispose();
-					SubmitResponse sresp = new SubmitResponse(reviewNumber);
-					sresp.frame.setVisible(true);;
+				if(Controllers.SUBMISSION.getSelectedSubmission().getAuthorId()==Controllers.AUTHOR.getAuthor(Controllers.USER.getLoggedUser()).getId()){
+					if(questionList.getSelectedIndex()!=-1){
+						Integer index = questionList.getSelectedIndex();
+						Controllers.QUESTION.setSelectedQuestion(questionActionResult.getResult().get(index));
+						frame.dispose();
+						SubmitResponse sresp = new SubmitResponse(reviewNumber);
+						sresp.frame.setVisible(true);;
+					}else{
+						error.setText(Messages.Error.FIELD_IS_EMPTY);
+					}
+
 				}else{
-					error.setText(Messages.Error.FIELD_IS_EMPTY);
+					error.setText(Messages.Error.ONLY_MAIN_AUTHOR_CAN_RESPOND);
 				}
 			}
 		});
