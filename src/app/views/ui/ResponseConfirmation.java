@@ -70,7 +70,7 @@ public class ResponseConfirmation {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				QuestionPage questionPage = new QuestionPage();
+				QuestionPage questionPage = new QuestionPage(null);
 				questionPage.frame.setVisible(true);
 			}
 		});

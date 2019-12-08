@@ -16,7 +16,7 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
 
     @Override
     protected String getAllFields() {
-        return "id, question_number, question, review_id";
+        return "id, question_number, question,response, review_id";
     }
 
     @Override
@@ -29,9 +29,10 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
         Integer questionId = res.getInt(1);
         Integer questionNumber = res.getInt(2);
         String questionText = res.getString(3);
-        Integer reviewIdNumber = res.getInt(4);
+        String response = res.getString(4);
+        Integer reviewIdNumber = res.getInt(5);
 
-        return new Question(questionId, questionNumber, questionText, reviewIdNumber);
+        return new Question(questionId, questionNumber, questionText,response, reviewIdNumber);
     }
 
     @Override

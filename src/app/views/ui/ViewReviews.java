@@ -96,14 +96,14 @@ public class ViewReviews {
 					Integer index = reviewsList.getSelectedIndex();
 					Controllers.REVIEW.setSelectedReview(reviewsActionResult.getResult().get(index));
 					frame.dispose();
-					ReviewPage reviewPage = new ReviewPage();
+					ReviewPage reviewPage = new ReviewPage(reviewsList.getSelectedIndex()+1);
 					reviewPage.frame.setVisible(true);
 				}else{
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}
 			}
 		});
-		btnSelect.setBounds(421, 274, 89, 23);
+		btnSelect.setBounds(440, 360, 117, 29);
 		frame.getContentPane().add(btnSelect);
 
 		if(!reviewsActionResult.getSuccess()){

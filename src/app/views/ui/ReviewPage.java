@@ -1,8 +1,9 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.generic.Controller;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,27 +14,29 @@ import java.awt.event.ActionEvent;
 public class ReviewPage {
 
 	public JFrame frame;
+	private Integer reviewNumber;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ReviewPage window = new ReviewPage();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ReviewPage window = new ReviewPage();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public ReviewPage() {
+	public ReviewPage(Integer reviewNumber) {
+		this.reviewNumber = reviewNumber;
 		initialize();
 	}
 
@@ -50,7 +53,7 @@ public class ReviewPage {
 		label.setBounds(258, 11, 75, 14);
 		frame.getContentPane().add(label);
 		
-		JLabel lblReview = new JLabel("REVIEW <No.>");
+		JLabel lblReview = new JLabel("REVIEW " + reviewNumber);
 		lblReview.setBounds(239, 36, 75, 14);
 		frame.getContentPane().add(lblReview);
 		
@@ -58,10 +61,11 @@ public class ReviewPage {
 		btnGoBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Controllers.SUBMISSION.setSelectedSubmission(null);
+
+				Controllers.REVIEW.setSelectedReview(null);
 				frame.dispose();
-				ExistingSubmissions existingSubmissions = new ExistingSubmissions();
-				existingSubmissions.frame.setVisible(true);
+				ViewReviews viewReviews = new ViewReviews();
+				viewReviews.frame.setVisible(true);
 
 			}
 		});
@@ -69,21 +73,23 @@ public class ReviewPage {
 		frame.getContentPane().add(btnGoBack);
 		
 		JButton btnSeeInitialReview = new JButton("SEE INITIAL REVIEW");
+		btnSeeInitialReview.setFont(new Font("Tahoma", Font.BOLD, 8));
 		btnSeeInitialReview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				CheckInitialReview ir = new CheckInitialReview();
+				CheckInitialReview ir = new CheckInitialReview(reviewNumber);
 				ir.frame.setVisible(true);
 			}
 		});
 		btnSeeInitialReview.setBounds(74, 105, 133, 50);
 		frame.getContentPane().add(btnSeeInitialReview);
-		
+
 		JButton btnSeeFinalReview = new JButton("SEE FINAL REVIEW");
+		btnSeeFinalReview.setFont(new Font("Tahoma", Font.BOLD, 8));
 		btnSeeFinalReview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				CheckFinalReview fr = new CheckFinalReview();
+				CheckFinalReview fr = new CheckFinalReview(reviewNumber);
 				fr.frame.setVisible(true);
 			}
 		});
@@ -91,21 +97,36 @@ public class ReviewPage {
 		frame.getContentPane().add(btnSeeFinalReview);
 		
 		JButton btnRespond = new JButton("RESPOND");
+		btnRespond.setFont(new Font("Tahoma", Font.BOLD, 8));
 		btnRespond.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				QuestionPage qp = new QuestionPage();
+				QuestionPage qp = new QuestionPage(reviewNumber);
 				qp.frame.setVisible(true);
 			}
 		});
 		btnRespond.setBounds(378, 254, 133, 50);
 		frame.getContentPane().add(btnRespond);
+
+		JButton btnTypographicall = new JButton("TYPO ERRORS");
+		btnTypographicall.setFont(new Font("Tahoma", Font.BOLD, 8));
+
+		btnTypographicall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				TypographicalErrors typographicalErrors = new TypographicalErrors(reviewNumber);
+				typographicalErrors.frame.setVisible(true);
+			}
+		});
+		btnTypographicall.setBounds(74, 254, 133, 50);
+		frame.getContentPane().add(btnTypographicall);
 		
 		JButton btnLogin = new JButton("LOGOUT");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controllers.USER.logout();
 				Controllers.SUBMISSION.setSelectedSubmission(null);
+				Controllers.REVIEW.setSelectedReview(null);
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
