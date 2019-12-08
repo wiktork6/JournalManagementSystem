@@ -48,6 +48,6 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
         preparedStatement.setString(3,question.getResponse());
         preparedStatement.setBoolean(4,question.isAnswered());
         preparedStatement.setInt(5,question.getReviewId());
-        return 1;
+        return 5;
     }
 }
