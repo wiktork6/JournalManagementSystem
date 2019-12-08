@@ -79,7 +79,7 @@ public class UploadOrReview {
 		JButton btnUploadEditedArticle = new JButton("UPLOAD EDITED ARTICLE");
 		btnUploadEditedArticle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Reviews received")) {
+				if (Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Response received")) {
 					frame.dispose();
 					UploadArticlePage upa = new UploadArticlePage();
 					upa.frame.setVisible(true);
