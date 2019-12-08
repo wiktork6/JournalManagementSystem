@@ -1,6 +1,8 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.pojo.Article;
+import app.pojo.Submission;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,7 @@ import javax.swing.SwingConstants;
 public class ReviewHub {
 
 	public JFrame frame;
+	Submission submission;
 
 	/**
 	 * Launch the application.
@@ -22,7 +25,7 @@ public class ReviewHub {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReviewHub window = new ReviewHub();
+					ReviewHub window = new ReviewHub(null);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +37,8 @@ public class ReviewHub {
 	/**
 	 * Create the application.
 	 */
-	public ReviewHub() {
+	public ReviewHub(Submission submission) {
+		this.submission = submission;
 		initialize();
 	}
 
@@ -78,7 +82,7 @@ public class ReviewHub {
 		frame.getContentPane().add(btnLogout);
 		
 		//ADDFUNC - replace <status> with the status
-		JLabel lblStatus = new JLabel("Status: <Status>");
+		JLabel lblStatus = new JLabel("Status: " + submission.getStatus());
 		lblStatus.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblStatus.setBounds(439, 11, 135, 26);
 		frame.getContentPane().add(lblStatus);
@@ -87,7 +91,7 @@ public class ReviewHub {
 		btnReadSubmission.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ReadSubmission rdsub = new ReadSubmission();
+				ReadSubmission rdsub = new ReadSubmission(submission);
 				rdsub.frame.setVisible(true);
 			}
 		});
@@ -98,7 +102,7 @@ public class ReviewHub {
 		btnInitialReview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				InitialReview intlrvw = new InitialReview();
+				InitialReview intlrvw = new InitialReview(submission);
 				intlrvw.frame.setVisible(true);
 			}
 		});
@@ -109,7 +113,7 @@ public class ReviewHub {
 		btnFinalReview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				FinalReview fnlrvw = new FinalReview();
+				FinalReview fnlrvw = new FinalReview(submission);
 				fnlrvw.frame.setVisible(true);
 			}
 		});

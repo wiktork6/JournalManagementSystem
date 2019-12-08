@@ -5,6 +5,7 @@ import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Article;
 import app.pojo.Edition;
+import app.pojo.User;
 import app.services.ArticleService;
 
 import javax.swing.*;

@@ -1,5 +1,7 @@
 package app.views.ui;
 
+import app.pojo.Submission;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ import javax.swing.JComboBox;
 
 public class InitialReview {
 
+	private Submission submission;
 	public JFrame frame;
 	private JTextField textFReview;
 	private JTextField textFQ1;
@@ -38,7 +41,8 @@ public class InitialReview {
 	/**
 	 * Create the application.
 	 */
-	public InitialReview() {
+	public InitialReview(Submission submission) {
+		this.submission = submission;
 		initialize();
 	}
 
@@ -60,7 +64,7 @@ public class InitialReview {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ReviewHub rvwhb = new ReviewHub();
+				ReviewHub rvwhb = new ReviewHub(submission);
 				rvwhb.frame.setVisible(true);
 			}
 		});
@@ -78,7 +82,7 @@ public class InitialReview {
 		btnLogout.setBounds(6, 6, 117, 29);
 		frame.getContentPane().add(btnLogout);
 		
-		JLabel lblArticleName = new JLabel("<Article Name>");
+		JLabel lblArticleName = new JLabel(submission.getTitle());
 		lblArticleName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblArticleName.setBounds(28, 69, 135, 26);
 		frame.getContentPane().add(lblArticleName);

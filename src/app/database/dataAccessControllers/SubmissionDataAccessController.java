@@ -3,6 +3,8 @@ package app.database.dataAccessControllers;
 import app.database.DbConnection;
 import app.database.dataAccessControllers.Tools.BlobFileConverter;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
+import app.pojo.Article;
 import app.pojo.Author;
 import app.pojo.Submission;
 
@@ -18,7 +20,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     @Override
     protected String getAllFields() {
-        return "id, title, abstract, draft_article, journal_id, author_id, status";
+        return getTableName() + ".id, " + getTableName() + ".title, abstract, draft_article, journal_id, "+getTableName()+".author_id, status";
     }
 
     @Override
@@ -99,6 +101,17 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
             ex.printStackTrace();
             return false;
         }
+    }
+
+    public ArrayList<Submission> getReviewerSubmissions(String university){
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("users.university", university));
+        return super.getItems("SELECT " + getAllFields() + " FROM " + getTableName()
+                + " INNER JOIN authors as a ON a.id = " + getTableName() + ".author_id"
+                + " INNER JOIN submission_author as sa ON sa.submission_id = " + getTableName() + ".id"
+                + " INNER JOIN authors ON authors.id = sa.author_id"
+                + " INNER JOIN users ON users.id = authors.user_id"
+                + " WHERE LOWER(users.university) <> LOWER(?)", filters);
     }
 
 //    public ArrayList<Submission> getSubmissions(Author author){

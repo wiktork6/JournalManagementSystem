@@ -160,6 +160,11 @@ public class MyAccount {
 		lblOldPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblOldPassword.setBounds(57, 257, 139, 16);
 		frame.getContentPane().add(lblOldPassword);
+
+		JLabel lblInfo = new JLabel("");
+		lblInfo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblInfo.setBounds(39, 340, 300, 16);
+		frame.getContentPane().add(lblInfo);
 		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(407, 347, 149, 52);
@@ -179,12 +184,7 @@ public class MyAccount {
 							passwordFieldRepeatNew.getText()
 
 					);
-					if(ar.getSuccess()){
-
-					}
-					else{
-						
-					}
+					lblInfo.setText(ar.getMessage());
 				}
 			}
 		});

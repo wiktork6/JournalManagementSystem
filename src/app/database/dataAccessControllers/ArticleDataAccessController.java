@@ -2,14 +2,18 @@ package app.database.dataAccessControllers;
 
 import app.database.dataAccessControllers.Tools.BlobFileConverter;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Article;
+import app.pojo.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ArticleDataAccessController extends GenericDataAccessController<Article> {
     @Override
@@ -70,4 +74,5 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
     public Article getLatest(){
         return this.getItem(this.getItemsQueryString() + " ORDER BY id DESC LIMIT 1", null);
     }
+
 }

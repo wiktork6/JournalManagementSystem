@@ -216,6 +216,10 @@ public class NewArticle {
 							} else {
 								error.setText(submissionActionResult.getMessage());
 							}
+							if(!Controllers.USER.isReviewer(userActionResult.getResult())){
+								Controllers.REVIEWER.register(userActionResult.getResult());
+							}
+
 
 						} else {
 							error.setText(userActionResult.getMessage());

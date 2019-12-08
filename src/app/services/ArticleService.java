@@ -19,4 +19,5 @@ public class ArticleService extends GenericService<Article> {
     public Article getLatest(){
         return ((ArticleDataAccessController)dac).getLatest();
     }
+
 }

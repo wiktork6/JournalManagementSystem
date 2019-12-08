@@ -1,9 +1,11 @@
 package app.services;
 
 import app.controllers.tools.generic.ActionResult;
+import app.database.dataAccessControllers.ArticleDataAccessController;
 import app.database.dataAccessControllers.SubmissionDataAccessController;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.database.dataAccessControllers.generic.KVPair;
+import app.pojo.Article;
 import app.pojo.Author;
 import app.pojo.Journal;
 import app.pojo.Submission;
@@ -42,5 +44,9 @@ public class SubmissionService extends GenericService<Submission> {
         filters.add(new KVPair("journal_id",journal.getId()));
         filters.add(new KVPair("status", status));
         return dac.getItemsWhere(filters);
+    }
+
+    public ArrayList<Submission> getReviewerSubmissions(String university){
+        return ((SubmissionDataAccessController)dac).getReviewerSubmissions(university);
     }
 }
