@@ -98,6 +98,7 @@ public class CreateDb {
                     "question_number INTEGER NOT NULL, " +
                     "question VARCHAR(255), " +
                     "response VARCHAR(255), " +
+                    "is_answered BOOLEAN, " +
                     "review_id INTEGER NOT NULL, " +
                     "FOREIGN KEY(review_id) REFERENCES reviews(id), " +
                     "PRIMARY KEY(id))");
