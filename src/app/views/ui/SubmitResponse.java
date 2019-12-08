@@ -6,12 +6,9 @@ import app.pojo.Question;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -71,24 +68,23 @@ public class SubmitResponse {
 		error.setBounds(200, 360, 250, 30);
 		frame.getContentPane().add(error);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(159, 117, 350, 188);
-		frame.getContentPane().add(textPane);
+		JTextField responseField = new JTextField();
+		responseField.setBounds(159, 117, 350, 188);
+		frame.getContentPane().add(responseField);
 		
 		JButton btnSubmitResponse = new JButton("SUBMIT RESPONSE");
 		btnSubmitResponse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!textPane.getText().equals("")){
+				if (!responseField.getText().equals("")) {
 					Question answeredQuestion = Controllers.QUESTION.getSelectedQuestion();
 					//SET QUESTION IS ANSWERED TO TRUE
-
-					Controllers.QUESTION.answerQuestion(answeredQuestion, textPane.getText());
-				}else{
+					Controllers.QUESTION.answerQuestion(answeredQuestion, responseField.getText());
+					frame.dispose();
+					ResponseConfirmation respc = new ResponseConfirmation();
+					respc.frame.setVisible(true);
+				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}
-				frame.dispose();
-				ResponseConfirmation respc = new ResponseConfirmation();
-				respc.frame.setVisible(true);
 			}
 		});
 		btnSubmitResponse.setBounds(384, 316, 150, 23);

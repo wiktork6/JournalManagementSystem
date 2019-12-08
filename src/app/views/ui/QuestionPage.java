@@ -1,7 +1,6 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
-import app.controllers.generic.Controller;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Question;
@@ -17,7 +16,7 @@ public class QuestionPage {
 
 	public JFrame frame;
 	private Integer reviewNumber;
-	private ActionResult<ArrayList<Question>> questionActionResult = Controllers.QUESTION.getReviewQuestions(Controllers.REVIEW.getSelectedReview());
+	private ActionResult<ArrayList<Question>> questionActionResult = Controllers.QUESTION.getQuestionsToAnswer(Controllers.REVIEW.getSelectedReview());
 
 	/**
 	 * Launch the application.
@@ -66,7 +65,7 @@ public class QuestionPage {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(200, 360, 250, 30);
+		error.setBounds(200, 360, 300, 30);
 		frame.getContentPane().add(error);
 
 

@@ -5,13 +5,13 @@ public class Question implements Identifiable {
     private Integer question_number;
     private String question;
     private Integer reviewId;
+    private boolean isAnswered;
     private String response;
-//    private boolean isAnswered;
 
     public Question(){
     }
 
-    public Question(Integer id, Integer question_number, String question, String response, Integer reviewId) {
+    public Question(Integer id, Integer question_number, String question, String response, boolean isAnswered, Integer reviewId) {
         this.id = id;
         this.question_number = question_number;
         this.question = question;
@@ -46,5 +46,13 @@ public class Question implements Identifiable {
 
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    public boolean isAnswered() {
+        return isAnswered;
+    }
+
+    public void setAnswered(boolean answered) {
+        isAnswered = answered;
     }
 }

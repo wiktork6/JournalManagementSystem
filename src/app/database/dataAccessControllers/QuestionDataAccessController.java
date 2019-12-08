@@ -16,7 +16,7 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
 
     @Override
     protected String getAllFields() {
-        return "id, question_number, question,response, review_id";
+        return "id, question_number, question,response, is_answered, review_id";
     }
 
     @Override
@@ -30,18 +30,24 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
         Integer questionNumber = res.getInt(2);
         String questionText = res.getString(3);
         String response = res.getString(4);
-        Integer reviewIdNumber = res.getInt(5);
+        Boolean isAnswered = res.getBoolean(5);
+        Integer reviewIdNumber = res.getInt(6);
 
-        return new Question(questionId, questionNumber, questionText,response, reviewIdNumber);
+        return new Question(questionId, questionNumber, questionText,response, isAnswered, reviewIdNumber);
     }
 
     @Override
     protected String getInsertFields() {
-        throw new UnsupportedOperationException();
+        return "question_number, question, response, is_answered, review_id";
     }
 
     @Override
     protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Question question) throws SQLException {
-        throw new UnsupportedOperationException();
+        preparedStatement.setInt(1,question.getQuestion_number());
+        preparedStatement.setString(2,question.getQuestion());
+        preparedStatement.setString(3,question.getResponse());
+        preparedStatement.setBoolean(4,question.isAnswered());
+        preparedStatement.setInt(5,question.getReviewId());
+        return 1;
     }
 }
