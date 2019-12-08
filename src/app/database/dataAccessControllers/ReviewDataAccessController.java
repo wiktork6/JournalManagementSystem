@@ -32,11 +32,17 @@ public class ReviewDataAccessController extends GenericDataAccessController<Revi
 
     @Override
     protected String getInsertFields() {
-        throw new UnsupportedOperationException();
+        return "review_summary, typographical_errors, initial_verdict, final_verdict, submission_id, reviewer_id";
     }
 
     @Override
     protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Review review) throws SQLException {
-        throw new UnsupportedOperationException();
+        preparedStatement.setString(1, review.getReviewSummary());
+        preparedStatement.setString(2, review.getTypographicallErrors());
+        preparedStatement.setString(3, review.getInitialVerdict());
+        preparedStatement.setString(4, review.getFinalVerdict());
+        preparedStatement.setInt(5, review.getSubmissionId());
+        preparedStatement.setInt(6, review.getReviewerId());
+        return 6;
     }
 }

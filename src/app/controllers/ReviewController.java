@@ -43,4 +43,8 @@ public class ReviewController extends GenericController<Review> {
         return this.selectedReview;
     }
 
+    public ActionResult<Review> addReview(Review item){
+        return this.addItem(item);
+    }
+
 }
