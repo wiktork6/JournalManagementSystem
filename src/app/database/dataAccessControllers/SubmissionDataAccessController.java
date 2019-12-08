@@ -32,7 +32,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     protected Submission readItem(ResultSet res) throws SQLException {
         Integer id = res.getInt(1);
         String title = res.getString(2);
-        String abstractText =res.getString(3);
+        String abstractText = res.getString(3);
         File draftArticle;
         try {
             draftArticle = BlobFileConverter.getFileFromBlob(res.getBlob(4), id.toString() + ".pdf");
@@ -43,7 +43,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         Integer journal_id = res.getInt(5);
         Integer author_id = res.getInt(6);
         String status = res.getString(7);
-        return new Submission(id,title,abstractText,draftArticle,journal_id,author_id,status);
+        return new Submission(id,abstractText,title,draftArticle,journal_id,author_id,status);
     }
 
     @Override
