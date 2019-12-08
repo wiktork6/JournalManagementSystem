@@ -1,14 +1,12 @@
 package app.controllers;
 
+import app.controllers.generic.Controller;
 import app.controllers.generic.GenericController;
 import app.controllers.tools.ActionSuccess;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.database.dataAccessControllers.generic.KVPair;
-import app.pojo.Article;
-import app.pojo.Author;
-import app.pojo.Journal;
-import app.pojo.Submission;
+import app.pojo.*;
 import app.services.ArticleService;
 import app.services.JournalService;
 import app.services.SubmissionService;
@@ -81,8 +79,9 @@ public class SubmissionController extends GenericController<Submission> {
         this.selectedSubmission = submission;
     }
 
-    public ActionResult<ArrayList<Submission>> getReviewerSubmissions(String university){
-        ArrayList<Submission> result = ((SubmissionService)this.service).getReviewerSubmissions(university);
+    public ActionResult<ArrayList<Submission>> getReviewerSubmissions(User loggedUser){
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
+        ArrayList<Submission> result = ((SubmissionService)this.service).getReviewerSubmissions(loggedUser.getUniversity(), reviewer.getId());
         return new ActionResult<>(result, true, "");
     }
 
@@ -90,4 +89,14 @@ public class SubmissionController extends GenericController<Submission> {
         return this.selectedSubmission;
     }
 
+
+    public ActionResult<Review> selectSubmission(Submission selected, User loggedUser) {
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
+        return Controllers.REVIEW.addReview(new Review(-1, "", "", "", "", selected.getId(), reviewer.getId()));
+    }
+
+    public ActionResult<ArrayList<Submission>> getReviewerSelectedSubmissions(User loggedUser){
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
+        return new ActionResult<>(((SubmissionService)this.service).getSelectedSubmissions(reviewer.getId()), true, "");
+    }
 }

@@ -103,15 +103,26 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         }
     }
 
-    public ArrayList<Submission> getReviewerSubmissions(String university){
+    public ArrayList<Submission> getReviewerSubmissions(String university, Integer reviewerId){
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("users.university", university));
-        return super.getItems("SELECT " + getAllFields() + " FROM " + getTableName()
+        filters.add(new KVPair("reviews.reviewer_id", reviewerId));
+        return super.getItems("SELECT DISTINCT " + getAllFields() + " FROM " + getTableName()
                 + " INNER JOIN authors as a ON a.id = " + getTableName() + ".author_id"
                 + " INNER JOIN submission_author as sa ON sa.submission_id = " + getTableName() + ".id"
                 + " INNER JOIN authors ON authors.id = sa.author_id"
-                + " INNER JOIN users ON users.id = authors.user_id"
-                + " WHERE LOWER(users.university) <> LOWER(?)", filters);
+                + " INNER JOIN users ON users.id = a.user_id or users.id = authors.user_id"
+                + " LEFT JOIN reviews ON reviews.submission_id = " + getTableName() + ".id"
+                + " WHERE LOWER(users.university) <> LOWER(?) "
+                + " AND (reviews.reviewer_id <> ? OR reviews.reviewer_id IS NULL)", filters);
+    }
+
+    public ArrayList<Submission> getSelectedSubmissions(Integer reviewerId){
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("reviews.reviewer_id", reviewerId));
+        return super.getItems("SELECT " + getAllFields() + " FROM " + getTableName()
+                + " INNER JOIN reviews ON reviews.submission_id = " + getTableName() + ".id"
+                + " WHERE reviews.reviewer_id = ?", filters);
     }
 
 //    public ArrayList<Submission> getSubmissions(Author author){
