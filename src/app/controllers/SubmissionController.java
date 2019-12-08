@@ -5,9 +5,11 @@ import app.controllers.tools.ActionSuccess;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.database.dataAccessControllers.generic.KVPair;
+import app.pojo.Article;
 import app.pojo.Author;
 import app.pojo.Journal;
 import app.pojo.Submission;
+import app.services.ArticleService;
 import app.services.JournalService;
 import app.services.SubmissionService;
 
@@ -77,6 +79,11 @@ public class SubmissionController extends GenericController<Submission> {
 
     public void setSelectedSubmission(Submission submission){
         this.selectedSubmission = submission;
+    }
+
+    public ActionResult<ArrayList<Submission>> getReviewerSubmissions(String university){
+        ArrayList<Submission> result = ((SubmissionService)this.service).getReviewerSubmissions(university);
+        return new ActionResult<>(result, true, "");
     }
 
     public Submission getSelectedSubmission(){

@@ -105,7 +105,7 @@ public class UserController extends GenericController<User> {
         return editorService.getUserEditor(user.getId()) != null;
 
     }
-    private boolean isReviewer(User user){
+    public boolean isReviewer(User user){
         ReviewerService reviewerService = new ReviewerService();
         return reviewerService.getUserReviewer(user.getId()) != null;
 

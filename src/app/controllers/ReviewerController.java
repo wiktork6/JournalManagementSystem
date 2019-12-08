@@ -1,7 +1,14 @@
 package app.controllers;
 
 
+import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Author;
+import app.pojo.Reviewer;
+import app.pojo.User;
+import app.services.ReviewerService;
+import app.services.generic.GenericService;
 import app.views.ui.ArticleReviewSelection;
 import app.views.ui.RegisteredNewArticle;
 
@@ -12,7 +19,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ReviewerController implements Role {
+public class ReviewerController extends GenericController<Reviewer> implements Role {
+    public ReviewerController() {
+        super(new ReviewerService());
+    }
+
     @Override
     public String getName() {
         return "Reviewer";
@@ -32,4 +43,16 @@ public class ReviewerController implements Role {
         return availableActions;
     }
 
+    public Reviewer register(User user){
+        Reviewer reviewer = new Reviewer();
+        reviewer.setUser(user);
+        Integer reviewerId = service.addItem(reviewer);
+        reviewer.setId(reviewerId);
+        return reviewer;
+    }
+
+    @Override
+    protected boolean validateItem(Reviewer reviewer) {
+        return true;
+    }
 }

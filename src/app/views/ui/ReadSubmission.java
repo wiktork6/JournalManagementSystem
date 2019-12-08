@@ -1,5 +1,7 @@
 package app.views.ui;
 
+import app.pojo.Submission;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ import javax.swing.JTextPane;
 
 public class ReadSubmission {
 
+	private Submission submission;
 	public JFrame frame;
 
 	/**
@@ -22,7 +25,7 @@ public class ReadSubmission {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReadSubmission window = new ReadSubmission();
+					ReadSubmission window = new ReadSubmission(null);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +37,8 @@ public class ReadSubmission {
 	/**
 	 * Create the application.
 	 */
-	public ReadSubmission() {
+	public ReadSubmission(Submission submission) {
+		this.submission = submission;
 		initialize();
 	}
 
@@ -56,7 +60,7 @@ public class ReadSubmission {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ReviewHub rvwhb = new ReviewHub();
+				ReviewHub rvwhb = new ReviewHub(submission);
 				rvwhb.frame.setVisible(true);
 			}
 		});
@@ -75,17 +79,18 @@ public class ReadSubmission {
 		frame.getContentPane().add(btnLogout);
 		
 		//ADDFUNC - replace <status> with the status
-		JLabel lblStatus = new JLabel("Status: <Status>");
+		JLabel lblStatus = new JLabel("Status: " + this.submission.getStatus());
 		lblStatus.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblStatus.setBounds(439, 11, 135, 26);
 		frame.getContentPane().add(lblStatus);
 		
-		JLabel lblArticleName = new JLabel("<Article Name>");
+		JLabel lblArticleName = new JLabel(this.submission.getTitle());
 		lblArticleName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblArticleName.setBounds(28, 69, 135, 26);
 		frame.getContentPane().add(lblArticleName);
 		
 		JTextPane txtpnArticle = new JTextPane();
+		txtpnArticle.setText(submission.getAbstractText());
 		txtpnArticle.setEditable(false);
 		JScrollPane spEditor = new JScrollPane(txtpnArticle,
 	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

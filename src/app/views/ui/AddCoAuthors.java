@@ -116,6 +116,9 @@ public class AddCoAuthors {
 							author = Controllers.AUTHOR.getAuthor(listOfCoAuthors.get(i));
 						}
 						Controllers.SUBMISSION.addCoAuthor(submission.getId(), author.getId());
+						if(!Controllers.USER.isReviewer(listOfCoAuthors.get(i))){
+							Controllers.REVIEWER.register(listOfCoAuthors.get(i));
+						}
 					}
 					frame.dispose();
 					ArticleSubmitted newArticle = new ArticleSubmitted();

@@ -3,6 +3,8 @@ package app.database.dataAccessControllers;
 import app.database.DbConnection;
 import app.database.dataAccessControllers.Tools.BlobFileConverter;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.database.dataAccessControllers.generic.KVPair;
+import app.pojo.Article;
 import app.pojo.Author;
 import app.pojo.Submission;
 
@@ -99,6 +101,15 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
             ex.printStackTrace();
             return false;
         }
+    }
+
+    public ArrayList<Submission> getReviewerSubmissions(String university){
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("users.university", university));
+        return super.getItems("SELECT " + getAllFields() + ", users.university, authors.user_id FROM " + getTableName()
+                + " WHERE LOWER(users.university) <> LOWER(?)"
+                + " INNER JOIN authors ON authors.id = " + getTableName() + ".main_author_id "
+                + " INNER JOIN users ON users.id = authors.user_id", filters);
     }
 
 //    public ArrayList<Submission> getSubmissions(Author author){

@@ -1,17 +1,18 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Article;
+import app.pojo.Author;
+import app.pojo.Submission;
+import app.pojo.User;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class ArticleReviewSelection {
 
@@ -48,9 +49,17 @@ public class ArticleReviewSelection {
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JList lstArticles = new JList();
-		JScrollPane spEditor = new JScrollPane(lstArticles,
+
+		User loggedUser = Controllers.USER.getLoggedUser();
+		ActionResult<ArrayList<Submission>> ar = Controllers.SUBMISSION.getReviewerSubmissions(loggedUser.getUniversity());
+
+		JList lstSubmissions = new JList();
+		DefaultListModel submissionsListModel = new DefaultListModel();
+		for(int i = 0; i < ar.getResult().size(); i++){
+			submissionsListModel.add(i, ar.getResult().get(i).getTitle());
+		}
+		lstSubmissions.setModel(submissionsListModel);
+		JScrollPane spEditor = new JScrollPane(lstSubmissions,
 	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	    spEditor.setBounds(46, 126, 511, 204);
@@ -84,8 +93,9 @@ public class ArticleReviewSelection {
 		JButton btnSelect = new JButton("Select");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Submission selected = ar.getResult().get(lstSubmissions.getSelectedIndex());
 				frame.dispose();
-				ReviewHub rvwhb = new ReviewHub();
+				ReviewHub rvwhb = new ReviewHub(selected);
 				rvwhb.frame.setVisible(true);
 			}
 		});
