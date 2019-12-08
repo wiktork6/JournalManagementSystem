@@ -38,7 +38,7 @@ public class ReviewDataAccessController extends GenericDataAccessController<Revi
     @Override
     protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Review review) throws SQLException {
         preparedStatement.setString(1, review.getReviewSummary());
-        preparedStatement.setString(2, review.getTypographicallErrors());
+        preparedStatement.setString(2, review.getTypographicalErrors());
         preparedStatement.setString(3, review.getInitialVerdict());
         preparedStatement.setString(4, review.getFinalVerdict());
         preparedStatement.setInt(5, review.getSubmissionId());

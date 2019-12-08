@@ -1,17 +1,15 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.pojo.Question;
 import app.pojo.Submission;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.*;
 
 public class InitialReview {
 
@@ -25,18 +23,18 @@ public class InitialReview {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					CheckInitialReview window = new CheckInitialReview();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					InitialReview window = new InitialReview(null);
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -87,58 +85,81 @@ public class InitialReview {
 		lblArticleName.setBounds(28, 69, 135, 26);
 		frame.getContentPane().add(lblArticleName);
 		
-		JLabel lblReview = new JLabel("Review");
-		lblReview.setHorizontalAlignment(SwingConstants.LEFT);
-		lblReview.setBounds(127, 152, 135, 26);
-		frame.getContentPane().add(lblReview);
-		
-		JLabel lblQuestion = new JLabel("Question 1");
+		JLabel lblQuestion = new JLabel("Question");
 		lblQuestion.setHorizontalAlignment(SwingConstants.LEFT);
-		lblQuestion.setBounds(127, 204, 135, 26);
+		lblQuestion.setBounds(127, 154, 135, 26);
 		frame.getContentPane().add(lblQuestion);
-		
-		JLabel lblQuestion2 = new JLabel("Question 2");
-		lblQuestion2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblQuestion2.setBounds(127, 230, 135, 26);
-		frame.getContentPane().add(lblQuestion2);
-		
-		textFReview = new JTextField();
-		textFReview.setBounds(254, 152, 189, 26);
-		frame.getContentPane().add(textFReview);
-		textFReview.setColumns(10);
-		
+
 		textFQ1 = new JTextField();
 		textFQ1.setColumns(10);
-		textFQ1.setBounds(254, 204, 189, 26);
+		textFQ1.setBounds(254, 154, 189, 26);
 		frame.getContentPane().add(textFQ1);
+
+		JTextArea txtQuestions = new JTextArea();
+		txtQuestions.setEditable(false);
+		JScrollPane spEditor = new JScrollPane(txtQuestions,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		spEditor.setBounds(254, 185, 189, 110);
+		txtQuestions.setColumns(4);
+		frame.getContentPane().add(spEditor);
+
+		ArrayList<Question> questions = new ArrayList<>();
+		JButton btnAddQuestion = new JButton("Add Question");
+		btnAddQuestion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textFQ1.getText().length() > 0) {
+					Question question = new Question(-1, questions.size() + 1, textFQ1.getText(), "", false, -1);
+					questions.add(question);
+					txtQuestions.append(question.getQuestion_number() + ". " + question.getQuestion() + " \n");
+					textFQ1.setText("");
+				}
+			}
+		});
+		btnAddQuestion.setBounds(450, 154, 120, 26);
+		frame.getContentPane().add(btnAddQuestion);
+
+		JLabel lblReview = new JLabel("Review Summary");
+		lblReview.setHorizontalAlignment(SwingConstants.LEFT);
+		lblReview.setBounds(127, 70, 135, 26);
+		frame.getContentPane().add(lblReview);
 		
-		txtFQ2 = new JTextField();
-		txtFQ2.setColumns(10);
-		txtFQ2.setBounds(254, 230, 189, 26);
-		frame.getContentPane().add(txtFQ2);
-		
-		JLabel lblQuestion3 = new JLabel("Question 3");
-		lblQuestion3.setHorizontalAlignment(SwingConstants.LEFT);
-		lblQuestion3.setBounds(127, 256, 135, 26);
-		frame.getContentPane().add(lblQuestion3);
-		
-		txtFQ3 = new JTextField();
-		txtFQ3.setColumns(10);
-		txtFQ3.setBounds(254, 256, 189, 26);
-		frame.getContentPane().add(txtFQ3);
+		textFReview = new JTextField();
+		textFReview.setBounds(254, 70, 189, 26);
+		frame.getContentPane().add(textFReview);
+		textFReview.setColumns(10);
+
+		JLabel lblTypoErrors = new JLabel("Typographical Errors");
+		lblTypoErrors.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTypoErrors.setBounds(127, 100, 135, 26);
+		frame.getContentPane().add(lblTypoErrors);
+
+		JTextField textFTypos = new JTextField();
+		textFTypos.setBounds(254, 100, 189, 26);
+		frame.getContentPane().add(textFTypos);
+		textFTypos.setColumns(10);
 		
 		JLabel lblVerdict = new JLabel("Verdict");
 		lblVerdict.setHorizontalAlignment(SwingConstants.LEFT);
 		lblVerdict.setBounds(127, 305, 135, 26);
 		frame.getContentPane().add(lblVerdict);
 		
-		JComboBox comboBoxVerdicts = new JComboBox();
+		JComboBox<String> comboBoxVerdicts = new JComboBox<>();
 		comboBoxVerdicts.setBounds(258, 306, 148, 27);
 		frame.getContentPane().add(comboBoxVerdicts);
+		comboBoxVerdicts.addItem("Strong Accept");
+		comboBoxVerdicts.addItem("Weak Accept");
+		comboBoxVerdicts.addItem("Weak Reject");
+		comboBoxVerdicts.addItem("Strong Reject");
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.REVIEW.submitInitialReview(submission, Controllers.USER.getLoggedUser(),
+						textFReview.getText(),textFTypos.getText(), (String)comboBoxVerdicts.getSelectedItem(), questions);
+				frame.dispose();
+				ReviewHub rvwhb = new ReviewHub(submission);
+				rvwhb.frame.setVisible(true);
 			}
 		});
 		btnSubmit.setBounds(412, 348, 159, 53);

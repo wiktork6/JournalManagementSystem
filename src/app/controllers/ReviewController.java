@@ -3,8 +3,7 @@ package app.controllers;
 import app.controllers.generic.GenericController;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
-import app.pojo.Review;
-import app.pojo.Submission;
+import app.pojo.*;
 import app.services.JournalService;
 import app.services.ReviewService;
 
@@ -45,6 +44,33 @@ public class ReviewController extends GenericController<Review> {
 
     public ActionResult<Review> addReview(Review item){
         return this.addItem(item);
+    }
+
+    public ActionResult<Review> submitInitialReview(Submission submission, User loggedUser,
+                                                    String reviewSummary, String typographicalErrors, String initialVerdict,
+                                                    ArrayList<Question> questions){
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
+        Review review = ((ReviewService)this.service).getSubmissionReviewerReview(submission.getId(), reviewer.getId());
+        review.setReviewSummary(reviewSummary);
+        review.setTypographicalErrors(typographicalErrors);
+        review.setInitialVerdict(initialVerdict);
+
+        ActionResult<Review> ar = super.updateItem(review);
+        review = ar.getResult();
+        for(Question question : questions){
+            question.setReviewId(review.getId());
+            Controllers.QUESTION.addQuestion(question);
+        }
+
+        return ar;
+    }
+
+    public ActionResult<Review> submitFinalReview(Submission submission, User loggedUser, String finalVerdict){
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
+        Review review = ((ReviewService)this.service).getSubmissionReviewerReview(submission.getId(), reviewer.getId());
+        review.setFinalVerdict(finalVerdict);
+
+        return super.updateItem(review);
     }
 
 }

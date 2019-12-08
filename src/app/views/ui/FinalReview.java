@@ -1,5 +1,7 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.controllers.generic.Controller;
 import app.pojo.Submission;
 
 import java.awt.EventQueue;
@@ -22,18 +24,18 @@ public class FinalReview {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					CheckFinalReview window = new CheckFinalReview();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FinalReview window = new FinalReview(null);
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -97,13 +99,18 @@ public class FinalReview {
 		lblVerdict.setBounds(43, 299, 135, 26);
 		frame.getContentPane().add(lblVerdict);
 		
-		JComboBox comboBoxVerdicts = new JComboBox();
+		JComboBox<String> comboBoxVerdicts = new JComboBox<>();
 		comboBoxVerdicts.setBounds(190, 300, 148, 27);
 		frame.getContentPane().add(comboBoxVerdicts);
+		comboBoxVerdicts.addItem("Strong Accept");
+		comboBoxVerdicts.addItem("Weak Accept");
+		comboBoxVerdicts.addItem("Weak Reject");
+		comboBoxVerdicts.addItem("Strong Reject");
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.REVIEW.submitFinalReview(submission, Controllers.USER.getLoggedUser(), (String)comboBoxVerdicts.getSelectedItem());
 			}
 		});
 		btnSubmit.setBounds(386, 336, 159, 53);

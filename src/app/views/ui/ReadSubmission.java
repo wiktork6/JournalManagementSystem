@@ -2,9 +2,10 @@ package app.views.ui;
 
 import app.pojo.Submission;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -95,8 +96,22 @@ public class ReadSubmission {
 		JScrollPane spEditor = new JScrollPane(txtpnArticle,
 	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	    spEditor.setBounds(28, 107, 546, 229);
+	    spEditor.setBounds(28, 107, 546, 150);
 	    frame.getContentPane().add(spEditor);
+
+		JButton btnOpen = new JButton("Open PDF");
+		btnOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Desktop desktop = Desktop.getDesktop();
+				try {
+					desktop.open(submission.getDraftArticle());
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnOpen.setBounds(28, 280, 117, 29);
+		frame.getContentPane().add(btnOpen);
 	}
 
 }
