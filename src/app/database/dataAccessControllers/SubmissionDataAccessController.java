@@ -43,12 +43,8 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         Integer journal_id = res.getInt(5);
         Integer author_id = res.getInt(6);
         String status = res.getString(7);
-<<<<<<< HEAD
         Integer reviewsSelected = res.getInt(8);
         return new Submission(id,title,abstractText,draftArticle,author_id,journal_id,status, reviewsSelected);
-=======
-        return new Submission(id,abstractText,title,draftArticle,journal_id,author_id,status);
->>>>>>> fd94fb76fc9400b490833c2dbf11ab563ef057d1
     }
 
     @Override
