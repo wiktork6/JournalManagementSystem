@@ -1,10 +1,12 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.generic.Controller;
+import app.controllers.tools.Messages;
 import app.pojo.Article;
 import app.pojo.Submission;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -59,6 +61,7 @@ public class ReviewHub {
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.SUBMISSION.setSelectedSubmission(null);
 				frame.dispose();
 				UserWelcomePage usrwlcm = new UserWelcomePage();
 				usrwlcm.frame.setVisible(true);
@@ -71,6 +74,7 @@ public class ReviewHub {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controllers.USER.logout();
+				Controllers.SUBMISSION.setSelectedSubmission(null);
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
@@ -108,13 +112,22 @@ public class ReviewHub {
 		});
 		btnInitialReview.setBounds(382, 114, 158, 54);
 		frame.getContentPane().add(btnInitialReview);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(150, 330, 350, 30);
+		frame.getContentPane().add(error);
 		
 		JButton btnFinalReview = new JButton("Final Review");
 		btnFinalReview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				FinalReview fnlrvw = new FinalReview(submission);
-				fnlrvw.frame.setVisible(true);
+				if(Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Article updated")){
+					frame.dispose();
+					FinalReview fnlrvw = new FinalReview(submission);
+					fnlrvw.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.NOT_ALLOWED_WRONG_STATUS);
+				}
 			}
 		});
 		btnFinalReview.setBounds(382, 249, 158, 54);

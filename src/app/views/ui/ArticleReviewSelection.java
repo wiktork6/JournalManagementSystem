@@ -131,6 +131,7 @@ public class ArticleReviewSelection {
 			public void actionPerformed(ActionEvent e) {
 				if(lstSelectedSubmission.getSelectedIndex()!=-1){
 					Submission selected = arSelectedSubmissions.getResult().get(lstSelectedSubmission.getSelectedIndex());
+					Controllers.SUBMISSION.setSelectedSubmission(selected);
 					frame.dispose();
 					ReviewHub rvwhb = new ReviewHub(selected);
 					rvwhb.frame.setVisible(true);

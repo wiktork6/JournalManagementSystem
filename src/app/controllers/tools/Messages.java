@@ -33,6 +33,7 @@ public class Messages {
         public static String USER_NOT_FOUND = "User with such email does not exist";
         public static String ONLY_MAIN_AUTHOR_CAN_RESPOND = "Only main authors can respond to questions";
         public static String CANT_UPLOAD = "You can not upload edited article with current submission status";
+        public static String NOT_ALLOWED_WRONG_STATUS = "You can not perform this action with current submission status";
     }
 
     public static class Info {
