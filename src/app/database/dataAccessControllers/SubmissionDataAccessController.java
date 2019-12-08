@@ -49,7 +49,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     @Override
     protected String getInsertFields() {
-        return "title, abstract, draft_article, journal_id, author_id, status";
+        return "title, abstract, draft_article, journal_id, author_id, status, reviews_selected";
 
     }
 
