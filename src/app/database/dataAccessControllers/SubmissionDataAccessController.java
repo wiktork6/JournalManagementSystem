@@ -20,7 +20,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     @Override
     protected String getAllFields() {
-        return "id, title, abstract, draft_article, journal_id, author_id, status";
+        return getTableName() + ".id, " + getTableName() + ".title, abstract, draft_article, journal_id, "+getTableName()+".author_id, status";
     }
 
     @Override
@@ -106,10 +106,12 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     public ArrayList<Submission> getReviewerSubmissions(String university){
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("users.university", university));
-        return super.getItems("SELECT " + getAllFields() + ", users.university, authors.user_id FROM " + getTableName()
-                + " WHERE LOWER(users.university) <> LOWER(?)"
-                + " INNER JOIN authors ON authors.id = " + getTableName() + ".main_author_id "
-                + " INNER JOIN users ON users.id = authors.user_id", filters);
+        return super.getItems("SELECT " + getAllFields() + " FROM " + getTableName()
+                + " INNER JOIN authors as a ON a.id = " + getTableName() + ".author_id"
+                + " INNER JOIN submission_author as sa ON sa.submission_id = " + getTableName() + ".id"
+                + " INNER JOIN authors ON authors.id = sa.author_id"
+                + " INNER JOIN users ON users.id = authors.user_id"
+                + " WHERE LOWER(users.university) <> LOWER(?)", filters);
     }
 
 //    public ArrayList<Submission> getSubmissions(Author author){
