@@ -20,7 +20,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     @Override
     protected String getAllFields() {
-        return getTableName() + ".id, " + getTableName() + ".title, abstract, draft_article, journal_id, "+getTableName()+".author_id, status";
+        return getTableName() + ".id, " + getTableName() + ".title, abstract, draft_article, journal_id, "+getTableName()+".author_id, status, reviews_selected";
     }
 
     @Override
@@ -43,6 +43,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         Integer journal_id = res.getInt(5);
         Integer author_id = res.getInt(6);
         String status = res.getString(7);
+        Integer reviewsSelected = res.getInt(8);
         return new Submission(id,abstractText,title,draftArticle,author_id,journal_id,status);
     }
 
@@ -65,7 +66,8 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         preparedStatement.setInt(4, submission.getJournalId());
         preparedStatement.setInt(5, submission.getAuthorId());
         preparedStatement.setString(6, submission.getStatus());
-        return 6;
+        preparedStatement.setInt(7, submission.getReviewsSelected());
+        return 7;
     }
 
     public ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId) {

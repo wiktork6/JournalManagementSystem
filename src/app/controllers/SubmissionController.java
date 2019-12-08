@@ -35,7 +35,7 @@ public class SubmissionController extends GenericController<Submission> {
 
     public ActionResult<Submission> addSubmission(String abstractText, String title, File draftArticle, Integer authorId, String issn, String status){
         Integer journalId = new JournalService().getJournalByISSN(issn).getId();
-        return this.addItem(new Submission(abstractText, title, draftArticle, authorId, journalId, status));
+        return this.addItem(new Submission(abstractText, title, draftArticle, authorId, journalId, status, 0));
     }
 
     @Override
@@ -80,6 +80,14 @@ public class SubmissionController extends GenericController<Submission> {
     }
 
     public ActionResult<ArrayList<Submission>> getReviewerSubmissions(User loggedUser){
+        Author author = Controllers.AUTHOR.getAuthor(loggedUser);
+        ArrayList<Submission> submissions = ((SubmissionService)this.service).getSubmissions(author);
+        for(Submission submission : submissions){
+            if(submission.getReviewsSelected() < 3){
+                break;
+            }
+            return new ActionResult<>(null, false, Messages.Info.NO_NEED_TO_REVIEW);
+        }
         Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
         ArrayList<Submission> result = ((SubmissionService)this.service).getReviewerSubmissions(loggedUser.getUniversity(), reviewer.getId());
         return new ActionResult<>(result, true, "");
@@ -91,6 +99,20 @@ public class SubmissionController extends GenericController<Submission> {
 
 
     public ActionResult<Review> selectSubmission(Submission selected, User loggedUser) {
+
+        // Adding a point for covering costs for selecting a submission to be reviewed
+        Author author = Controllers.AUTHOR.getAuthor(loggedUser);
+        ArrayList<Submission> submissions = ((SubmissionService)this.service).getSubmissions(author);
+        if(submissions.size() > 0){
+            for (Submission submission : submissions) {
+                if (submission.getReviewsSelected() < 3) {
+                    submission.setReviewsSelected(submission.getReviewsSelected() + 1);
+                    this.service.updateItem(submission);
+                    break;
+                }
+            }
+        }
+
         Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
         return Controllers.REVIEW.addReview(new Review(-1, "", "", "", "", selected.getId(), reviewer.getId()));
     }

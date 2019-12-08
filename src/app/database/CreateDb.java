@@ -73,6 +73,7 @@ public class CreateDb {
                     "journal_id INTEGER, " +
                     "author_id INTEGER, " +
                     "status VARCHAR(20), " +
+                    "reviews_selected INTEGER DEFAULT 0," +
                     "FOREIGN KEY (author_id) REFERENCES authors(id), " +
                     "FOREIGN KEY (journal_id) REFERENCES journals(id), " +
                     "PRIMARY KEY(id))");
@@ -158,10 +159,6 @@ public class CreateDb {
                     "FOREIGN KEY(submission_id) REFERENCES submissions(id), " +
                     "FOREIGN KEY(author_id) REFERENCES authors(id), " +
                     "PRIMARY KEY(submission_id, author_id))");
-        }
-        catch(SQLSyntaxErrorException ex){
-            createDatabase();
-            createTables();
         }
         catch(SQLException ex){
             ex.printStackTrace();

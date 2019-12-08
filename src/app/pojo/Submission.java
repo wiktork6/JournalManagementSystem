@@ -10,22 +10,24 @@ public class Submission implements Identifiable {
     private Integer authorId;
     private Integer journalId;
     private String status;
+    private Integer reviewsSelected;
 
     public Submission(){
     }
 
 
-    public Submission(String abstractText, String title, File draftArticle, Integer authorId, Integer journalId, String status){
+    public Submission(String abstractText, String title, File draftArticle, Integer authorId, Integer journalId, String status, Integer reviewsSelected){
         this.abstractText = abstractText;
         this.title = title;
         this.draftArticle = draftArticle;
         this.authorId = authorId;
         this.journalId = journalId;
         this.status = status;
+        this.reviewsSelected = reviewsSelected;
     }
 
-    public Submission(Integer id, String abstractText, String title, File draftArticle, Integer authorId, Integer journalId, String status) {
-        this(abstractText, title, draftArticle, authorId, journalId, status);
+    public Submission(Integer id, String abstractText, String title, File draftArticle, Integer authorId, Integer journalId, String status, Integer reviewsSelected) {
+        this(abstractText, title, draftArticle, authorId, journalId, status, reviewsSelected);
         this.id = id;
     }
 
@@ -88,5 +90,13 @@ public class Submission implements Identifiable {
     @Override
     public String toString() {
         return getTitle() + " " + getStatus();
+    }
+
+    public Integer getReviewsSelected() {
+        return reviewsSelected;
+    }
+
+    public void setReviewsSelected(Integer reviewsSelected) {
+        this.reviewsSelected = reviewsSelected;
     }
 }
