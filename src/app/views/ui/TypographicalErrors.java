@@ -3,8 +3,6 @@ package app.views.ui;
 import app.controllers.Controllers;
 import app.controllers.tools.Messages;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -52,10 +50,10 @@ public class TypographicalErrors {
         frame.getContentPane().add(label_1);
 
         JTextPane textPane = new JTextPane();
-        if(Controllers.REVIEW.getSelectedReview().getTypographicallErrors()==null){
+        if(Controllers.REVIEW.getSelectedReview().getTypographicalErrors()==null){
             textPane.setText(Messages.Error.TYPOGRAPHICALL_ERRORS_NOT_SUBMITTED);
         }else{
-            textPane.setText(Controllers.REVIEW.getSelectedReview().getTypographicallErrors());
+            textPane.setText(Controllers.REVIEW.getSelectedReview().getTypographicalErrors());
         }
         textPane.setEditable(false);
         textPane.setBounds(250, 104, 258, 58);

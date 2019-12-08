@@ -17,4 +17,11 @@ public class ReviewService extends GenericService<Review> {
         filters.add(new KVPair("submission_id", submissionId));
         return dac.getItemsWhere(filters);
     }
+
+    public Review getSubmissionReviewerReview(Integer submissionId, Integer reviewerId){
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("submission_id", submissionId));
+        filters.add(new KVPair("reviewer_id", reviewerId));
+        return dac.getItemWhere(filters);
+    }
 }

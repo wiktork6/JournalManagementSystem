@@ -45,4 +45,8 @@ public class QuestionController extends GenericController<Question> {
     public Integer answerQuestion(Question question, String response){
         return ((QuestionService)service).answerQuestion(question, response);
     }
+
+    public ActionResult<Question> addQuestion(Question question){
+        return super.addItem(question);
+    }
 }

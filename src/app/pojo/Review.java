@@ -4,7 +4,7 @@ package app.pojo;
 public class Review implements Identifiable {
     private Integer id;
     private String reviewSummary;
-    private String typographicallErrors;
+    private String typographicalErrors;
     private String initialVerdict;
     private String finalVerdict;
     private Integer submissionId;
@@ -13,10 +13,10 @@ public class Review implements Identifiable {
     public Review(){
     }
 
-    public Review(Integer id, String reviewSummary, String typographicallErrors, String initialVerdict, String finalVerdict, Integer submissionId, Integer reviewerId) {
+    public Review(Integer id, String reviewSummary, String typographicalErrors, String initialVerdict, String finalVerdict, Integer submissionId, Integer reviewerId) {
         this.id = id;
         this.reviewSummary = reviewSummary;
-        this.typographicallErrors = typographicallErrors;
+        this.typographicalErrors = typographicalErrors;
         this.initialVerdict = initialVerdict;
         this.finalVerdict = finalVerdict;
         this.submissionId = submissionId;
@@ -35,24 +35,42 @@ public class Review implements Identifiable {
     public String getReviewSummary() {
         return reviewSummary;
     }
+    public void setReviewSummary(String reviewSummary) {this.reviewSummary = reviewSummary;}
 
-    public String getTypographicallErrors() {
-        return typographicallErrors;
+    public String getTypographicalErrors() {
+        return typographicalErrors;
     }
+    public void setTypographicalErrors(String typographicalErrors) { this.typographicalErrors = typographicalErrors; }
 
     public String getInitialVerdict() {
         return initialVerdict;
+    }
+
+    public void setInitialVerdict(String initialVerdict) {
+        this.initialVerdict = initialVerdict;
     }
 
     public String getFinalVerdict() {
         return finalVerdict;
     }
 
+    public void setFinalVerdict(String finalVerdict) {
+        this.finalVerdict = finalVerdict;
+    }
+
     public Integer getSubmissionId() {
         return submissionId;
     }
 
+    public void setSubmissionId(Integer submissionId) {
+        this.submissionId = submissionId;
+    }
+
     public Integer getReviewerId() {
         return reviewerId;
+    }
+
+    public void setReviewerId(Integer reviewerId) {
+        this.reviewerId = reviewerId;
     }
 }
