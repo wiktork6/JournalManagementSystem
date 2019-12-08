@@ -95,18 +95,21 @@ public class ReviewPage {
 		});
 		btnSeeFinalReview.setBounds(378, 105, 133, 50);
 		frame.getContentPane().add(btnSeeFinalReview);
-		
-		JButton btnRespond = new JButton("RESPOND");
-		btnRespond.setFont(new Font("Tahoma", Font.BOLD, 8));
-		btnRespond.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				QuestionPage qp = new QuestionPage(reviewNumber);
-				qp.frame.setVisible(true);
-			}
-		});
-		btnRespond.setBounds(378, 254, 133, 50);
-		frame.getContentPane().add(btnRespond);
+
+		if(Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Initial Verdict")){
+			JButton btnRespond = new JButton("RESPOND");
+			btnRespond.setFont(new Font("Tahoma", Font.BOLD, 8));
+			btnRespond.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.dispose();
+					QuestionPage qp = new QuestionPage(reviewNumber);
+					qp.frame.setVisible(true);
+				}
+			});
+			btnRespond.setBounds(378, 254, 133, 50);
+			frame.getContentPane().add(btnRespond);
+
+		}
 
 		JButton btnTypographicall = new JButton("TYPO ERRORS");
 		btnTypographicall.setFont(new Font("Tahoma", Font.BOLD, 8));

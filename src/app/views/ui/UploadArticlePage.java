@@ -1,5 +1,8 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
+import app.pojo.Submission;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -47,6 +50,10 @@ public class UploadArticlePage {
 		JButton btnNewButton = new JButton("UPLOAD FILE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//if(fileUploaded){
+				Submission selectedSubmission = Controllers.SUBMISSION.getSelectedSubmission();
+				Controllers.SUBMISSION.setStatus(selectedSubmission,"Article Updated");
+				//}
 				frame.dispose();
 				UploadConfirmation upc = new UploadConfirmation();
 				upc.frame.setVisible(true);

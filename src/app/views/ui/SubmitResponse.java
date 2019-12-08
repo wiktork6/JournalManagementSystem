@@ -79,6 +79,8 @@ public class SubmitResponse {
 					Question answeredQuestion = Controllers.QUESTION.getSelectedQuestion();
 					//SET QUESTION IS ANSWERED TO TRUE
 					Controllers.QUESTION.answerQuestion(answeredQuestion, responseField.getText());
+					//if all questions are answered, change status to responded
+
 					frame.dispose();
 					ResponseConfirmation respc = new ResponseConfirmation();
 					respc.frame.setVisible(true);

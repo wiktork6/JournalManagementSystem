@@ -246,7 +246,7 @@ public class AddEditor {
 							error.setText(Messages.Error.CANT_ADD_YOURSELF_AS_NEW_EDITOR);
 						}
 					} else {
-						error.setText(userActionResult.getMessage());
+						error.setText(Messages.Error.USER_NOT_FOUND);
 					}
 				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);

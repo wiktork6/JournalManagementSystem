@@ -62,11 +62,11 @@ public class SubmissionController extends GenericController<Submission> {
         return result;
     }
 
-    public ActionResult<ArrayList<Submission>> getSubmissionWithStatus(Journal journal, String status){
+    public ActionResult<ArrayList<Submission>> getSubmissionsWithStatus(Journal journal, String status){
         ActionResult<ArrayList<Submission>> actionResult = new ActionResult<>();
         ArrayList<Submission> submissions = ((SubmissionService)service).getStatusSubmissions(journal, status);
         actionResult.setResult(submissions);
-        if(submissions==null){
+        if(submissions.size()==0){
             actionResult.setSuccess(false);
             actionResult.setMessage(Messages.Error.SUBMISSION_NOT_FOUND);
         } else{
@@ -120,5 +120,9 @@ public class SubmissionController extends GenericController<Submission> {
     public ActionResult<ArrayList<Submission>> getReviewerSelectedSubmissions(User loggedUser){
         Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
         return new ActionResult<>(((SubmissionService)this.service).getSelectedSubmissions(reviewer.getId()), true, "");
+    }
+
+    public void setStatus(Submission submission, String status){
+        ((SubmissionService)this.service).changeSubmissionStatus(submission,status);
     }
 }

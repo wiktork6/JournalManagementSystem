@@ -92,15 +92,21 @@ public class ViewReviews {
 		JButton btnSelect = new JButton("SELECT");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(reviewsList.getSelectedIndex()!=-1){
-					Integer index = reviewsList.getSelectedIndex();
-					Controllers.REVIEW.setSelectedReview(reviewsActionResult.getResult().get(index));
-					frame.dispose();
-					ReviewPage reviewPage = new ReviewPage(reviewsList.getSelectedIndex()+1);
-					reviewPage.frame.setVisible(true);
+				if(reviewsActionResult.getResult().size()==3){
+					if(reviewsList.getSelectedIndex()!=-1){
+						Integer index = reviewsList.getSelectedIndex();
+						Controllers.REVIEW.setSelectedReview(reviewsActionResult.getResult().get(index));
+						frame.dispose();
+						ReviewPage reviewPage = new ReviewPage(reviewsList.getSelectedIndex()+1);
+						reviewPage.frame.setVisible(true);
+					}else{
+						error.setText(Messages.Error.FIELD_IS_EMPTY);
+					}
+
 				}else{
-					error.setText(Messages.Error.FIELD_IS_EMPTY);
+					error.setText(Messages.Error.YOU_MUST_WAIT_FOR_REVIEWS);
 				}
+
 			}
 		});
 		btnSelect.setBounds(440, 360, 117, 29);

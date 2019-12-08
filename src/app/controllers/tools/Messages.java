@@ -29,6 +29,9 @@ public class Messages {
         public static String REVIEWER_NO_QUESTION = "Reviewer of your submission did not submit any questions";
         public static String TYPOGRAPHICALL_ERRORS_NOT_SUBMITTED = "Reviewer of you submission did not submit any typographicall errors";
         public static String CANT_ADD_YOURSELF_AS_NEW_EDITOR = "You can not add yourself as a new editor";
+        public static String YOU_MUST_WAIT_FOR_REVIEWS = "You have to wait for all 3 reviews to be submitted before accessing verdicts";
+        public static String USER_NOT_FOUND = "User with such email does not exist";
+        public static String ONLY_MAIN_AUTHOR_CAN_RESPOND = "Only main authors can respond to questions";
     }
 
     public static class Info {

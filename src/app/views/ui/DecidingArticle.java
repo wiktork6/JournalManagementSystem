@@ -2,22 +2,21 @@ package app.views.ui;
 
 import app.controllers.Controllers;
 import app.controllers.generic.Controller;
+import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
+import app.pojo.Submission;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import java.awt.Color;
+import java.util.ArrayList;
 
 public class DecidingArticle {
 
 	public JFrame frame;
+	private ActionResult<ArrayList<Submission>> submissionActionResult;
 
 	/**
 	 * Launch the application.
@@ -39,6 +38,7 @@ public class DecidingArticle {
 	 * Create the application.
 	 */
 	public DecidingArticle() {
+		this.submissionActionResult = Controllers.SUBMISSION.getSubmissionsWithStatus(Controllers.JOURNAL.getChosenJournal(),"Final Verdict");
 		initialize();
 	}
 
@@ -73,22 +73,76 @@ public class DecidingArticle {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setBounds(263, 15, 61, 16);
 		frame.getContentPane().add(label_1);
-		
-		JList list = new JList();
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBounds(66, 69, 465, 220);
-		frame.getContentPane().add(list);
-		
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
+
+
+
+		JList submissionsList = new JList();
+		//Default List Model for titles
+		DefaultListModel submissionListModel = new DefaultListModel();
+		for(int i = 0; i<submissionActionResult.getResult().size();i++){
+			submissionListModel.add(i,submissionActionResult.getResult().get(i).getTitle());
+		}
+		submissionsList.setModel(submissionListModel);
+
+
+		JScrollPane spEditor = new JScrollPane(submissionsList,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		spEditor.setBounds(46, 100, 511, 204);
+		frame.getContentPane().add(spEditor);
+
+
 		JButton btnAccept = new JButton("ACCEPT");
+		btnAccept.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(submissionsList.getSelectedIndex()!=-1){
+					Integer index = submissionsList.getSelectedIndex();
+					Submission submission = submissionActionResult.getResult().get(index);
+
+					Controllers.SUBMISSION.setStatus(submission, "Accepted");
+
+					frame.dispose();
+					JournalOf jo=new JournalOf();
+					jo.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
+
+			}
+		});
 		btnAccept.setBackground(Color.GREEN);
 		btnAccept.setForeground(Color.BLACK);
-		btnAccept.setBounds(316, 319, 89, 23);
+		btnAccept.setBounds(442, 319, 89, 23);
 		frame.getContentPane().add(btnAccept);
 		
 		JButton btnReject = new JButton("REJECT");
+		btnReject.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(submissionsList.getSelectedIndex()!=-1){
+					Integer index = submissionsList.getSelectedIndex();
+					Submission submission = submissionActionResult.getResult().get(index);
+
+					Controllers.SUBMISSION.setStatus(submission, "Rejected");
+
+					frame.dispose();
+					JournalOf jo=new JournalOf();
+					jo.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
+
+			}
+		});
 		btnReject.setForeground(Color.BLACK);
 		btnReject.setBackground(Color.RED);
-		btnReject.setBounds(442, 319, 89, 23);
+		btnReject.setBounds(316, 319, 89, 23);
 		frame.getContentPane().add(btnReject);
 		
 		JButton button_1 = new JButton("Go Back");
@@ -101,5 +155,14 @@ public class DecidingArticle {
 		});
 		button_1.setBounds(10, 362, 153, 38);
 		frame.getContentPane().add(button_1);
+
+
+		if(!submissionActionResult.getSuccess()){
+			error.setText(submissionActionResult.getMessage());
+			btnAccept.setVisible(false);
+			btnReject.setVisible(false);
+		}
 	}
+
+
 }
