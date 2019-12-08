@@ -1,8 +1,9 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.tools.Messages;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -69,18 +70,26 @@ public class UploadOrReview {
 		btnGoBack.setBounds(10, 377, 89, 23);
 		frame.getContentPane().add(btnGoBack);
 
-		if(Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Reviews received")){
-			JButton btnUploadEditedArticle = new JButton("UPLOAD EDITED ARTICLE");
-			btnUploadEditedArticle.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 350, 30);
+		frame.getContentPane().add(error);
+
+
+		JButton btnUploadEditedArticle = new JButton("UPLOAD EDITED ARTICLE");
+		btnUploadEditedArticle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Response received")) {
 					frame.dispose();
 					UploadArticlePage upa = new UploadArticlePage();
 					upa.frame.setVisible(true);
+				} else {
+					error.setText(Messages.Error.CANT_UPLOAD);
 				}
-			});
-			btnUploadEditedArticle.setBounds(73, 205, 157, 23);
-			frame.getContentPane().add(btnUploadEditedArticle);
-		}
+			}
+		});
+		btnUploadEditedArticle.setBounds(73, 205, 200, 23);
+		frame.getContentPane().add(btnUploadEditedArticle);
 
 
 		JButton btnSeeReviews = new JButton("SEE REVIEWS");

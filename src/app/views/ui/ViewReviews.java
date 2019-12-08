@@ -60,7 +60,7 @@ public class ViewReviews {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(200, 360, 250, 30);
+		error.setBounds(70, 330, 400, 30);
 		frame.getContentPane().add(error);
 
 		JList reviewsList = new JList();

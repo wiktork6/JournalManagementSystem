@@ -32,6 +32,7 @@ public class Messages {
         public static String YOU_MUST_WAIT_FOR_REVIEWS = "You have to wait for all 3 reviews to be submitted before accessing verdicts";
         public static String USER_NOT_FOUND = "User with such email does not exist";
         public static String ONLY_MAIN_AUTHOR_CAN_RESPOND = "Only main authors can respond to questions";
+        public static String CANT_UPLOAD = "You can not upload edited article with current submission status";
     }
 
     public static class Info {
