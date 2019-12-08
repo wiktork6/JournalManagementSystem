@@ -24,4 +24,12 @@ public class ReviewService extends GenericService<Review> {
         filters.add(new KVPair("reviewer_id", reviewerId));
         return dac.getItemWhere(filters);
     }
+
+    public Integer initialReviewsCount(Integer submissionId){
+        return ((ReviewDataAccessController)dac).initialReviewsCount(submissionId);
+    }
+
+    public Integer finalReviewsCount(Integer submissionId){
+        return ((ReviewDataAccessController)dac).finalReviewsCount(submissionId);
+    }
 }

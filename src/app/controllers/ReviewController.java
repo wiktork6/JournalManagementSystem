@@ -6,7 +6,9 @@ import app.controllers.tools.generic.ActionResult;
 import app.pojo.*;
 import app.services.JournalService;
 import app.services.ReviewService;
+import app.services.SubmissionService;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class ReviewController extends GenericController<Review> {
@@ -62,6 +64,12 @@ public class ReviewController extends GenericController<Review> {
             Controllers.QUESTION.addQuestion(question);
         }
 
+        int initialReviews = ((ReviewService)this.service).initialReviewsCount(submission.getId());
+        if(initialReviews == 3){
+            submission.setStatus("Initial Review");
+            new SubmissionService().updateItem(submission);
+        }
+
         return ar;
     }
 
@@ -69,8 +77,14 @@ public class ReviewController extends GenericController<Review> {
         Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
         Review review = ((ReviewService)this.service).getSubmissionReviewerReview(submission.getId(), reviewer.getId());
         review.setFinalVerdict(finalVerdict);
+        ActionResult<Review> ar = super.updateItem(review);
 
-        return super.updateItem(review);
+        int finalReviews = ((ReviewService)this.service).finalReviewsCount(submission.getId());
+        if(finalReviews == 3){
+            submission.setStatus("Final Review");
+            new SubmissionService().updateItem(submission);
+        }
+        return ar;
     }
 
 }

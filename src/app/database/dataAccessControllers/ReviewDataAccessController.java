@@ -1,11 +1,10 @@
 package app.database.dataAccessControllers;
 
+import app.database.DbConnection;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.pojo.Review;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ReviewDataAccessController extends GenericDataAccessController<Review> {
     @Override
@@ -44,5 +43,34 @@ public class ReviewDataAccessController extends GenericDataAccessController<Revi
         preparedStatement.setInt(5, review.getSubmissionId());
         preparedStatement.setInt(6, review.getReviewerId());
         return 6;
+    }
+
+    public Integer initialReviewsCount(Integer submissionId){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "SELECT COUNT(*) FROM " + getTableName() + " WHERE submission_id = ? AND LENGTH(initial_verdict) > 0")){
+            preparedStatement.setInt(1, submissionId);
+            ResultSet res = preparedStatement.executeQuery();
+            res.next();
+            return res.getInt(1);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public Integer finalReviewsCount(Integer submissionId){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "SELECT COUNT(*) FROM " + getTableName() + " WHERE submission_id = ? AND LENGTH(final_verdict) > 0")){
+            preparedStatement.setInt(1, submissionId);
+
+            ResultSet res = preparedStatement.executeQuery();
+            res.next();
+            return res.getInt(1);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 }
