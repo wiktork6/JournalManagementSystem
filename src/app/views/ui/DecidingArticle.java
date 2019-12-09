@@ -102,14 +102,19 @@ public class DecidingArticle {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(submissionsList.getSelectedIndex()!=-1){
-					Integer index = submissionsList.getSelectedIndex();
-					Submission submission = submissionActionResult.getResult().get(index);
+					if(Controllers.SUBMISSION.getSubmissionsWithStatus(Controllers.JOURNAL.getChosenJournal(),"Accepted").getResult().size()<8){
+						Integer index = submissionsList.getSelectedIndex();
+						Submission submission = submissionActionResult.getResult().get(index);
 
-					Controllers.SUBMISSION.setStatus(submission, "Accepted");
+						Controllers.SUBMISSION.setStatus(submission, "Accepted");
 
-					frame.dispose();
-					JournalOf jo=new JournalOf();
-					jo.frame.setVisible(true);
+						frame.dispose();
+						JournalOf jo=new JournalOf();
+						jo.frame.setVisible(true);
+
+					}else{
+						error.setText(Messages.Error.MAXIMUM_NUMBER_OF_ARTICLES_ACHIEVED);
+					}
 				}else{
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}
