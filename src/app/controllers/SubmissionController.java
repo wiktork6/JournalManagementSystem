@@ -61,6 +61,12 @@ public class SubmissionController extends GenericController<Submission> {
 
         return result;
     }
+//    public ActionResult<ArrayList<Submission>> getJournalsSubmissionNoConflict(Journal journal, Editor editor){
+//        ActionResult<ArrayList<Submission>> result = new ActionResult<>();
+//        result.setResult(((SubmissionService)service).getJournalsSubmissionsNoConflict(journal, editor));
+//
+//        return result;
+//    }
 
     public ActionResult<ArrayList<Submission>> getSubmissionsWithStatus(Journal journal, String status){
         ActionResult<ArrayList<Submission>> actionResult = new ActionResult<>();

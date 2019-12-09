@@ -5,10 +5,7 @@ import app.database.dataAccessControllers.ArticleDataAccessController;
 import app.database.dataAccessControllers.SubmissionDataAccessController;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.database.dataAccessControllers.generic.KVPair;
-import app.pojo.Article;
-import app.pojo.Author;
-import app.pojo.Journal;
-import app.pojo.Submission;
+import app.pojo.*;
 import app.services.generic.GenericService;
 
 import java.util.ArrayList;
@@ -27,9 +24,7 @@ public class SubmissionService extends GenericService<Submission> {
     }
 
     public ArrayList<Submission> getSubmissions(Author author){
-        ArrayList<KVPair> filters = new ArrayList<>();
-        filters.add(new KVPair("author_id",author.getId()));
-        return dac.getItemsWhere(filters);
+        return ((SubmissionDataAccessController)dac).getAuthorSubmissions(author);
     }
 
     public ArrayList<Submission> getJournalsSubmissions(Journal journal){
@@ -38,6 +33,12 @@ public class SubmissionService extends GenericService<Submission> {
         filters.add(new KVPair("journal_id",journal.getId()));
         return dac.getItemsWhere(filters);
     }
+//    public ArrayList<Submission> getJournalsSubmissionsNoConflict(Journal journal, Editor editor){
+//        ArrayList<KVPair> filters = new ArrayList<>();
+//        filters.add(new KVPair("journal_id",journal.getId()));
+//        filters.add(new KVPair(,editor.getUser().getUniversity()));
+//        return dac.
+//    }
 
     public ArrayList<Submission> getStatusSubmissions(Journal journal, String status){
         ArrayList<KVPair> filters = new ArrayList<>();

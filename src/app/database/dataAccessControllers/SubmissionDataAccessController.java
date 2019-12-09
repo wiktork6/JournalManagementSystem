@@ -154,4 +154,25 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 //        }
 //
 //    }
+
+    public ArrayList<Submission> getAuthorSubmissions(Author author){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT s.id, s.title, s.abstract, s.draft_article, s.journal_id, s.author_id, s.status, s.reviews_selected  FROM submissions s  INNER JOIN submission_author sa ON s.id =sa.submission_id WHERE sa.author_id = ?")){
+            preparedStatement.setInt(1, author.getId());
+            ResultSet res = preparedStatement.executeQuery();
+            ArrayList<Submission> submissionArrayList = new ArrayList<>();
+            while(res.next()){
+                Submission submission = readItem(res);
+                submissionArrayList.add(submission);
+            }
+
+
+            res.close();
+            return submissionArrayList;
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
