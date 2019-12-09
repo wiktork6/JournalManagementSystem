@@ -7,6 +7,7 @@ import app.pojo.*;
 import app.services.JournalService;
 import app.services.ReviewService;
 import app.services.SubmissionService;
+import com.mysql.cj.util.StringUtils;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -46,6 +47,18 @@ public class ReviewController extends GenericController<Review> {
 
     public ActionResult<Review> addReview(Review item){
         return this.addItem(item);
+    }
+
+    public boolean canSubmitInitialReview(Submission submission, User loggedUser){
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
+        Review review = ((ReviewService)this.service).getSubmissionReviewerReview(submission.getId(), reviewer.getId());
+        return StringUtils.isNullOrEmpty(review.getInitialVerdict());
+    }
+
+    public boolean canSubmitFinalReview(Submission submission, User loggedUser){
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
+        Review review = ((ReviewService)this.service).getSubmissionReviewerReview(submission.getId(), reviewer.getId());
+        return StringUtils.isNullOrEmpty(review.getFinalVerdict()) && submission.getStatus().toLowerCase().equals("article updated");
     }
 
     public ActionResult<Review> submitInitialReview(Submission submission, User loggedUser,

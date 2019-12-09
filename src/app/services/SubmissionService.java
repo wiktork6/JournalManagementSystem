@@ -46,8 +46,8 @@ public class SubmissionService extends GenericService<Submission> {
         return dac.getItemsWhere(filters);
     }
 
-    public ArrayList<Submission> getReviewerSubmissions(String university, Integer reviewerId){
-        return ((SubmissionDataAccessController)dac).getReviewerSubmissions(university, reviewerId);
+    public ArrayList<Submission> getReviewerSubmissions(String university, Integer reviewerId, Integer authorId){
+        return ((SubmissionDataAccessController)dac).getReviewerSubmissions(university, reviewerId, authorId);
     }
 
     public ArrayList<Submission> getSelectedSubmissions(Integer reviewerId){

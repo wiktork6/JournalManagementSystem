@@ -1,7 +1,7 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
-import app.pojo.Article;
+import app.controllers.generic.Controller;
 import app.pojo.Submission;
 
 import java.awt.EventQueue;
@@ -97,28 +97,31 @@ public class ReviewHub {
 		});
 		btnReadSubmission.setBounds(62, 114, 158, 54);
 		frame.getContentPane().add(btnReadSubmission);
-		
-		JButton btnInitialReview = new JButton("Initial Review");
-		btnInitialReview.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				InitialReview intlrvw = new InitialReview(submission);
-				intlrvw.frame.setVisible(true);
-			}
-		});
-		btnInitialReview.setBounds(382, 114, 158, 54);
-		frame.getContentPane().add(btnInitialReview);
-		
-		JButton btnFinalReview = new JButton("Final Review");
-		btnFinalReview.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				FinalReview fnlrvw = new FinalReview(submission);
-				fnlrvw.frame.setVisible(true);
-			}
-		});
-		btnFinalReview.setBounds(382, 249, 158, 54);
-		frame.getContentPane().add(btnFinalReview);
+		if(Controllers.REVIEW.canSubmitInitialReview(submission, Controllers.USER.getLoggedUser())) {
+			JButton btnInitialReview = new JButton("Initial Review");
+			btnInitialReview.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.dispose();
+					InitialReview intlrvw = new InitialReview(submission);
+					intlrvw.frame.setVisible(true);
+				}
+			});
+			btnInitialReview.setBounds(382, 114, 158, 54);
+			frame.getContentPane().add(btnInitialReview);
+		}
+
+		if(Controllers.REVIEW.canSubmitFinalReview(submission, Controllers.USER.getLoggedUser())) {
+			JButton btnFinalReview = new JButton("Final Review");
+			btnFinalReview.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.dispose();
+					FinalReview fnlrvw = new FinalReview(submission);
+					fnlrvw.frame.setVisible(true);
+				}
+			});
+			btnFinalReview.setBounds(382, 249, 158, 54);
+			frame.getContentPane().add(btnFinalReview);
+		}
 		
 		JButton btnNextArticle = new JButton("Next article");
 		btnNextArticle.setBounds(433, 360, 117, 29);

@@ -89,7 +89,7 @@ public class SubmissionController extends GenericController<Submission> {
             return new ActionResult<>(null, false, Messages.Info.NO_NEED_TO_REVIEW);
         }
         Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
-        ArrayList<Submission> result = ((SubmissionService)this.service).getReviewerSubmissions(loggedUser.getUniversity(), reviewer.getId());
+        ArrayList<Submission> result = ((SubmissionService)this.service).getReviewerSubmissions(loggedUser.getUniversity(), reviewer.getId(), author.getId());
         return new ActionResult<>(result, true, "");
     }
 

@@ -100,6 +100,7 @@ public class SubmissionList {
 
 		listAvailableSubmissions.setModel(submissionsListModel);
 
+
 		//Titles Scroll Pane
 		JScrollPane journalsScrollPane = new JScrollPane();
 		journalsScrollPane.setViewportView(listAvailableSubmissions);
@@ -107,9 +108,10 @@ public class SubmissionList {
 		journalsScrollPane.setBounds(100, 100, 380, 200);
 		frame.getContentPane().add(journalsScrollPane);
 		
-		JButton btnRead = new JButton("Download PDF");
+		JButton btnRead = new JButton("Open PDF");
 		btnRead.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 			}
 		});
 		btnRead.setBounds(416, 314, 101, 32);

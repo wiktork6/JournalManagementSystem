@@ -31,6 +31,9 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
     @Override
     protected Submission readItem(ResultSet res) throws SQLException {
         Integer id = res.getInt(1);
+        if(id == 0){
+            return null;
+        }
         String title = res.getString(2);
         String abstractText = res.getString(3);
         File draftArticle;
@@ -105,18 +108,23 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         }
     }
 
-    public ArrayList<Submission> getReviewerSubmissions(String university, Integer reviewerId){
+    public ArrayList<Submission> getReviewerSubmissions(String university, Integer reviewerId, Integer authorId){
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("users.university", university));
         filters.add(new KVPair("reviews.reviewer_id", reviewerId));
+        filters.add(new KVPair("sa.author_id", authorId));
+        filters.add(new KVPair("submissions.author_id", authorId));
         return super.getItems("SELECT DISTINCT " + getAllFields() + " FROM " + getTableName()
                 + " INNER JOIN authors as a ON a.id = " + getTableName() + ".author_id"
                 + " INNER JOIN submission_author as sa ON sa.submission_id = " + getTableName() + ".id"
                 + " INNER JOIN authors ON authors.id = sa.author_id"
-                + " INNER JOIN users ON users.id = a.user_id or users.id = authors.user_id"
+                + " INNER JOIN users ON users.id = a.user_id OR users.id = authors.user_id"
                 + " LEFT JOIN reviews ON reviews.submission_id = " + getTableName() + ".id"
-                + " WHERE LOWER(users.university) <> LOWER(?) "
-                + " AND (reviews.reviewer_id <> ? OR reviews.reviewer_id IS NULL)", filters);
+                + " WHERE LOWER(users.university) <> LOWER(?) " // where there are no uni affiliations overlapping
+                + " AND (reviews.reviewer_id <> ? OR reviews.reviewer_id IS NULL)" // where user is not already reviewing
+                + " AND sa.author_id <> ? AND " + getTableName() + ".author_id <> ?" // where user is not author or coauthor
+                //+ " HAVING COUNT(DISTINCT reviews.id) < 3"// with less than 3 reviews
+                , filters);
     }
 
     public ArrayList<Submission> getSelectedSubmissions(Integer reviewerId){
