@@ -1,5 +1,6 @@
 package app.views.ui;
 
+import app.controllers.Controllers;
 import app.pojo.Submission;
 
 import java.awt.*;
@@ -71,6 +72,7 @@ public class ReadSubmission {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.USER.logout();
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);

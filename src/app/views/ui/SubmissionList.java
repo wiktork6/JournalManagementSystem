@@ -1,13 +1,16 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.tools.Messages;
+import app.pojo.Article;
 import app.pojo.Submission;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SubmissionList {
@@ -107,11 +110,26 @@ public class SubmissionList {
 		listAvailableSubmissions.setLayoutOrientation(JList.VERTICAL);
 		journalsScrollPane.setBounds(100, 100, 380, 200);
 		frame.getContentPane().add(journalsScrollPane);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
 		
 		JButton btnRead = new JButton("Open PDF");
 		btnRead.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(listAvailableSubmissions.getSelectedIndex()!=-1){
+					Submission chosenSubmission = submissions.get(listAvailableSubmissions.getSelectedIndex());
+					Desktop desktop = Desktop.getDesktop();
+					try {
+						desktop.open(chosenSubmission.getDraftArticle());
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
 		btnRead.setBounds(416, 314, 101, 32);

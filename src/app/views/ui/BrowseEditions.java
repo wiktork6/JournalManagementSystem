@@ -67,7 +67,7 @@ public class BrowseEditions {
 		//Default List Model for titles
 		DefaultListModel volumesListModel = new DefaultListModel();
 		for(int i = 0; i<listOfEditions.getResult().size();i++){
-			volumesListModel.add(i,listOfEditions.getResult().get(i).getMonthOfPublication());
+			volumesListModel.add(i,Controllers.JOURNAL.getChosenJournal().getName() + " vol." + Controllers.VOLUME.getChosenVolume().getVolumeNumber() + ",no." +listOfEditions.getResult().get(i).getEdition_number());
 		}
 		editionsList.setModel(volumesListModel);
 

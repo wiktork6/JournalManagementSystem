@@ -67,7 +67,8 @@ public class BrowseArticles {
 		//Default List Model for titles
 		DefaultListModel volumesListModel = new DefaultListModel();
 		for(int i = 0; i<listOfArticles.getResult().size();i++){
-			volumesListModel.add(i,listOfArticles.getResult().get(i).getPageNumberRange() + listOfArticles.getResult().get(i).getTitle());
+			volumesListModel.add(i,Controllers.JOURNAL.getChosenJournal().getName() + " vol." + Controllers.VOLUME.getChosenVolume().getVolumeNumber() + ",no." +
+					Controllers.EDITION.getChosenEdition().getEdition_number() + listOfArticles.getResult().get(i).getPageNumberRange() + " " + listOfArticles.getResult().get(i).getTitle());
 		}
 		articlesList.setModel(volumesListModel);
 

@@ -4,6 +4,7 @@ import app.controllers.Controllers;
 import app.controllers.tools.Messages;
 import app.pojo.Editor;
 import app.pojo.Journal;
+import app.pojo.User;
 
 import java.awt.*;
 
@@ -167,6 +168,7 @@ public class JournalOf {
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controllers.USER.logout();
+
 				Controllers.JOURNAL.removeChosenJournal();
 				frame.dispose();
 				Login lgn=new Login();
