@@ -56,9 +56,11 @@ public class ArticleReviewSelection {
 
 		JList lstSubmissions = new JList();
 		DefaultListModel submissionsListModel = new DefaultListModel();
-		for(int i = 0; i < arSubmissions.getResult().size(); i++){
-			submissionsListModel.add(i, arSubmissions.getResult().get(i).getTitle());
-		}
+		if(arSubmissions.getResult()!=null){
+            for(int i = 0; i < arSubmissions.getResult().size(); i++){
+                submissionsListModel.add(i, arSubmissions.getResult().get(i).getTitle());
+            }
+        }
 		lstSubmissions.setModel(submissionsListModel);
 		JScrollPane spEditor = new JScrollPane(lstSubmissions,
 	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

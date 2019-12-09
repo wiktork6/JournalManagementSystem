@@ -34,6 +34,8 @@ public class Messages {
         public static String ONLY_MAIN_AUTHOR_CAN_RESPOND = "Only main authors can respond to questions";
         public static String CANT_UPLOAD = "You can not upload edited article with current submission status";
         public static String NOT_ALLOWED_WRONG_STATUS = "You can not perform this action with current submission status";
+        public static String MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED = "There has to be minimum 3 articles to be published per edition";
+        public static String MAXIMUM_NUMBER_OF_ARTICLES_ACHIEVED = "Maximum number of 8 articles per edition was achieved";
     }
 
     public static class Info {
