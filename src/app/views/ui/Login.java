@@ -100,6 +100,7 @@ public class Login {
 					ActionResult<User> userActionResult = Controllers.USER.login(txtFEmail.getText(),txtFPassword.getText());
 					if(userActionResult.getSuccess()){
 						frame.dispose();
+						Controllers.USER.getLoggedUser().setPassword(null);
 						UserWelcomePage usrwlcm = new UserWelcomePage();
 						usrwlcm.frame.setVisible(true);
 					}else{

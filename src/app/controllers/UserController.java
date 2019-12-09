@@ -34,9 +34,6 @@ public class UserController extends GenericController<User> {
         } else {
             ar = new ActionResult<>(null, false, Messages.Error.WRONG_CREDENTIALS);
         }
-        user.setPassword(null);
-        this.loggedUser.setPassword(null);
-        password = null;
         return ar;
     }
 
