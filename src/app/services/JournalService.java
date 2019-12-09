@@ -47,4 +47,8 @@ public class JournalService extends GenericService<Journal> {
         return ((JournalDataAccessController)dac).deleteEditorFromJournal(editor,journal);
     }
 
+    public Integer submissionsEditorAffiliationOverlap(String university, Integer journalId){
+        return ((JournalDataAccessController)dac).submissionsEditorAffiliationOverlap(university, journalId);
+    }
+
 }
