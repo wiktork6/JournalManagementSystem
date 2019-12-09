@@ -1,15 +1,15 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.tools.Messages;
 import app.pojo.Submission;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class UploadArticlePage {
 
@@ -46,17 +46,56 @@ public class UploadArticlePage {
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
+
+
+		JButton btnChooseFile = new JButton("Choose file");
+		final File[] selectedFile = new File[1];
+		JLabel lblSelectedFile = new JLabel("No file selected.");
+		lblSelectedFile.setBounds(460, 370, 117, 16);
+		frame.getContentPane().add(lblSelectedFile);
+		btnChooseFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				fc.setDialogTitle("Select an article");
+				fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int result = fc.showOpenDialog(frame);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					selectedFile[0] = fc.getSelectedFile();
+					lblSelectedFile.setText(selectedFile[0].getName());
+
+				} else {
+					lblSelectedFile.setText("File not approved.");
+				}
+			}
+		});
+		btnChooseFile.setBounds(300, 350, 149, 54);
+		frame.getContentPane().add(btnChooseFile);
+
+
+
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(150, 325, 200, 30);
+		frame.getContentPane().add(error);
+
+
 		JButton btnNewButton = new JButton("UPLOAD FILE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//if(fileUploaded){
-				Submission selectedSubmission = Controllers.SUBMISSION.getSelectedSubmission();
-				Controllers.SUBMISSION.setStatus(selectedSubmission,"Article Updated");
-				//}
-				frame.dispose();
-				UploadConfirmation upc = new UploadConfirmation();
-				upc.frame.setVisible(true);
+				if(selectedFile[0] != null){
+					Submission selectedSubmission = Controllers.SUBMISSION.getSelectedSubmission();
+					selectedSubmission.setDraftArticle(selectedFile[0]);
+					Controllers.SUBMISSION.setStatus(selectedSubmission,"Article Updated");
+					frame.dispose();
+					UploadConfirmation upc = new UploadConfirmation();
+					upc.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
+
 			}
 		});
 		btnNewButton.setBounds(210, 193, 133, 23);

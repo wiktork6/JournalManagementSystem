@@ -56,7 +56,7 @@ public class UploadOrReview {
 		frame.getContentPane().add(submissionTitle);
 
 		JLabel submissionStatus = new JLabel("Status: " + Controllers.SUBMISSION.getSelectedSubmission().getStatus());
-		submissionStatus.setBounds(400, 36, 128, 14);
+		submissionStatus.setBounds(400, 36, 200, 14);
 		frame.getContentPane().add(submissionStatus);
 		
 		JButton btnGoBack = new JButton("Go Back");

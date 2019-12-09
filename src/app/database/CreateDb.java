@@ -135,7 +135,7 @@ public class CreateDb {
             //Creating articles table
             statement.execute("CREATE TABLE IF NOT EXISTS articles(" +
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
-                    "page_number_range VARCHAR(5) NOT NULL, " +
+                    "page_number_range VARCHAR(7) NOT NULL, " +
                     "abstract TINYTEXT, " +
                     "title VARCHAR(255), " +
                     "final_full_article LONGBLOB, " +

@@ -2,9 +2,10 @@ package app.views.ui;
 
 import app.controllers.Controllers;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -67,9 +68,12 @@ public class ReadArticle {
 		
 		JTextPane txtPArticleInfo = new JTextPane();
 		txtPArticleInfo.setEditable(false);
-		txtPArticleInfo.setText("Page number range: " + Controllers.ARTICLE.getChosenArticle().getPageNumberRange() + "\n"+ "Author: " );
+		txtPArticleInfo.setText(Controllers.JOURNAL.getChosenJournal().getName() + " vol." + Controllers.VOLUME.getChosenVolume().getVolumeNumber() + ",no." +
+				Controllers.EDITION.getChosenEdition().getEdition_number() + Controllers.ARTICLE.getChosenArticle().getPageNumberRange());
 		txtPArticleInfo.setBounds(79, 277, 427, 59);
 		frame.getContentPane().add(txtPArticleInfo);
+
+
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -86,7 +90,12 @@ public class ReadArticle {
 		JButton btnDownload = new JButton("Download");
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Code to download article
+				Desktop desktop = Desktop.getDesktop();
+				try {
+					desktop.open(Controllers.ARTICLE.getChosenArticle().getFullArticle());
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		});
 		btnDownload.setBounds(440, 360, 117, 29);

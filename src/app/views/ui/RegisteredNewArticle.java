@@ -103,7 +103,7 @@ public class RegisteredNewArticle {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(150, 325, 200, 30);
+		error.setBounds(50, 325, 200, 30);
 		frame.getContentPane().add(error);
 
 		JList<String> journalList = new JList<>();

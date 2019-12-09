@@ -98,6 +98,9 @@ public class PublishNextEdition {
 			public void actionPerformed(ActionEvent e) {
 				if(submissionActionResult.getResult().size()<3){
 
+
+
+
 				}else{
 					error.setText(Messages.Error.MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED);
 				}
