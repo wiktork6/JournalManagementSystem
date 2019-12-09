@@ -60,4 +60,8 @@ public class QuestionController extends GenericController<Question> {
         }
         return true;
     }
+
+    public ArrayList<Question> getQuestionsAnswered(Review review){
+        return ((QuestionService)this.service).getQuestionsAnswered(review.getId());
+    }
 }

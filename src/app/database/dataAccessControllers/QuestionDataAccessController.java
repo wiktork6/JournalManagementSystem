@@ -2,10 +2,7 @@ package app.database.dataAccessControllers;
 
 import app.database.DbConnection;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
-import app.pojo.Editor;
-import app.pojo.Journal;
-import app.pojo.Question;
-import app.pojo.Submission;
+import app.pojo.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,4 +70,6 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
             return null;
         }
     }
+
+
 }

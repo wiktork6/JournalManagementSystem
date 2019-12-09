@@ -20,6 +20,13 @@ public class QuestionService extends GenericService<Question> {
         return dac.getItemsWhere(filters);
     }
 
+    public ArrayList<Question> getQuestionsAnswered(Integer reviewId){
+        ArrayList<KVPair> filters = new ArrayList<KVPair>();
+        filters.add(new KVPair("review_id", reviewId));
+        filters.add(new KVPair("is_answered", true));
+        return dac.getItemsWhere(filters);
+    }
+
     public Integer answerQuestion(Question question, String response){
         question.setResponse(response);
         question.setAnswered(true);
