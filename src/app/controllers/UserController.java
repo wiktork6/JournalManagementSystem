@@ -27,10 +27,10 @@ public class UserController extends GenericController<User> {
 
     public ActionResult<User> login(String email, String password){
         User user = ((UserService)this.service).authentecateUser(email, password);
-        this.loggedUser = user;
         ActionResult<User> ar = null;
         if(user != null){
             ar = new ActionResult<>(user, true, Messages.Info.SUCCESSFUL_LOGIN);
+            this.loggedUser = user;
         } else {
             ar = new ActionResult<>(null, false, Messages.Error.WRONG_CREDENTIALS);
         }

@@ -25,25 +25,7 @@ public class PublishNextEdition {
 	public JFrame frame;
 	private ActionResult<ArrayList<Submission>> submissionActionResult;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PublishNextEdition window = new PublishNextEdition();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
 	public PublishNextEdition() {
 		this.submissionActionResult = Controllers.SUBMISSION.getSubmissionsWithStatus(Controllers.JOURNAL.getChosenJournal(),"Accepted");
 		initialize();

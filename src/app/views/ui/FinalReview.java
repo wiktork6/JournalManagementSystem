@@ -2,11 +2,13 @@ package app.views.ui;
 
 import app.controllers.Controllers;
 import app.controllers.generic.Controller;
+import app.pojo.Question;
 import app.pojo.Submission;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ public class FinalReview {
 
 	private final Submission submission;
 	public JFrame frame;
+	private ArrayList<Question> listOfQuestions;
 
 	/**
 	 * Launch the application.
@@ -42,6 +45,7 @@ public class FinalReview {
 	 */
 	public FinalReview(Submission submission) {
 		this.submission = submission;
+		this.listOfQuestions = Controllers.QUESTION.getQuestionsAnswered(Controllers.REVIEW.getReview(submission,Controllers.REVIEWER.getUserReviewer(Controllers.USER.getLoggedUser().getId())));
 		initialize();
 	}
 
@@ -73,6 +77,7 @@ public class FinalReview {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.USER.logout();
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
@@ -93,6 +98,10 @@ public class FinalReview {
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	    spEditor.setBounds(28, 92, 530, 179);
 		frame.getContentPane().add(spEditor);
+
+		for(int i =0; i<listOfQuestions.size(); i++){
+			txtAuthorResponse.setText(listOfQuestions.get(i).getQuestion() + " Response: " + listOfQuestions.get(i).getResponse() +"\n");
+		}
 		
 		JLabel lblVerdict = new JLabel("Final Verdict");
 		lblVerdict.setHorizontalAlignment(SwingConstants.LEFT);
@@ -111,6 +120,9 @@ public class FinalReview {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controllers.REVIEW.submitFinalReview(submission, Controllers.USER.getLoggedUser(), (String)comboBoxVerdicts.getSelectedItem());
+				frame.dispose();
+				ReviewHub rvwhb = new ReviewHub(submission);
+				rvwhb.frame.setVisible(true);
 			}
 		});
 		btnSubmit.setBounds(386, 336, 159, 53);

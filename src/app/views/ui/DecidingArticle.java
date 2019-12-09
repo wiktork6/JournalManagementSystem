@@ -38,7 +38,7 @@ public class DecidingArticle {
 	 * Create the application.
 	 */
 	public DecidingArticle() {
-		this.submissionActionResult = Controllers.SUBMISSION.getSubmissionsWithStatus(Controllers.JOURNAL.getChosenJournal(),"Final Verdict");
+		this.submissionActionResult = Controllers.SUBMISSION.getSubmissionsWithStatus(Controllers.JOURNAL.getChosenJournal(),"Final Review");
 		initialize();
 	}
 

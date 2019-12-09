@@ -5,6 +5,7 @@ import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Question;
 import app.pojo.Review;
+import app.pojo.Submission;
 import app.services.QuestionService;
 import app.services.SubmissionService;
 
@@ -46,14 +47,28 @@ public class QuestionController extends GenericController<Question> {
     public Integer answerQuestion(Question question, String response){
         Integer result = ((QuestionService)service).answerQuestion(question, response);
 
-        SubmissionService ss = new SubmissionService();
-        if(ss.unansweredReviewQuestions(Controllers.SUBMISSION.getSelectedSubmission().getId()) == 0){
-            ss.changeSubmissionStatus(Controllers.SUBMISSION.getSelectedSubmission(), "Response received");
-        }
+//        SubmissionService ss = new SubmissionService();
+//        if(ss.unansweredReviewQuestions(Controllers.SUBMISSION.getSelectedSubmission().getId()) == 0){
+//            ss.changeSubmissionStatus(Controllers.SUBMISSION.getSelectedSubmission(), "Response received");
+//        }
         return result;
     }
 
     public ActionResult<Question> addQuestion(Question question){
         return super.addItem(question);
+    }
+
+    public boolean isAllAnswered(Submission submission){
+        ArrayList<Question> listOfAllQuestions = ((QuestionService)service).getAllQuestions(submission);
+        for(int i =0; i<listOfAllQuestions.size();i++){
+            if(!listOfAllQuestions.get(i).isAnswered()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public ArrayList<Question> getQuestionsAnswered(Review review){
+        return ((QuestionService)this.service).getQuestionsAnswered(review.getId());
     }
 }

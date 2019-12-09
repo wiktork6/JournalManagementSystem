@@ -100,4 +100,8 @@ public class ReviewController extends GenericController<Review> {
         return ar;
     }
 
+    public Review getReview(Submission submission, Reviewer reviewer){
+        return ((ReviewService)this.service).getSubmissionReviewerReview(submission.getId(), reviewer.getId());
+    }
+
 }

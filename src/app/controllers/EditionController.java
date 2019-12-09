@@ -43,4 +43,8 @@ public class EditionController extends GenericController<Edition> {
     public Edition getChosenEdition(){
         return this.chosenEdition;
     }
+
+//    public ActionResult<Edition> registerEdition(Volume volume){
+//
+//    }
 }
