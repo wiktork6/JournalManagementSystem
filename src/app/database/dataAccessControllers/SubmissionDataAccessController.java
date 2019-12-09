@@ -123,7 +123,8 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
                 + " WHERE LOWER(users.university) <> LOWER(?) " // where there are no uni affiliations overlapping
                 + " AND (reviews.reviewer_id <> ? OR reviews.reviewer_id IS NULL)" // where user is not already reviewing
                 + " AND sa.author_id <> ? AND " + getTableName() + ".author_id <> ?" // where user is not author or coauthor
-                //+ " HAVING COUNT(DISTINCT reviews.id) < 3"// with less than 3 reviews
+                + " GROUP BY " + getTableName() + ".id"
+                + " HAVING COUNT(DISTINCT reviews.id) < 3"// with less than 3 reviews
                 , filters);
     }
 

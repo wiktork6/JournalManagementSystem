@@ -1,2 +1,24 @@
-[user]
-	email = rollyne@abv.bg
+git add .
+git commit -m "Added removeItem to GenericDataAccessController and GenericService"
+git push
+gi pull
+git pull
+git add .
+git commit -m "Merged Main file"
+git push
+git add .
+git commit -m "Added ActionSuccess and ActionResult to be returned by Controllers when an action is executed. Added static Messages class"
+git push
+git pull
+git pull
+git add .
+git commit -m "Added password hashing and salting. Password can be changed through My Account"
+git push
+git add .
+git commit -m "Added file uploading and storing for article pdf text"
+git push
+git pull
+git push
+git add .
+git commit -m "Fixed file uploading type bug"
+git push
