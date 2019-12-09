@@ -64,9 +64,10 @@ public class JournalDataAccessController extends GenericDataAccessController<Jou
 
     public ArrayList<Journal> getEditorsJournals(Editor editor) {
         try (Connection conn = DriverManager.getConnection(DbConnection.STRING);
-             PreparedStatement preparedStatement = conn.prepareStatement("SELECT j.id, j.ISSN, j.name_of_journal, j.chief_editor_id FROM journals j INNER JOIN journal_editor je ON j.id = je.journal_id WHERE je.editor_id = ?;")) {
+             PreparedStatement preparedStatement = conn.prepareStatement("SELECT j.id, j.ISSN, j.name_of_journal, j.chief_editor_id FROM journals j LEFT JOIN journal_editor je ON j.id = je.journal_id WHERE je.editor_id = ? OR j.chief_editor_id = ?;")) {
 
             preparedStatement.setInt(1, editor.getId());
+            preparedStatement.setInt(2, editor.getId());
             ArrayList<Journal> listOfJournal = new ArrayList<>();
             ResultSet res = preparedStatement.executeQuery();
             while (res.next()) {

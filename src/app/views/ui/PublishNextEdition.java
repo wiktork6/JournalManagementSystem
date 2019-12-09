@@ -3,7 +3,9 @@ package app.views.ui;
 import app.controllers.Controllers;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
+import app.pojo.Edition;
 import app.pojo.Submission;
+import app.pojo.Volume;
 
 import java.awt.*;
 
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PublishNextEdition {
 
@@ -51,8 +54,22 @@ public class PublishNextEdition {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBounds(65, 96, 465, 220);
 		frame.getContentPane().add(list);
+
+		String monthOfPublication = Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
+		ArrayList<Volume> volumes = Controllers.VOLUME.getJournalVolumes(Controllers.JOURNAL.getChosenJournal()).getResult();
+
+
+		Volume volume = null;
+		Integer lastEditionNumber = 0;
+		if(volumes != null && volumes.size() > 0) {
+			volume = volumes.get(volumes.size() - 1);
+			ArrayList<Edition> editions = Controllers.EDITION.getVolumeEditions(volume).getResult();
+			if(editions != null && editions.size() > 0){
+				lastEditionNumber = editions.get(editions.size()-1).getEdition_number();
+			}
+		}
 		
-		JLabel lblYouHave = new JLabel("You have " + submissionActionResult.getResult().size() +"  in edition <Edition_Month> in <Volume_Number>");
+		JLabel lblYouHave = new JLabel("You have " + submissionActionResult.getResult().size() +"  in edition " + lastEditionNumber + 1 + " month " + monthOfPublication);
 		lblYouHave.setHorizontalAlignment(SwingConstants.CENTER);
 		lblYouHave.setBounds(94, 69, 406, 16);
 		frame.getContentPane().add(lblYouHave);
@@ -75,13 +92,19 @@ public class PublishNextEdition {
 
 
 		JButton btnPublishEdition = new JButton("Publish Edition");
+		Volume finalVolume = volume;
+		Integer finalLastEditionNumber = lastEditionNumber;
 		btnPublishEdition.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(submissionActionResult.getResult().size()<3){
-
-
-
+				if(submissionActionResult.getResult().size()>=3){
+					if(finalVolume != null) {
+						Edition edition = new Edition();
+						edition.setMonthOfPublication(monthOfPublication);
+						edition.setEdition_number(finalLastEditionNumber + 1);
+						edition.setVolumeId(finalVolume.getId());
+						Controllers.EDITION.addEdition(edition);
+					}
 
 				}else{
 					error.setText(Messages.Error.MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED);

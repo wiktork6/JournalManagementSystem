@@ -18,7 +18,7 @@ public class EditionController extends GenericController<Edition> {
     }
     @Override
     protected boolean validateItem(Edition edition) {
-        return false;
+        return true;
     }
     public ActionResult<ArrayList<Edition>> getVolumeEditions(Volume volume){
         ActionResult<ArrayList<Edition>> actionResult = new ActionResult<>();
@@ -31,6 +31,10 @@ public class EditionController extends GenericController<Edition> {
             actionResult.setSuccess(true);
         }
         return actionResult;
+    }
+
+    public ActionResult<Edition> addEdition(Edition edition){
+        return super.addItem(edition);
     }
 
     public void setChosenEdition(Edition edition){

@@ -29,11 +29,23 @@ public class Edition implements Identifiable {
         return edition_number;
     }
 
+    public void setEdition_number(Integer edition_number) {
+        this.edition_number = edition_number;
+    }
+
     public String getMonthOfPublication() {
         return monthOfPublication;
     }
 
+    public void setMonthOfPublication(String monthOfPublication) {
+        this.monthOfPublication = monthOfPublication;
+    }
+
     public Integer getVolumeId() {
         return volumeId;
+    }
+
+    public void setVolumeId(Integer volumeId) {
+        this.volumeId = volumeId;
     }
 }
