@@ -1,11 +1,14 @@
 package app.database.dataAccessControllers;
 
+import app.database.DbConnection;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
+import app.pojo.Editor;
+import app.pojo.Journal;
 import app.pojo.Question;
+import app.pojo.Submission;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class QuestionDataAccessController extends GenericDataAccessController<Question> {
 
@@ -49,5 +52,25 @@ public class QuestionDataAccessController extends GenericDataAccessController<Qu
         preparedStatement.setBoolean(4,question.isAnswered());
         preparedStatement.setInt(5,question.getReviewId());
         return 5;
+    }
+
+    public ArrayList<Question> getAllQuestions(Submission submission) {
+        try (Connection conn = DriverManager.getConnection(DbConnection.STRING);
+             PreparedStatement preparedStatement = conn.prepareStatement("SELECT q.id, q.question_number, q.question, q.response, q.is_answered, q.review_id FROM questions q INNER JOIN reviews r ON q.review_id = r.id INNER JOIN submissions s ON r.submission_id = s.id WHERE s.id = ?;")) {
+
+            preparedStatement.setInt(1, submission.getId());
+            ArrayList<Question> listOfQuestions = new ArrayList<>();
+            ResultSet res = preparedStatement.executeQuery();
+            while (res.next()) {
+                listOfQuestions.add(readItem(res));
+            }
+
+
+            return listOfQuestions;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 }

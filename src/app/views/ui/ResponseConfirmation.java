@@ -13,27 +13,15 @@ import java.awt.event.ActionEvent;
 public class ResponseConfirmation {
 
 	public JFrame frame;
+	private Integer reviewNumber;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ResponseConfirmation window = new ResponseConfirmation();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the application.
 	 */
-	public ResponseConfirmation() {
+	public ResponseConfirmation(Integer reviewNumber) {
+		this.reviewNumber = reviewNumber;
 		initialize();
 	}
 
@@ -70,7 +58,7 @@ public class ResponseConfirmation {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				QuestionPage questionPage = new QuestionPage(null);
+				QuestionPage questionPage = new QuestionPage(reviewNumber);
 				questionPage.frame.setVisible(true);
 			}
 		});

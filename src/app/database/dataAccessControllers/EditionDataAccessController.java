@@ -33,11 +33,14 @@ public class EditionDataAccessController extends GenericDataAccessController<Edi
 
     @Override
     protected String getInsertFields() {
-        throw new UnsupportedOperationException();
+        return "edition_number, month_of_publication, volume_id";
     }
 
     @Override
     protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Edition edition) throws SQLException {
-        throw new UnsupportedOperationException();
+        preparedStatement.setInt(1,edition.getEdition_number());
+        preparedStatement.setString(2,edition.getMonthOfPublication());
+        preparedStatement.setInt(3,edition.getVolumeId());
+        return 3;
     }
 }

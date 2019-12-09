@@ -40,4 +40,15 @@ public class VolumeController extends GenericController<Volume> {
     public Volume getChosenVolume(){
         return this.chosenVolume;
     }
+
+//    public ActionResult<Volume> registerVolume(Journal journal){
+//        if(!getJournalVolumes(journal).getSuccess()){
+//            Volume newVolume = new Volume(1,0,"2019",journal.getId());
+//            return this.addItem(newVolume);
+//        }
+//        Volume lastVolume = getJournalVolumes(journal).getResult().get(getJournalVolumes(journal).getResult().size()-1);
+//        ActionResult<Volume> volumeActionResult = new ActionResult<>();
+//
+//        return getJournalVolumes(journal).getResult().get(getJournalVolumes(journal).getResult().size()-1);
+//    }
 }

@@ -77,12 +77,13 @@ public class SubmitResponse {
 			public void actionPerformed(ActionEvent e) {
 				if (!responseField.getText().equals("")) {
 					Question answeredQuestion = Controllers.QUESTION.getSelectedQuestion();
-					//SET QUESTION IS ANSWERED TO TRUE
 					Controllers.QUESTION.answerQuestion(answeredQuestion, responseField.getText());
-					//if all questions are answered, change status to responded
+					if(Controllers.QUESTION.isAllAnswered(Controllers.SUBMISSION.getSelectedSubmission())){
+						Controllers.SUBMISSION.setStatus(Controllers.SUBMISSION.getSelectedSubmission(),"Response received");
+					}
 
 					frame.dispose();
-					ResponseConfirmation respc = new ResponseConfirmation();
+					ResponseConfirmation respc = new ResponseConfirmation(reviewNumber);
 					respc.frame.setVisible(true);
 				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);

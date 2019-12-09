@@ -3,17 +3,23 @@ package app.pojo;
 public class Volume implements Identifiable {
     private Integer id;
     private Integer volumeNumber;
-    private Integer numberOfEdition;
+    private Integer numberOfEditions;
     private String yearOfPublication;
     private Integer journalId;
 
     public Volume() {
     }
+    public Volume(Integer volumeNumber, Integer numberOfEditions, String yearOfPublication, Integer journalId){
+        this.volumeNumber = volumeNumber;
+        this.numberOfEditions = numberOfEditions;
+        this.yearOfPublication = yearOfPublication;
+        this.journalId = journalId;
+    }
 
-    public Volume(Integer id, Integer volumeNumber, Integer numberOfEdition, String yearOfPublication, Integer journalId) {
+    public Volume(Integer id, Integer volumeNumber, Integer numberOfEditions, String yearOfPublication, Integer journalId) {
         this.id = id;
         this.volumeNumber = volumeNumber;
-        this.numberOfEdition = numberOfEdition;
+        this.numberOfEditions = numberOfEditions;
         this.yearOfPublication = yearOfPublication;
         this.journalId = journalId;
     }
@@ -31,8 +37,8 @@ public class Volume implements Identifiable {
         return volumeNumber;
     }
 
-    public Integer getNumberOfEdition() {
-        return numberOfEdition;
+    public Integer getNumberOfEditions() {
+        return numberOfEditions;
     }
 
     public String getYearOfPublication() {

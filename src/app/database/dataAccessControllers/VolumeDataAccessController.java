@@ -33,11 +33,15 @@ public class VolumeDataAccessController extends GenericDataAccessController<Volu
 
     @Override
     protected String getInsertFields() {
-        throw new UnsupportedOperationException();
+        return "volume_number, number_of_editions, year_of_publication, journal_id";
     }
 
     @Override
     protected Integer setInsertPreparedStatement(PreparedStatement preparedStatement, Volume volume) throws SQLException {
-        throw new UnsupportedOperationException();
+            preparedStatement.setInt(1,volume.getVolumeNumber());
+            preparedStatement.setInt(2,volume.getNumberOfEditions());
+            preparedStatement.setString(3,volume.getYearOfPublication());
+            preparedStatement.setInt(4,volume.getJournalId());
+        return 4;
     }
 }

@@ -5,6 +5,7 @@ import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Question;
 import app.pojo.Review;
+import app.pojo.Submission;
 import app.services.QuestionService;
 
 import java.util.ArrayList;
@@ -48,5 +49,15 @@ public class QuestionController extends GenericController<Question> {
 
     public ActionResult<Question> addQuestion(Question question){
         return super.addItem(question);
+    }
+
+    public boolean isAllAnswered(Submission submission){
+        ArrayList<Question> listOfAllQuestions = ((QuestionService)service).getAllQuestions(submission);
+        for(int i =0; i<listOfAllQuestions.size();i++){
+            if(listOfAllQuestions.get(i).isAnswered()){
+                return false;
+            }
+        }
+        return true;
     }
 }
