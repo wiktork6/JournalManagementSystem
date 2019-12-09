@@ -1,13 +1,14 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Article;
 import app.pojo.Author;
 import app.pojo.Submission;
 import app.pojo.User;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -65,6 +66,11 @@ public class ArticleReviewSelection {
 	    spEditor.setBounds(46, 126, 511, 100);
 		frame.getContentPane().add(spEditor);
 
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(200, 360, 250, 30);
+		frame.getContentPane().add(error);
+
 		ActionResult<ArrayList<Submission>> arSelectedSubmissions = Controllers.SUBMISSION.getReviewerSelectedSubmissions(loggedUser);
 		JList lstSelectedSubmission = new JList();
 		DefaultListModel selectedSubmissionsListModel = new DefaultListModel();
@@ -81,11 +87,15 @@ public class ArticleReviewSelection {
 		JButton btnSelect = new JButton("Select");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Submission selected = arSubmissions.getResult().get(lstSubmissions.getSelectedIndex());
-				Controllers.SUBMISSION.selectSubmission(selected, loggedUser);
-				frame.dispose();
-				ArticleReviewSelection refresh = new ArticleReviewSelection();
-				refresh.frame.setVisible(true);
+				if(lstSubmissions.getSelectedIndex()!=-1){
+					Submission selected = arSubmissions.getResult().get(lstSubmissions.getSelectedIndex());
+					Controllers.SUBMISSION.selectSubmission(selected, loggedUser);
+					frame.dispose();
+					ArticleReviewSelection refresh = new ArticleReviewSelection();
+					refresh.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
 		btnSelect.setBounds(440, 90, 117, 29);
@@ -119,10 +129,15 @@ public class ArticleReviewSelection {
 		JButton btnWriteReview = new JButton("Write Review");
 		btnWriteReview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Submission selected = arSelectedSubmissions.getResult().get(lstSelectedSubmission.getSelectedIndex());
-				frame.dispose();
-				ReviewHub rvwhb = new ReviewHub(selected);
-				rvwhb.frame.setVisible(true);
+				if(lstSelectedSubmission.getSelectedIndex()!=-1){
+					Submission selected = arSelectedSubmissions.getResult().get(lstSelectedSubmission.getSelectedIndex());
+					Controllers.SUBMISSION.setSelectedSubmission(selected);
+					frame.dispose();
+					ReviewHub rvwhb = new ReviewHub(selected);
+					rvwhb.frame.setVisible(true);
+				}else{
+					error.setText(Messages.Error.FIELD_IS_EMPTY);
+				}
 			}
 		});
 		btnWriteReview.setBounds(440, 360, 117, 29);

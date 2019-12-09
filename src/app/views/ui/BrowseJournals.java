@@ -117,5 +117,10 @@ public class BrowseJournals {
 		lblJournals.setHorizontalAlignment(SwingConstants.CENTER);
 		lblJournals.setBounds(217, 85, 162, 29);
 		frame.getContentPane().add(lblJournals);
+
+		if(listOfAllJournals.size()==0){
+			error.setText(Messages.Error.ITEM_NOT_FOUND);
+			btnSelect.setVisible(false);
+		}
 	}
 }

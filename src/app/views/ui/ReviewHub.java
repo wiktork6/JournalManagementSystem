@@ -1,10 +1,9 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
-import app.controllers.generic.Controller;
 import app.pojo.Submission;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -59,6 +58,7 @@ public class ReviewHub {
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Controllers.SUBMISSION.setSelectedSubmission(null);
 				frame.dispose();
 				UserWelcomePage usrwlcm = new UserWelcomePage();
 				usrwlcm.frame.setVisible(true);
@@ -71,6 +71,7 @@ public class ReviewHub {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controllers.USER.logout();
+				Controllers.SUBMISSION.setSelectedSubmission(null);
 				frame.dispose();
 				Login lgn = new Login();
 				lgn.frame.setVisible(true);
@@ -97,6 +98,7 @@ public class ReviewHub {
 		});
 		btnReadSubmission.setBounds(62, 114, 158, 54);
 		frame.getContentPane().add(btnReadSubmission);
+
 		if(Controllers.REVIEW.canSubmitInitialReview(submission, Controllers.USER.getLoggedUser())) {
 			JButton btnInitialReview = new JButton("Initial Review");
 			btnInitialReview.addActionListener(new ActionListener() {
