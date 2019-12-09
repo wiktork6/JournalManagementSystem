@@ -28,11 +28,16 @@ public class UserController extends GenericController<User> {
     public ActionResult<User> login(String email, String password){
         User user = ((UserService)this.service).authentecateUser(email, password);
         this.loggedUser = user;
-
+        ActionResult<User> ar = null;
         if(user != null){
-            return new ActionResult<>(user, true, Messages.Info.SUCCESSFUL_LOGIN);
+            ar = new ActionResult<>(user, true, Messages.Info.SUCCESSFUL_LOGIN);
+        } else {
+            ar = new ActionResult<>(null, false, Messages.Error.WRONG_CREDENTIALS);
         }
-        return new ActionResult<>(null, false, Messages.Error.WRONG_CREDENTIALS);
+        user.setPassword(null);
+        this.loggedUser.setPassword(null);
+        password = null;
+        return ar;
     }
 
     public ActionResult<User> register(String title, String forname, String surname, String university, String email, String password, String repeatPassword){
@@ -40,9 +45,14 @@ public class UserController extends GenericController<User> {
             ActionResult<User> userActionResult = new ActionResult<>();
             userActionResult.setSuccess(false);
             userActionResult.setMessage(Messages.Error.PASSWORD_NOT_MATCH);
+            password = null;
+            repeatPassword = null;
             return userActionResult;
         }
-        return this.addItem(new User(title, forname, surname, university, email, password));
+        ActionResult<User> ar = this.addItem(new User(title, forname, surname, university, email, password));
+        password = null;
+        repeatPassword = null;
+        return ar;
     }
 
     public ActionResult<User> updateAccount(Integer id, String title, String forname, String surname, String university,
@@ -54,10 +64,16 @@ public class UserController extends GenericController<User> {
                 ActionResult<User> userActionResult = new ActionResult<>();
                 userActionResult.setSuccess(false);
                 userActionResult.setMessage(Messages.Error.PASSWORD_NOT_MATCH);
+                oldPassword = null;
+                newPassword = null;
+                repeatPassword = null;
                 return userActionResult;
             }
             ActionResult<User> authenticationResult = login(this.loggedUser.getEmail(), oldPassword);
             if(!authenticationResult.getSuccess()){
+                oldPassword = null;
+                newPassword = null;
+                repeatPassword = null;
                 return authenticationResult;
             }
             user.setPassword(newPassword);
@@ -67,6 +83,10 @@ public class UserController extends GenericController<User> {
             result.getResult().setId(this.loggedUser.getId());
             this.loggedUser = result.getResult();
         }
+        oldPassword = null;
+        newPassword = null;
+        repeatPassword = null;
+        this.loggedUser.setPassword(null);
         return result;
     }
 
