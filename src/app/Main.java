@@ -15,10 +15,10 @@ public class Main {
     public static void main(String[] args) {
         CreateDb.createDatabase();
         CreateDb.createTables();
-       registerNewEditorAndJournalButton("Mr", "Wiktor", "Koprowski", "University of Sheffield", "1234@gmail.com", "1234","1234","A1234567", "Journal Of Computer Science");
-       registerNewAuthorAndSubmissionButton("Mrs", "Emma", "Norling", "The University of Sheffield", "Norling@Sheffield.ac.uk","abcd", "abcd","A1234567", "AI modern way", "This is article text ver sophisticated article", "abstract article sophisticated");
-       Integer submissionId = registerNewAuthorAndSubmissionButton("Mr", "Dawid", "Bogut", "Politechnika Gdanska", "DawidB@gmail.com","Brylant", "Brylant","A1234567", "Koszykowka najpiekniejszy sport", "Koszywkoa jest to niesamowity sport. zakochalem sie w nim od 3 klasy podstawiwki i do dzisiaj gram w kosza, super gra polecam", "O moim zyciu i koszykowce");
-        addCoAuthorToSubmissionButtom("Mr", "Bob", "Black", "University of Manchester", "BobBlack@manchester.ac.uk","BB1234", "BB1234", submissionId);
+       //registerNewEditorAndJournalButton("Mr", "Wiktor", "Koprowski", "University of Sheffield", "1234@gmail.com", "1234","1234","A1234567", "Journal Of Computer Science");
+       //registerNewAuthorAndSubmissionButton("Mrs", "Emma", "Norling", "The University of Sheffield", "Norling@Sheffield.ac.uk","abcd", "abcd","A1234567", "AI modern way", "This is article text ver sophisticated article", "abstract article sophisticated");
+       //Integer submissionId = registerNewAuthorAndSubmissionButton("Mr", "Dawid", "Bogut", "Politechnika Gdanska", "DawidB@gmail.com","Brylant", "Brylant","A1234567", "Koszykowka najpiekniejszy sport", "Koszywkoa jest to niesamowity sport. zakochalem sie w nim od 3 klasy podstawiwki i do dzisiaj gram w kosza, super gra polecam", "O moim zyciu i koszykowce");
+        //addCoAuthorToSubmissionButtom("Mr", "Bob", "Black", "University of Manchester", "BobBlack@manchester.ac.uk","BB1234", "BB1234", submissionId);
 
         runGUI();
     }

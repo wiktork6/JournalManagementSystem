@@ -175,4 +175,23 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
             return null;
         }
     }
+
+    public Integer unansweredReviewQuestions(Integer submissionId){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "SELECT COUNT(*) FROM submissions " +
+                            "LEFT JOIN reviews ON reviews.submission_id = submissions.id " +
+                            "LEFT JOIN questions ON questions.review_id = reviews.id " +
+                            "WHERE questions.is_answered = False " +
+                            "AND submissions.id = ? ")){
+            preparedStatement.setInt(1, submissionId);
+
+            ResultSet res = preparedStatement.executeQuery();
+            res.next();
+            return res.getInt(1);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
