@@ -54,7 +54,7 @@ public class QuestionController extends GenericController<Question> {
     public boolean isAllAnswered(Submission submission){
         ArrayList<Question> listOfAllQuestions = ((QuestionService)service).getAllQuestions(submission);
         for(int i =0; i<listOfAllQuestions.size();i++){
-            if(listOfAllQuestions.get(i).isAnswered()){
+            if(!listOfAllQuestions.get(i).isAnswered()){
                 return false;
             }
         }

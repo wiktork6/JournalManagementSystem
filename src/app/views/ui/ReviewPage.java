@@ -96,7 +96,7 @@ public class ReviewPage {
 		btnSeeFinalReview.setBounds(378, 105, 133, 50);
 		frame.getContentPane().add(btnSeeFinalReview);
 
-		if(Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Initial Verdict")){
+		if(Controllers.SUBMISSION.getSelectedSubmission().getStatus().equals("Initial Review")){
 			JButton btnRespond = new JButton("RESPOND");
 			btnRespond.setFont(new Font("Tahoma", Font.BOLD, 8));
 			btnRespond.addActionListener(new ActionListener() {

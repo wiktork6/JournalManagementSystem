@@ -21,18 +21,6 @@ public class QuestionPage {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					QuestionPage window = new QuestionPage();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
@@ -50,6 +38,7 @@ public class QuestionPage {
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		System.out.println(Controllers.QUESTION.isAllAnswered(Controllers.SUBMISSION.getSelectedSubmission()));
 		
 		JLabel label = new JLabel("TEAM 42");
 		label.setBounds(261, 22, 80, 14);
