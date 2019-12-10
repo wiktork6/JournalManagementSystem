@@ -118,7 +118,7 @@ public class CreateDb {
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "volume_number INTEGER NOT NULL, " +
                     "number_of_editions INTEGER, " +
-                    "year_of_publication YEAR, " +
+                    "year_of_publication VARCHAR(4), " +
                     "journal_id INTEGER NOT NULL, " +
                     "FOREIGN KEY(journal_id) REFERENCES journals(id), " +
                     "PRIMARY KEY(id))");

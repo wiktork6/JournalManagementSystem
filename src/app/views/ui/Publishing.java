@@ -60,9 +60,9 @@ public class Publishing {
         if(currentVolume==null){
             currentEditionLabel = new JLabel("vol.0" + "No.0");
         }else if(currentEdition==null){
-            currentEditionLabel = new JLabel("vol."+ this.currentVolume.getVolumeNumber() + "No.0");
+            currentEditionLabel = new JLabel("vol."+ this.currentVolume.getVolumeNumber() + "no.0");
         } else{
-            currentEditionLabel = new JLabel("vol." + this.currentVolume.getVolumeNumber() + " No." + this.currentEdition.getEdition_number() + " " + this.currentEdition.getMonthOfPublication());
+            currentEditionLabel = new JLabel("vol." + this.currentVolume.getVolumeNumber() + " no." + this.currentEdition.getEdition_number() + " " + this.currentEdition.getMonthOfPublication());
         }
         currentEditionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         currentEditionLabel.setBounds(330, 50, 191, 16);
@@ -71,8 +71,7 @@ public class Publishing {
             JButton newVolumeButton = new JButton("Create Volume");
             newVolumeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if(currentEdition!=null){
-                        if(currentEdition.getEdition_number()<4){
+                        if(!isEditionNumberLegal()){
                             error.setText(Messages.Error.MIN_EDITION_PER_VOLUME);
                         }else{
                             Controllers.VOLUME.createNewVolume(Controllers.JOURNAL.getChosenJournal());
@@ -81,9 +80,7 @@ public class Publishing {
                             publishing.frame.setVisible(true);
 
                         }
-                    }else{
-                        error.setText(Messages.Error.MIN_EDITION_PER_VOLUME);
-                    }
+
                 }
             });
             newVolumeButton.setBounds(250, 360, 120, 23);
@@ -179,7 +176,7 @@ public class Publishing {
                         if(submissionCompletedActionResult.getResult().size()>0){
                             for(int i=0; i<submissionCompletedActionResult.getResult().size(); i++){
                                 Controllers.ARTICLE.publishArticle(submissionCompletedActionResult.getResult().get(i),currentEdition);
-//                                Controllers.SUBMISSION.setStatus(submissionCompletedActionResult.getResult().get(i),"Published");
+                                Controllers.SUBMISSION.setStatus(submissionCompletedActionResult.getResult().get(i),"Published");
                             }
                             if(currentEdition.getEdition_number()==6){
                                 Controllers.VOLUME.createNewVolume(Controllers.JOURNAL.getChosenJournal());
@@ -211,21 +208,6 @@ public class Publishing {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         JButton btnGoBack = new JButton("Go Back");
         btnGoBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -237,5 +219,17 @@ public class Publishing {
         btnGoBack.setBounds(65, 360, 101, 23);
         frame.getContentPane().add(btnGoBack);
 
+    }
+
+    public boolean isEditionNumberLegal(){
+        if(currentVolume ==null && currentEdition==null){
+            return true;
+        }else if(currentEdition==null){
+            return false;
+        }else if(currentEdition.getEdition_number()<4){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
