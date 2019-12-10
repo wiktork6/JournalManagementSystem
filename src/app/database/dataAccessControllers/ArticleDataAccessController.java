@@ -76,7 +76,7 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
 
     public ArrayList<Author> getArticleCoAuthors(Integer articleId) {
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT u.id, u.email, u.title, u.forname, u.surname, u.university, a.id FROM article_Author s INNER JOIN authors a ON a.id=s.author_id INNER JOIN users u ON u.id=a.user_id WHERE s.article_id = ?;")){
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT u.id, u.email, u.title, u.forname, u.surname, u.university, a.id FROM article_author s INNER JOIN authors a ON a.id=s.author_id INNER JOIN users u ON u.id=a.user_id WHERE s.article_id = ?;")){
             preparedStatement.setInt(1,articleId);
             ResultSet res = preparedStatement.executeQuery();
             ArrayList<Author> arrayList = new ArrayList<>();

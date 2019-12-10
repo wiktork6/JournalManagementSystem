@@ -5,20 +5,18 @@ import app.database.dataAccessControllers.Tools.Encryption;
 import java.sql.*;
 
 public class CreateDb {
-    public static void main(String[] args) {
-        createTables();
-    }
 
-    public static void createDatabase(){
-        try(Connection conn = DriverManager.getConnection(DbConnection.SERVER_URL, DbConnection.USERNAME, DbConnection.PASSWORD);
-            Statement statement = conn.createStatement()) {
-            //statement.execute("DROP DATABASE IF EXISTS " + DbConnection.NAME + ";");
-            statement.execute("CREATE DATABASE IF NOT EXISTS " + DbConnection.NAME + ";");
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
-    }
+
+//    public static void createDatabase(){
+//        try(Connection conn = DriverManager.getConnection(DbConnection.SERVER_URL, DbConnection.USERNAME, DbConnection.PASSWORD);
+//            Statement statement = conn.createStatement()) {
+//            //statement.execute("DROP DATABASE IF EXISTS " + DbConnection.NAME + ";");
+//            statement.execute("CREATE DATABASE IF NOT EXISTS " + DbConnection.NAME + ";");
+//        }
+//        catch(SQLException ex){
+//            ex.printStackTrace();
+//        }
+//    }
 
     public static void createTables() {
 
@@ -30,8 +28,8 @@ public class CreateDb {
                     "id INTEGER NOT NULL AUTO_INCREMENT, " +
                     "email VARCHAR (50) NOT NULL UNIQUE, " +
                     "title VARCHAR (5), " +
-                    "forname VARCHAR (30), " +
-                    "surname VARCHAR (30), " +
+                    "forname VARCHAR (31), " +
+                    "surname VARCHAR (31), " +
                     "university VARCHAR (50), " +
                     "password VARCHAR (" + Encryption.PASSWORD_FIELD_LENGTH + ") NOT NULL, " +
                     "PRIMARY KEY (id))");

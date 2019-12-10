@@ -76,7 +76,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     public ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId) {
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT u.id, u.email, u.title, u.forname, u.surname, u.university, a.id FROM Submission_Author s INNER JOIN authors a ON a.id=s.author_id INNER JOIN users u ON u.id=a.user_id WHERE s.submission_id = ?;")){
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT u.id, u.email, u.title, u.forname, u.surname, u.university, a.id FROM submission_author s INNER JOIN authors a ON a.id=s.author_id INNER JOIN users u ON u.id=a.user_id WHERE s.submission_id = ?;")){
             preparedStatement.setInt(1,submissionId);
             ResultSet res = preparedStatement.executeQuery();
             ArrayList<Author> arrayList = new ArrayList<>();
@@ -146,24 +146,7 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
                 + " WHERE reviews.reviewer_id = ?", filters);
     }
 
-//    public ArrayList<Submission> getSubmissions(Author author){
-//        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
-//            PreparedStatement preparedStatement = conn.prepareStatement("SELECT " + getAllFields() + " FROM submissions s WHERE author_id = ?;")){
-//            preparedStatement.setInt(1, author.getId());
-//            ArrayList<Submission> submissionsList = new ArrayList<>();
-//            ResultSet res = preparedStatement.executeQuery();
-//            while(res.next()){
-//                Submission submission = readItem(res);
-//                submissionsList.add(submission);
-//            }
-//
-//            return submissionsList;
-//        }catch(SQLException ex){
-//            ex.printStackTrace();
-//            return null;
-//        }
-//
-//    }
+
 
     public ArrayList<Submission> getAuthorSubmissions(Author author){
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
@@ -233,9 +216,9 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "DELETE authors FROM authors" +
-                            "INNER JOIN submissions ON submissions.author_id = authors.id" +
-                            "INNER JOIN submission_author AS sa ON sa.author_id = authors.id" +
-                            "WHERE submissions.id = ? OR sa.submission_id = ?")){
+                            " INNER JOIN submissions ON submissions.author_id = authors.id" +
+                            " INNER JOIN submission_author AS sa ON sa.author_id = authors.id" +
+                            " WHERE submissions.id = ? OR sa.submission_id = ?")){
             preparedStatement.setInt(1, submissionId);
             preparedStatement.setInt(2, submissionId);
 
