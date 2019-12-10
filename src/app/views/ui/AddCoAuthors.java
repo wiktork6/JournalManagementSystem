@@ -123,10 +123,6 @@ public class AddCoAuthors {
 					frame.dispose();
 					ArticleSubmitted newArticle = new ArticleSubmitted();
 					newArticle.frame.setVisible(true);
-					/** if already registered
-					 frame.dispose();
-					 RegisteredArticleSubmitted newArticle = new RegisteredArticleSubmitted();
-					 newArticle.frame.setVisible(true);*/
 				}
 			});
 			btnSubmit.setBounds(401, 361, 150, 49);

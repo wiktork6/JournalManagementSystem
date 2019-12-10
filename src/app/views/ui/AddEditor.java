@@ -171,21 +171,27 @@ public class AddEditor {
 			public void actionPerformed(ActionEvent e) {
 				if (titlesList.getSelectedValue() != null && !forenameField.getText().equals("") && !surnameField.getText().equals("") && !universityField.getText().equals("") &&
 						!emailField.getText().equals("") && !passwordField.getText().equals("") && !repeatPasswordField.getText().equals("")) {
-					if (Controllers.USER.isEmailTaken(emailField.getText())) {
-						if (passwordField.getText().equals(repeatPasswordField.getText())) {
-							ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(), forenameField.getText(), surnameField.getText(), universityField.getText(), emailField.getText(), passwordField.getText(), repeatPasswordField.getText());
-							Editor editor = Controllers.EDITOR.register(userActionResult.getResult());
-							Journal journal = Controllers.JOURNAL.getChosenJournal();
-							Controllers.JOURNAL.addNewEditorToJournal(journal.getId(), editor.getId());
-							frame.dispose();
-							JournalOf journalOf = new JournalOf();
-							journalOf.frame.setVisible(true);
+					if(Controllers.USER.isValid(emailField.getText())){
+						if (Controllers.USER.isEmailTaken(emailField.getText())) {
+							if (passwordField.getText().equals(repeatPasswordField.getText())) {
+								ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(), forenameField.getText(), surnameField.getText(), universityField.getText(), emailField.getText(), passwordField.getText(), repeatPasswordField.getText());
+								Editor editor = Controllers.EDITOR.register(userActionResult.getResult());
+								Journal journal = Controllers.JOURNAL.getChosenJournal();
+								Controllers.JOURNAL.addNewEditorToJournal(journal.getId(), editor.getId());
+								frame.dispose();
+								JournalOf journalOf = new JournalOf();
+								journalOf.frame.setVisible(true);
+							} else {
+								error.setText(Messages.Error.PASSWORD_NOT_MATCH);
+							}
 						} else {
-							error.setText(Messages.Error.PASSWORD_NOT_MATCH);
+							error.setText(Messages.Error.EMAIL_TAKEN);
 						}
-					} else {
-						error.setText(Messages.Error.EMAIL_TAKEN);
+
+					}else{
+						error.setText(Messages.Error.INVALID_EMAIL_ADRESS);
 					}
+
 				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}

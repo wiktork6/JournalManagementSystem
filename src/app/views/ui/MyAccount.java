@@ -2,6 +2,7 @@ package app.views.ui;
 
 import app.controllers.Controllers;
 
+import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.User;
 
@@ -171,21 +172,26 @@ public class MyAccount {
 		frame.getContentPane().add(btnUpdate);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(loggedUser != null) {
-					ActionResult<User> ar = Controllers.USER.updateAccount(
-							loggedUser.getId(),
-							titlesList.getSelectedValue(),
-							txtFUpdateForename.getText(),
-							txtFUpdateSurname.getText(),
-							txtFUpdateUniversity.getText(),
-							txtFUpdateEmail.getText(),
-							passwordFieldOld.getText(),
-							passwordFieldNew.getText(),
-							passwordFieldRepeatNew.getText()
+				if(Controllers.USER.isValid(txtFUpdateEmail.getText())){
+					if(loggedUser != null) {
+						ActionResult<User> ar = Controllers.USER.updateAccount(
+								loggedUser.getId(),
+								titlesList.getSelectedValue(),
+								txtFUpdateForename.getText(),
+								txtFUpdateSurname.getText(),
+								txtFUpdateUniversity.getText(),
+								txtFUpdateEmail.getText(),
+								passwordFieldOld.getText(),
+								passwordFieldNew.getText(),
+								passwordFieldRepeatNew.getText()
 
-					);
-					lblInfo.setText(ar.getMessage());
+						);
+						lblInfo.setText(ar.getMessage());
+					}
+				}else{
+					lblInfo.setText(Messages.Error.INVALID_EMAIL_ADRESS);
 				}
+
 			}
 		});
 		

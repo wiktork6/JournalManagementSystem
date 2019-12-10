@@ -11,12 +11,15 @@ import app.services.EditorService;
 import app.services.ReviewerService;
 import app.services.UserService;
 import com.mysql.cj.util.StringUtils;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class UserController extends GenericController<User> {
@@ -151,6 +154,18 @@ public class UserController extends GenericController<User> {
 
     public ActionSuccess removeUser(Integer id){
         return super.removeItem(id);
+    }
+
+    public boolean isValid(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                    "[a-zA-Z0-9_+&*-]+)*@" +
+                    "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                    "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
     }
 
 }

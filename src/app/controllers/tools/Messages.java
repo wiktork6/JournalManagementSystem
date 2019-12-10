@@ -42,6 +42,7 @@ public class Messages {
         public static String CREATE_NEW_VOLUME = "Please create new volume";
         public static String MAX_EDITIONS_PER_VOLUME = "Maximum number of editions achieved, Please create new volume";
         public static String MIN_EDITION_PER_VOLUME = "Minimum number of editions per volume was not achieved.";
+        public static String INVALID_EMAIL_ADRESS = "Your email is invalid";
     }
 
     public static class Info {

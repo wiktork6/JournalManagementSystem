@@ -174,19 +174,26 @@ public class RegisterAuthor {
 			public void actionPerformed(ActionEvent e) {
 				if (titlesList.getSelectedValue()!=null && !txtFForename.getText().equals("") && !txtFSurname.getText().equals("") && !txtFUniversity.getText().equals("") &&
 						!txtFEmail.getText().equals("") && !passwordField.getText().equals("") && !passwordFieldRepeat.getText().equals("")) {
-					if(Controllers.USER.isEmailTaken(txtFEmail.getText())){
-						if (passwordField.getText().equals(passwordFieldRepeat.getText())) {
-							ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(),txtFForename.getText(),txtFSurname.getText(),txtFUniversity.getText(),txtFEmail.getText(),passwordField.getText(),passwordFieldRepeat.getText());
-							listOfCoAuthors.add(userActionResult.getResult());
-							frame.dispose();
-							AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission,mainAuthor);
-							addCo.frame.setVisible(true);
-						} else {
-							error.setText(Messages.Error.PASSWORD_NOT_MATCH);
+					if(Controllers.USER.isValid(txtFEmail.getText())){
+						if(Controllers.USER.isEmailTaken(txtFEmail.getText())){
+							if (passwordField.getText().equals(passwordFieldRepeat.getText())) {
+								ActionResult<User> userActionResult = Controllers.USER.register(titlesList.getSelectedValue(),txtFForename.getText(),txtFSurname.getText(),txtFUniversity.getText(),txtFEmail.getText(),passwordField.getText(),passwordFieldRepeat.getText());
+								listOfCoAuthors.add(userActionResult.getResult());
+								frame.dispose();
+								AddCoAuthors addCo = new AddCoAuthors(listOfCoAuthors, submission,mainAuthor);
+								addCo.frame.setVisible(true);
+							} else {
+								error.setText(Messages.Error.PASSWORD_NOT_MATCH);
+							}
+						}else{
+							error.setText(Messages.Error.EMAIL_TAKEN);
 						}
+
 					}else{
-						error.setText(Messages.Error.EMAIL_TAKEN);
+						error.setText(Messages.Error.INVALID_EMAIL_ADRESS);
 					}
+
+
 				} else {
 					error.setText(Messages.Error.FIELD_IS_EMPTY);
 				}
@@ -195,5 +202,7 @@ public class RegisterAuthor {
 		btnAddAuthor.setBounds(416, 334, 154, 64);
 		frame.getContentPane().add(btnAddAuthor);
 	}
+
+
 
 }
