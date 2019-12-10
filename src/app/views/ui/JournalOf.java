@@ -65,9 +65,18 @@ public class JournalOf {
 		JButton btnNewButton = new JButton("Publish Next Edition");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				PublishNextEdition pne=new PublishNextEdition();
-				pne.frame.setVisible(true);
+				Editor loggedEditor = Controllers.EDITOR.getEditor(Controllers.USER.getLoggedUser());
+				Journal journal = Controllers.JOURNAL.getChosenJournal();
+				Integer editorId = loggedEditor.getId();
+				Integer chiefEditorId = journal.getChiefEditorId();
+				if (editorId != chiefEditorId) {
+					error.setText(Messages.Error.FUNCTION_NOT_ALLOWED);
+				} else {
+					frame.dispose();
+					PublishNextEdition pne = new PublishNextEdition();
+					pne.frame.setVisible(true);
+				}
+
 			}
 		});
 		btnNewButton.setBounds(60, 103, 200, 23);
@@ -86,6 +95,7 @@ public class JournalOf {
 		frame.getContentPane().add(btnPublishrejectArticle);
 		if(Controllers.JOURNAL.submissionsEditorAffiliationOverlap(Controllers.USER.getLoggedUser(), Controllers.JOURNAL.getChosenJournal().getId()) > 0) {
 			btnPublishrejectArticle.setEnabled(false);
+			btnNewButton.setEnabled(false);
 			JLabel lblAffiliationOverlap = new JLabel("You have affiliation overlap");
 			lblAffiliationOverlap.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAffiliationOverlap.setBounds(60, 205, 191, 16);

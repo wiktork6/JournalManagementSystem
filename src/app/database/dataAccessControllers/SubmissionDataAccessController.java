@@ -76,16 +76,25 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
 
     public ArrayList<Author> getSubmissionsCoAuthors(Integer submissionId) {
         try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, a.author_id, u.title, u.forname FROM Submission_Author s INNER JOIN Author a ON a.Author_id=s.author_id INNER JOIN User u ON u.userID=a.userID")){
-            preparedStatement.setInt(1, submissionId);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT u.id, u.email, u.title, u.forname, u.surname, u.university, a.id FROM Submission_Author s INNER JOIN authors a ON a.id=s.author_id INNER JOIN users u ON u.id=a.user_id WHERE s.submission_id = ?;")){
+            preparedStatement.setInt(1,submissionId);
             ResultSet res = preparedStatement.executeQuery();
+            ArrayList<Author> arrayList = new ArrayList<>();
             while(res.next()){
-
+                Integer id = res.getInt(1);
+                String email = res.getString(2);
+                String title = res.getString(3);
+                String forname = res.getString(4);
+                String surname = res.getString(5);
+                String university = res.getString(6);
+                Integer authorId = res.getInt(7);
+                User user = new User(id,title,forname,surname,university,email);
+                Author author = new Author(user,authorId);
+                arrayList.add(author);
             }
-            Integer editorId =  res.getInt(1);
 
             res.close();
-            return new ArrayList<Author>();
+            return arrayList;
 
         }catch(SQLException ex){
             ex.printStackTrace();

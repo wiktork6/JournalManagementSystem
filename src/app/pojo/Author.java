@@ -15,6 +15,10 @@ public class Author implements Identifiable {
         this(userId);
         this.id = id;
     }
+    public Author(User user, Integer id){
+        this.user = user;
+        this.id = id;
+    }
 
     @Override
     public Integer getId() {

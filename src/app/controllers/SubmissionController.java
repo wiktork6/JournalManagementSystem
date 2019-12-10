@@ -89,14 +89,14 @@ public class SubmissionController extends GenericController<Submission> {
         Author author = Controllers.AUTHOR.getAuthor(loggedUser);
         Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
         ActionResult<ArrayList<Submission>> actionResult = new ActionResult<>();
-        ArrayList<Submission> listOfAllSubmissionsThatUserChooseToReview = Controllers.SUBMISSION.getReviewerSelectedSubmissions(loggedUser).getResult();
+        ArrayList<Submission> listOfAllSubmissionsThatUserChoseToReview = Controllers.SUBMISSION.getReviewerSelectedSubmissions(loggedUser).getResult();
         ArrayList<Submission> listOfAuthorsSubmissions = Controllers.SUBMISSION.getSubmissions(author).getResult();
         ArrayList<Submission> allSubmissionsWithUniAffilation = ((SubmissionService)service).getSubmissionsWhereUni(loggedUser);
         ArrayList<Submission> allSubmissionsWithAlreadyReviewed = ((SubmissionService)service).getAlreadyReviewedSubmissions();
         ArrayList<Submission> allSubmissionsInDataBase = service.getItems();
         allSubmissionsInDataBase.removeAll(listOfAuthorsSubmissions);
         allSubmissionsInDataBase.removeAll(allSubmissionsWithUniAffilation);
-        allSubmissionsInDataBase.removeAll(listOfAllSubmissionsThatUserChooseToReview);
+        allSubmissionsInDataBase.removeAll(listOfAllSubmissionsThatUserChoseToReview);
         allSubmissionsInDataBase.removeAll(allSubmissionsWithAlreadyReviewed);
 
         actionResult.setResult(allSubmissionsInDataBase);

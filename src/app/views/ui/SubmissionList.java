@@ -1,8 +1,11 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.generic.Controller;
 import app.controllers.tools.Messages;
+import app.controllers.tools.generic.ActionResult;
 import app.pojo.Article;
+import app.pojo.Author;
 import app.pojo.Submission;
 
 import java.awt.*;
@@ -98,7 +101,15 @@ public class SubmissionList {
 
 		DefaultListModel submissionsListModel = new DefaultListModel();
 		for(int i = 0; i<submissions.size(); i++){
-			submissionsListModel.add(i,submissions.get(i).toString());
+			ActionResult<ArrayList<Author>> authorsActionResult = Controllers.SUBMISSION.getCoAuthors(submissions.get(i).getId());
+			ArrayList<Author> authorsList = authorsActionResult.getResult();
+			for(Author author:authorsList){
+				if(Controllers.USER.getLoggedUser().getUniversity().equals(author.getUser().getUniversity())){
+					break;
+				}else{
+					submissionsListModel.add(i,submissions.get(i).toString());
+				}
+			}
 		}
 
 		listAvailableSubmissions.setModel(submissionsListModel);
