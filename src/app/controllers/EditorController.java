@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.controllers.generic.Controller;
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
 import app.controllers.tools.Messages;
@@ -94,6 +95,10 @@ public class EditorController extends GenericController<Editor> implements Role 
         }
         if(Controllers.JOURNAL.getEditorsJournals(editor).getSuccess()){
             this.service.removeItem(editor.getId());
+            if(!(Controllers.USER.isAuthor(Controllers.USER.getLoggedUser()) ||
+                    Controllers.USER.isReviewer(Controllers.USER.getLoggedUser()))){
+                Controllers.USER.removeUser(Controllers.USER.getLoggedUser().getId());
+            }
         }
         actionResult.setSuccess(true);
         actionResult.setResult(true);

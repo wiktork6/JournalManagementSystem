@@ -74,6 +74,7 @@ public class JournalOf {
 		frame.getContentPane().add(btnNewButton);
 
 
+
 		JButton btnPublishrejectArticle = new JButton("Accept/Reject Article");
 		btnPublishrejectArticle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

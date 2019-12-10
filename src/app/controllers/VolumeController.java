@@ -8,6 +8,7 @@ import app.pojo.Volume;
 import app.services.VolumeService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class VolumeController extends GenericController<Volume> {
     private Volume chosenVolume;
@@ -40,6 +41,20 @@ public class VolumeController extends GenericController<Volume> {
     public Volume getChosenVolume(){
         return this.chosenVolume;
     }
+
+//    public void createNextVolume(Journal chosenJournal) {
+//        ArrayList<Volume> journalVolumes = this.getJournalVolumes(chosenJournal).getResult();
+//        int nextVolumeN = 1;
+//        if(journalVolumes.size() > 0) {
+//            nextVolumeN = journalVolumes.get(journalVolumes.size() - 1).getVolumeNumber();
+//        }
+//        Volume volume = new Volume();
+//        volume.setJournalId(chosenJournal.getId());
+//        volume.setYearOfPublication(Integer.toString(Calendar.getInstance().get(Calendar.YEAR)));
+//        volume.setVolumeNumber(nextVolumeN);
+//
+//        super.addItem(volume);
+//    }
 
 //    public ActionResult<Volume> registerVolume(Journal journal){
 //        if(!getJournalVolumes(journal).getSuccess()){
