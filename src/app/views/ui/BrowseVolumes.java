@@ -67,7 +67,7 @@ public class BrowseVolumes {
 		//Default List Model for titles
 		DefaultListModel volumesListModel = new DefaultListModel();
 		for(int i = 0; i<listOfVolumes.getResult().size();i++){
-			volumesListModel.add(i,listOfVolumes.getResult().get(i).getYearOfPublication() + "vol." + listOfVolumes.getResult().get(i).getVolumeNumber());
+			volumesListModel.add(i,listOfVolumes.getResult().get(i).getYearOfPublication() + " vol." + listOfVolumes.getResult().get(i).getVolumeNumber());
 		}
 		volumesList.setModel(volumesListModel);
 

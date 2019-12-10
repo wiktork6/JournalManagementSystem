@@ -62,7 +62,7 @@ public class VolumeController extends GenericController<Volume> {
     }
 
     public Volume createNewVolume(Journal journal){
-        Integer year = Calendar.YEAR;
+        Integer year = Calendar.getInstance().get(Calendar.YEAR);
         String newVolumeYear= year.toString();
         if(getLastVolume(journal)==null){
             Volume newVolume = new Volume(1,0, newVolumeYear,journal.getId());

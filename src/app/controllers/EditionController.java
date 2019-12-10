@@ -69,7 +69,7 @@ public class EditionController extends GenericController<Edition> {
     }
 
     public Edition createNewEdition(Volume volume){
-        int monthNumber = Calendar.MONTH;
+        int monthNumber = Calendar.getInstance().get(Calendar.MONTH);
         String monthName ="";
         switch(monthNumber) {
             case 1:

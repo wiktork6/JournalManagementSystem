@@ -86,38 +86,38 @@ public class Publishing {
             newVolumeButton.setBounds(250, 360, 120, 23);
             frame.getContentPane().add(newVolumeButton);
 
-
-        if(currentVolume!=null  ){
-            JButton newEditionButton = new JButton("Create Edition");
-            newEditionButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (currentEdition == null) {
-                        Controllers.EDITION.createNewEdition(currentVolume);
-                        frame.dispose();
-                        Publishing publishing = new Publishing();
-                        publishing.frame.setVisible(true);
-                    } else if (currentEdition.getEdition_number() != 6) {
-                        Controllers.EDITION.createNewEdition(currentVolume);
-                        frame.dispose();
-                        Publishing publishing = new Publishing();
-                        publishing.frame.setVisible(true);
-                    } else {
-                        error.setText(Messages.Error.MAX_EDITIONS_PER_VOLUME);
+        if(currentVolume!=null && currentEdition==null) {
+            if (currentVolume != null) {
+                JButton newEditionButton = new JButton("Create Edition");
+                newEditionButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (currentEdition == null) {
+                            Controllers.EDITION.createNewEdition(currentVolume);
+                            frame.dispose();
+                            Publishing publishing = new Publishing();
+                            publishing.frame.setVisible(true);
+                        } else if (currentEdition.getEdition_number() != 6) {
+                            Controllers.EDITION.createNewEdition(currentVolume);
+                            frame.dispose();
+                            Publishing publishing = new Publishing();
+                            publishing.frame.setVisible(true);
+                        } else {
+                            error.setText(Messages.Error.MAX_EDITIONS_PER_VOLUME);
+                        }
                     }
-                }
-            });
-            newEditionButton.setBounds(400, 360, 120, 23);
-            frame.getContentPane().add(newEditionButton);
-        }else{
-            error.setText(Messages.Error.CREATE_NEW_VOLUME);
+                });
+                newEditionButton.setBounds(400, 360, 120, 23);
+                frame.getContentPane().add(newEditionButton);
+            } else {
+                error.setText(Messages.Error.CREATE_NEW_VOLUME);
+            }
+
+
+            JLabel label_1 = new JLabel("TEAM 42");
+            label_1.setHorizontalAlignment(SwingConstants.CENTER);
+            label_1.setBounds(261, 11, 61, 16);
+            frame.getContentPane().add(label_1);
         }
-
-
-        JLabel label_1 = new JLabel("TEAM 42");
-        label_1.setHorizontalAlignment(SwingConstants.CENTER);
-        label_1.setBounds(261, 11, 61, 16);
-        frame.getContentPane().add(label_1);
-
 
         //List of Accepted Articles
         JList acceptedArticles = new JList();
@@ -168,42 +168,44 @@ public class Publishing {
         nextEdition.setModel(submissionsAcceptedListModel);
 
         //publish next edition
-        JButton publishNext = new JButton("Publish next edition");
-        publishNext.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(nextEdition.getSelectedIndex()!=-1){
-                    if(currentEdition!=null && currentVolume!=null){
-                        if(submissionCompletedActionResult.getResult().size()>0){
-                            for(int i=0; i<submissionCompletedActionResult.getResult().size(); i++){
-                                Controllers.ARTICLE.publishArticle(submissionCompletedActionResult.getResult().get(i),currentEdition);
-                                Controllers.SUBMISSION.setStatus(submissionCompletedActionResult.getResult().get(i),"Published");
-                            }
-                            if(currentEdition.getEdition_number()==6){
-                                Controllers.VOLUME.createNewVolume(Controllers.JOURNAL.getChosenJournal());
-                            }else{
-                                Controllers.EDITION.createNewEdition(currentVolume);
-                            }
-                            frame.dispose();
-                            Publishing publishing = new Publishing();
-                            publishing.frame.setVisible(true);
 
-                        }else{
-                            error.setText(Messages.Error.MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED);
+            JButton publishNext = new JButton("Publish next edition");
+            publishNext.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (nextEdition.getSelectedIndex() != -1) {
+                        if (currentEdition != null && currentVolume != null) {
+                            if (submissionCompletedActionResult.getResult().size() > 2) {
+                                for (int i = 0; i < submissionCompletedActionResult.getResult().size(); i++) {
+                                    Controllers.ARTICLE.publishArticle(submissionCompletedActionResult.getResult().get(i), currentEdition);
+                                    Controllers.SUBMISSION.setStatus(submissionCompletedActionResult.getResult().get(i), "Published");
+                                }
+                                if (currentEdition.getEdition_number() == 6) {
+                                    Controllers.VOLUME.createNewVolume(Controllers.JOURNAL.getChosenJournal());
+                                } else {
+                                    Controllers.EDITION.createNewEdition(currentVolume);
+                                }
+                                frame.dispose();
+                                Publishing publishing = new Publishing();
+                                publishing.frame.setVisible(true);
 
+                            } else {
+                                error.setText(Messages.Error.MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED);
+
+                            }
+                        } else {
+                            error.setText(Messages.Error.CREATE_VOLUME_OR_EDITION);
                         }
-                    }else{
-                        error.setText(Messages.Error.CREATE_VOLUME_OR_EDITION);
+
+
+                    } else {
+                        error.setText(Messages.Error.FIELD_IS_EMPTY);
                     }
 
-
-                }else{
-                    error.setText(Messages.Error.FIELD_IS_EMPTY);
                 }
+            });
+            publishNext.setBounds(270, 250, 150, 23);
+            frame.getContentPane().add(publishNext);
 
-            }
-        });
-        publishNext.setBounds(270, 250, 150, 23);
-        frame.getContentPane().add(publishNext);
 
 
 
