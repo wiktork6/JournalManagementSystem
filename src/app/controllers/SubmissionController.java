@@ -85,18 +85,29 @@ public class SubmissionController extends GenericController<Submission> {
         this.selectedSubmission = submission;
     }
 
-    public ActionResult<ArrayList<Submission>> getReviewerSubmissions(User loggedUser){
+    public ActionResult<ArrayList<Submission>> getPossibleSubmissionsToReview(User loggedUser){
         Author author = Controllers.AUTHOR.getAuthor(loggedUser);
-        ArrayList<Submission> submissions = ((SubmissionService)this.service).getSubmissions(author);
-        for(Submission submission : submissions){
-            if(submission.getReviewsSelected() < 3){
-                break;
-            }
-            return new ActionResult<>(null, false, Messages.Info.NO_NEED_TO_REVIEW);
-        }
         Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(loggedUser.getId());
-        ArrayList<Submission> result = ((SubmissionService)this.service).getReviewerSubmissions(loggedUser.getUniversity(), reviewer.getId(), author.getId());
-        return new ActionResult<>(result, true, "");
+        ActionResult<ArrayList<Submission>> actionResult = new ActionResult<>();
+        ArrayList<Submission> listOfAllSubmissionsThatUserChooseToReview = Controllers.SUBMISSION.getReviewerSelectedSubmissions(loggedUser).getResult();
+        ArrayList<Submission> listOfAuthorsSubmissions = Controllers.SUBMISSION.getSubmissions(author).getResult();
+        ArrayList<Submission> allSubmissionsWithUniAffilation = ((SubmissionService)service).getSubmissionsWhereUni(loggedUser);
+        ArrayList<Submission> allSubmissionsWithAlreadyReviewed = ((SubmissionService)service).getAlreadyReviewedSubmissions();
+        ArrayList<Submission> allSubmissionsInDataBase = service.getItems();
+        allSubmissionsInDataBase.removeAll(listOfAuthorsSubmissions);
+        allSubmissionsInDataBase.removeAll(allSubmissionsWithUniAffilation);
+        allSubmissionsInDataBase.removeAll(listOfAllSubmissionsThatUserChooseToReview);
+        allSubmissionsInDataBase.removeAll(allSubmissionsWithAlreadyReviewed);
+
+        actionResult.setResult(allSubmissionsInDataBase);
+        if(allSubmissionsInDataBase.size()==0){
+            actionResult.setSuccess(false);
+            actionResult.setResult(null);
+            actionResult.setMessage(Messages.Error.NO_SUBMISSIONS_TO_REVIEW);
+        }else{
+            actionResult.setSuccess(true);
+        }
+        return actionResult;
     }
 
     public Submission getSelectedSubmission(){
@@ -131,4 +142,16 @@ public class SubmissionController extends GenericController<Submission> {
     public void setStatus(Submission submission, String status){
         ((SubmissionService)this.service).changeSubmissionStatus(submission,status);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

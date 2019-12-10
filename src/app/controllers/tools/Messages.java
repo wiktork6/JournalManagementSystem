@@ -36,6 +36,8 @@ public class Messages {
         public static String NOT_ALLOWED_WRONG_STATUS = "You can not perform this action with current submission status";
         public static String MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED = "There has to be minimum 3 articles to be published per edition";
         public static String MAXIMUM_NUMBER_OF_ARTICLES_ACHIEVED = "Maximum number of 8 articles per edition was achieved";
+        public static String NO_SUBMISSIONS_TO_REVIEW = "There are currently no submissions possible for you to review";
+        public static String NO_NEED_TO_CHOOSE_MORE = "You do not have to choose any more submissions to review";
     }
 
     public static class Info {
@@ -47,5 +49,6 @@ public class Messages {
         public static String ITEM_FOUND = "The item was found.";
         public static String ITEM_DELETED = "The item was successfully deleted.";
         public static String COAUTHOR_ADDED = "The co author was added successfully.";
+        public static String INITIAL_REVIEW_ALREADY_SUBMITTED = "You have already submitted initial review. Wait for the respond from the author";
     }
 }

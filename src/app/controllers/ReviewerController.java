@@ -1,12 +1,11 @@
 package app.controllers;
 
 
+import app.controllers.generic.Controller;
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
 import app.controllers.tools.generic.ActionResult;
-import app.pojo.Author;
-import app.pojo.Reviewer;
-import app.pojo.User;
+import app.pojo.*;
 import app.services.ReviewerService;
 import app.services.generic.GenericService;
 import app.views.ui.ArticleReviewSelection;
@@ -59,4 +58,30 @@ public class ReviewerController extends GenericController<Reviewer> implements R
     protected boolean validateItem(Reviewer reviewer) {
         return true;
     }
+
+
+
+    public Integer submissionsToReview(){
+        User user = Controllers.USER.getLoggedUser();
+        Reviewer reviewer = Controllers.REVIEWER.getUserReviewer(user.getId());
+        Author author = Controllers.AUTHOR.getAuthor(user);
+
+        ActionResult<ArrayList<Submission>> submissionsActionResult = Controllers.SUBMISSION.getSubmissions(author);
+        ArrayList<Submission> submissionsList = submissionsActionResult.getResult();
+        if(submissionsList.size()==0){
+            return 0;
+        }
+        int sumOfChosenReviews = 0;
+        for(int i=0; i<submissionsList.size();i++){
+            sumOfChosenReviews+=submissionsList.get(i).getReviewsSelected();
+        }
+        return submissionsList.size()*3-sumOfChosenReviews;
+    }
+
+
+
+
+
+
+
 }

@@ -98,10 +98,16 @@ public class FinalReview {
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	    spEditor.setBounds(28, 92, 530, 179);
 		frame.getContentPane().add(spEditor);
-
-		for(int i =0; i<listOfQuestions.size(); i++){
-			txtAuthorResponse.setText(listOfQuestions.get(i).getQuestion() + " Response: " + listOfQuestions.get(i).getResponse() +"\n");
+		String questionAndAnswer = "";
+		if(listOfQuestions.size()==0){
+			txtAuthorResponse.setText("You did not ask any questions");
+		}else{
+			for(int i =0; i<listOfQuestions.size(); i++){
+				questionAndAnswer+=listOfQuestions.get(i).getQuestion() + " Response: " + listOfQuestions.get(i).getResponse() +"\n";
+			}
+			txtAuthorResponse.setText(questionAndAnswer);
 		}
+
 		
 		JLabel lblVerdict = new JLabel("Final Verdict");
 		lblVerdict.setHorizontalAlignment(SwingConstants.LEFT);

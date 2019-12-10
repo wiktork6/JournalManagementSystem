@@ -99,4 +99,14 @@ public class Submission implements Identifiable {
     public void setReviewsSelected(Integer reviewsSelected) {
         this.reviewsSelected = reviewsSelected;
     }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return object instanceof Submission &&  this.id.equals(((Submission)object).getId());
+    }
 }

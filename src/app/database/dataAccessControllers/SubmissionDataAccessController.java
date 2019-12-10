@@ -7,6 +7,7 @@ import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Article;
 import app.pojo.Author;
 import app.pojo.Submission;
+import app.pojo.User;
 
 import java.io.*;
 import java.sql.*;
@@ -194,4 +195,30 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
             return null;
         }
     }
+
+
+
+
+    public ArrayList<Submission> getPossibleSubmissionsWhereUni(User user){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT s.id, s.title, s.abstract, s.draft_article, s.journal_id, s.author_id, s.status, s.reviews_selected  FROM submissions s  JOIN submission_author sa ON s.id =sa.submission_id JOIN authors a ON sa.author_id = a.id JOIN users u ON a.user_id = u.id WHERE u.university = ?;")){
+            preparedStatement.setString(1, user.getUniversity());
+            ResultSet res = preparedStatement.executeQuery();
+            ArrayList<Submission> submissionArrayList = new ArrayList<>();
+            while(res.next()){
+                Submission submission = readItem(res);
+                submissionArrayList.add(submission);
+            }
+
+
+            res.close();
+            return submissionArrayList;
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+
 }
