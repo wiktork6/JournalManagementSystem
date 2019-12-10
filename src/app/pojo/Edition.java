@@ -16,6 +16,12 @@ public class Edition implements Identifiable {
         this.volumeId = volumeId;
     }
 
+    public Edition(Integer edition_number, String monthOfPublication, Integer volumeId) {
+        this.edition_number = edition_number;
+        this.monthOfPublication = monthOfPublication;
+        this.volumeId = volumeId;
+    }
+
     public Integer getId() {
         return id;
     }

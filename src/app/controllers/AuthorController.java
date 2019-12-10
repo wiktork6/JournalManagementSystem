@@ -65,5 +65,8 @@ public class AuthorController extends GenericController<Author> implements Role 
         return ((AuthorService)service).getUserAuthor(user.getId());
     }
 
+    public boolean insertCoAuthor(Integer articleId, Integer authorId){
+        return ((AuthorService)service).insertCoAuthor(articleId,authorId);
+    }
 
 }

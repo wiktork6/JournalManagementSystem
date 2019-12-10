@@ -1,11 +1,13 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.pojo.Author;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -58,7 +60,7 @@ public class ReadArticle {
 		JTextPane textPAbstract = new JTextPane();
 		textPAbstract.setEditable(false);
 		textPAbstract.setText(Controllers.ARTICLE.getChosenArticle().getAbstractText());
-		textPAbstract.setBounds(79, 102, 427, 163);
+		textPAbstract.setBounds(79, 102, 427, 60);
 		frame.getContentPane().add(textPAbstract);
 		
 		JLabel lblArticleName = new JLabel(Controllers.ARTICLE.getChosenArticle().getTitle());
@@ -69,9 +71,21 @@ public class ReadArticle {
 		JTextPane txtPArticleInfo = new JTextPane();
 		txtPArticleInfo.setEditable(false);
 		txtPArticleInfo.setText(Controllers.JOURNAL.getChosenJournal().getName() + " vol." + Controllers.VOLUME.getChosenVolume().getVolumeNumber() + ",no." +
-				Controllers.EDITION.getChosenEdition().getEdition_number() + Controllers.ARTICLE.getChosenArticle().getPageNumberRange());
-		txtPArticleInfo.setBounds(79, 277, 427, 59);
+				Controllers.EDITION.getChosenEdition().getEdition_number() + " " + Controllers.ARTICLE.getChosenArticle().getPageNumberRange());
+		txtPArticleInfo.setBounds(79, 180, 427, 30);
 		frame.getContentPane().add(txtPArticleInfo);
+
+		ArrayList<Author> listOfAuthors = Controllers.ARTICLE.getCoAuthors(Controllers.ARTICLE.getChosenArticle());
+		String authorsString = "";
+		for(int i=0; i<listOfAuthors.size(); i++){
+			authorsString+=listOfAuthors.get(i).getUser().getTitle() + " " + listOfAuthors.get(i).getUser().getForname() + " " + listOfAuthors.get(i).getUser().getSurname() + " " + listOfAuthors.get(i).getUser().getEmail() + "; ";
+		}
+
+		JTextPane articleAuthors = new JTextPane();
+		articleAuthors.setEditable(false);
+		articleAuthors.setText(authorsString);
+		articleAuthors.setBounds(79, 220, 427, 50);
+		frame.getContentPane().add(articleAuthors);
 
 
 		

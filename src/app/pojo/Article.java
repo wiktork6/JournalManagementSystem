@@ -24,6 +24,14 @@ public class Article implements Identifiable {
         this.mainAuthorId = mainAuthorId;
         this.editionId = editionId;
     }
+    public Article(String pageNumberRange, String abstractText, String title, File fullArticle, Integer mainAuthorId, Integer editionId) {
+        this.pageNumberRange = pageNumberRange;
+        this.abstractText = abstractText;
+        this.title = title;
+        this.fullArticle = fullArticle;
+        this.mainAuthorId = mainAuthorId;
+        this.editionId = editionId;
+    }
 
     public Integer getId() {
         return id;

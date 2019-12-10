@@ -2,6 +2,7 @@ package app.services;
 
 import app.database.dataAccessControllers.AuthorDataAccessController;
 import app.database.dataAccessControllers.generic.KVPair;
+import app.pojo.Article;
 import app.pojo.Author;
 import app.services.generic.GenericService;
 
@@ -16,6 +17,10 @@ public class AuthorService extends GenericService<Author> {
         ArrayList<KVPair> filters = new ArrayList<KVPair>();
         filters.add(new KVPair("user_id", userId));
         return dac.getItemWhere(filters);
+    }
+
+    public boolean insertCoAuthor(Integer articleId, Integer authorId){
+        return ((AuthorDataAccessController)dac).insertCoAuthor(articleId,authorId);
     }
 
 

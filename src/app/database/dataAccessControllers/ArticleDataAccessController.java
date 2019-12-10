@@ -1,18 +1,17 @@
 package app.database.dataAccessControllers;
 
+import app.database.DbConnection;
 import app.database.dataAccessControllers.Tools.BlobFileConverter;
 import app.database.dataAccessControllers.generic.GenericDataAccessController;
 import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Article;
+import app.pojo.Author;
 import app.pojo.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Array;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ArticleDataAccessController extends GenericDataAccessController<Article> {
@@ -73,6 +72,34 @@ public class ArticleDataAccessController extends GenericDataAccessController<Art
 
     public Article getLatest(){
         return this.getItem(this.getItemsQueryString() + " ORDER BY id DESC LIMIT 1", null);
+    }
+
+    public ArrayList<Author> getArticleCoAuthors(Integer articleId) {
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT u.id, u.email, u.title, u.forname, u.surname, u.university, a.id FROM article_Author s INNER JOIN authors a ON a.id=s.author_id INNER JOIN users u ON u.id=a.user_id WHERE s.article_id = ?;")){
+            preparedStatement.setInt(1,articleId);
+            ResultSet res = preparedStatement.executeQuery();
+            ArrayList<Author> arrayList = new ArrayList<>();
+            while(res.next()){
+                Integer id = res.getInt(1);
+                String email = res.getString(2);
+                String title = res.getString(3);
+                String forname = res.getString(4);
+                String surname = res.getString(5);
+                String university = res.getString(6);
+                Integer authorId = res.getInt(7);
+                User user = new User(id,title,forname,surname,university,email);
+                Author author = new Author(user,authorId);
+                arrayList.add(author);
+            }
+
+            res.close();
+            return arrayList;
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 
 }

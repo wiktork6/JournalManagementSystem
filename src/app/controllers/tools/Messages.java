@@ -38,6 +38,10 @@ public class Messages {
         public static String MAXIMUM_NUMBER_OF_ARTICLES_ACHIEVED = "Maximum number of 8 articles per edition was achieved";
         public static String NO_SUBMISSIONS_TO_REVIEW = "There are currently no submissions possible for you to review";
         public static String NO_NEED_TO_CHOOSE_MORE = "You do not have to choose any more submissions to review";
+        public static String CREATE_VOLUME_OR_EDITION = "You have to have at least 1 volume and 1 edition before publishing";
+        public static String CREATE_NEW_VOLUME = "Please create new volume";
+        public static String MAX_EDITIONS_PER_VOLUME = "Maximum number of editions achieved, Please create new volume";
+        public static String MIN_EDITION_PER_VOLUME = "Minimum number of editions per volume was not achieved.";
     }
 
     public static class Info {

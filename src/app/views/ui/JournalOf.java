@@ -73,8 +73,8 @@ public class JournalOf {
 					error.setText(Messages.Error.FUNCTION_NOT_ALLOWED);
 				} else {
 					frame.dispose();
-					PublishNextEdition pne = new PublishNextEdition();
-					pne.frame.setVisible(true);
+					Publishing publishing = new Publishing();
+					publishing.frame.setVisible(true);
 				}
 
 			}

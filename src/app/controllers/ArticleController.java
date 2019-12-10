@@ -3,9 +3,7 @@ package app.controllers;
 import app.controllers.generic.GenericController;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
-import app.pojo.Article;
-import app.pojo.Edition;
-import app.pojo.User;
+import app.pojo.*;
 import app.services.ArticleService;
 
 import javax.swing.*;
@@ -52,5 +50,24 @@ public class ArticleController extends GenericController<Article> {
             actionResult.setSuccess(true);
         }
         return actionResult;
+    }
+
+    public Article publishArticle(Submission submission,Edition edition){
+        Article article = new Article("001-002",submission.getAbstractText(),submission.getTitle(),submission.getDraftArticle(),submission.getAuthorId(),edition.getId());
+        Integer articleId = service.addItem(article);
+        ActionResult<ArrayList<Author>> actionResult = Controllers.SUBMISSION.getCoAuthors(submission.getId());
+        insertCoAuthors(actionResult.getResult(),articleId);
+        article.setId(articleId);
+        return article;
+    }
+
+    public void insertCoAuthors(ArrayList<Author> listOfAuthors, Integer articleId){
+        for(int i=0; i<listOfAuthors.size(); i++){
+            Controllers.AUTHOR.insertCoAuthor(articleId, listOfAuthors.get(i).getId());
+        }
+    }
+
+    public ArrayList<Author> getCoAuthors(Article article){
+        return ((ArticleService)this.service).getArticleCoAuthors(article.getId());
     }
 }
