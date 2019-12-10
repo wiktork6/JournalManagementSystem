@@ -220,5 +220,20 @@ public class SubmissionDataAccessController extends GenericDataAccessController<
         }
     }
 
+    public Integer removeSubmissionAuthors(Integer submissionId){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "DELETE authors FROM authors" +
+                            "INNER JOIN submissions ON submissions.author_id = authors.id" +
+                            "INNER JOIN submission_author AS sa ON sa.author_id = authors.id" +
+                            "WHERE submissions.id = ? OR sa.submission_id = ?")){
+            preparedStatement.setInt(1, submissionId);
+            preparedStatement.setInt(2, submissionId);
 
+            return preparedStatement.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
