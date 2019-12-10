@@ -1,6 +1,7 @@
 package app.views.ui;
 
 import app.controllers.Controllers;
+import app.controllers.tools.Messages;
 import app.pojo.Submission;
 
 import java.awt.*;
@@ -54,6 +55,11 @@ public class ReviewHub {
 		lbl42.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl42.setBounds(258, 34, 60, 16);
 		frame.getContentPane().add(lbl42);
+
+		JLabel error = new JLabel();
+		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		error.setBounds(100, 320, 450, 30);
+		frame.getContentPane().add(error);
 		
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -113,6 +119,7 @@ public class ReviewHub {
 		}
 
 		if(Controllers.REVIEW.canSubmitFinalReview(submission, Controllers.USER.getLoggedUser())) {
+			error.setText("You can now submit your final review");
 			JButton btnFinalReview = new JButton("Final Review");
 			btnFinalReview.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -124,10 +131,7 @@ public class ReviewHub {
 			btnFinalReview.setBounds(382, 249, 158, 54);
 			frame.getContentPane().add(btnFinalReview);
 		}
-		
-		JButton btnNextArticle = new JButton("Next article");
-		btnNextArticle.setBounds(433, 360, 117, 29);
-		frame.getContentPane().add(btnNextArticle);
+
 	}
 
 }

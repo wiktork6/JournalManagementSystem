@@ -64,4 +64,15 @@ public class SubmissionService extends GenericService<Submission> {
     public Integer unansweredReviewQuestions(Integer submissionId){
         return ((SubmissionDataAccessController)dac).unansweredReviewQuestions(submissionId);
     }
+
+
+    public ArrayList<Submission> getSubmissionsWhereUni(User user){
+        return ((SubmissionDataAccessController)dac).getPossibleSubmissionsWhereUni(user);
+    }
+
+    public ArrayList<Submission> getAlreadyReviewedSubmissions(){
+        ArrayList<KVPair> filters = new ArrayList<>();
+        filters.add(new KVPair("reviews_selected", 3));
+        return dac.getItemsWhere(filters);
+    }
 }

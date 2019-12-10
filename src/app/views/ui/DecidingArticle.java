@@ -4,6 +4,7 @@ import app.controllers.Controllers;
 import app.controllers.generic.Controller;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
+import app.pojo.Review;
 import app.pojo.Submission;
 
 import java.awt.*;
@@ -85,7 +86,8 @@ public class DecidingArticle {
 		//Default List Model for titles
 		DefaultListModel submissionListModel = new DefaultListModel();
 		for(int i = 0; i<submissionActionResult.getResult().size();i++){
-			submissionListModel.add(i,submissionActionResult.getResult().get(i).getTitle());
+			ArrayList<Review> listOfReviews = Controllers.REVIEW.getSubmissionReviews(submissionActionResult.getResult().get(i)).getResult();
+			submissionListModel.add(i,submissionActionResult.getResult().get(i).getTitle() + " #1 " + listOfReviews.get(0).getFinalVerdict() +" #2 " +listOfReviews.get(1).getFinalVerdict() + " #3 " + listOfReviews.get(2).getFinalVerdict());
 		}
 		submissionsList.setModel(submissionListModel);
 

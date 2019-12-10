@@ -47,12 +47,6 @@ public class AuthorController extends GenericController<Author> implements Role 
                 sub.frame.setVisible(true);
             }
         });
-        availableActions.put("SEE MY ARTICLES", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         return availableActions;
     }
 

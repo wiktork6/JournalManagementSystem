@@ -9,12 +9,7 @@ import app.pojo.Volume;
 
 import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -58,6 +53,12 @@ public class PublishNextEdition {
 		String monthOfPublication = Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
 		ArrayList<Volume> volumes = Controllers.VOLUME.getJournalVolumes(Controllers.JOURNAL.getChosenJournal()).getResult();
 
+		DefaultListModel submissionsListModelk = new DefaultListModel();
+		for(int i = 0; i<submissionActionResult.getResult().size();i++){
+			submissionsListModelk.add(i,submissionActionResult.getResult().get(i).getTitle());
+		}
+		list.setModel(submissionsListModelk);
+
 
 		Volume volume = null;
 		Integer lastEditionNumber = 0;
@@ -69,7 +70,7 @@ public class PublishNextEdition {
 			}
 		}
 		
-		JLabel lblYouHave = new JLabel("You have " + submissionActionResult.getResult().size() +"  in edition " + lastEditionNumber + 1 + " month " + monthOfPublication);
+		JLabel lblYouHave = new JLabel("You have " + submissionActionResult.getResult().size() +" article  in edition " + lastEditionNumber + 1 + " month " + monthOfPublication);
 		lblYouHave.setHorizontalAlignment(SwingConstants.CENTER);
 		lblYouHave.setBounds(94, 69, 406, 16);
 		frame.getContentPane().add(lblYouHave);
@@ -87,7 +88,7 @@ public class PublishNextEdition {
 
 		JLabel error = new JLabel();
 		error.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		error.setBounds(200, 360, 250, 30);
+		error.setBounds(200, 380, 300, 30);
 		frame.getContentPane().add(error);
 
 
