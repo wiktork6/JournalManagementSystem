@@ -12,7 +12,7 @@ public class CreateDb {
     public static void createDatabase(){
         try(Connection conn = DriverManager.getConnection(DbConnection.SERVER_URL, DbConnection.USERNAME, DbConnection.PASSWORD);
             Statement statement = conn.createStatement()) {
-            statement.execute("DROP DATABASE IF EXISTS " + DbConnection.NAME + ";");
+            //statement.execute("DROP DATABASE IF EXISTS " + DbConnection.NAME + ";");
             statement.execute("CREATE DATABASE IF NOT EXISTS " + DbConnection.NAME + ";");
         }
         catch(SQLException ex){

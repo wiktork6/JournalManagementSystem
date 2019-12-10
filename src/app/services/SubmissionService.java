@@ -60,4 +60,8 @@ public class SubmissionService extends GenericService<Submission> {
         updatedSubmission.setStatus(status);
         return dac.updateItem(updatedSubmission);
     }
+
+    public Integer unansweredReviewQuestions(Integer submissionId){
+        return ((SubmissionDataAccessController)dac).unansweredReviewQuestions(submissionId);
+    }
 }

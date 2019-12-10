@@ -94,6 +94,28 @@ public class JournalDataAccessController extends GenericDataAccessController<Jou
             ex.printStackTrace();
             return false;
         }
+    }
 
+    public Integer submissionsEditorAffiliationOverlap(String university, Integer journalId){
+        try(Connection conn = DriverManager.getConnection(DbConnection.STRING);
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "SELECT COUNT(*) FROM submissions " +
+                            "INNER JOIN authors ON authors.id = submissions.author_id " +
+                            "LEFT JOIN submission_author as sa ON sa.submission_id = submissions.id " +
+                            "INNER JOIN authors as a ON a.id = sa.author_id " +
+                            "INNER JOIN users ON users.id = authors.user_id OR users.id = a.user_id " +
+                            "INNER JOIN journals ON journals.id = submissions.journal_id " +
+                            "WHERE LOWER(users.university) = LOWER(?) " +
+                            "AND journals.id = ? ")){
+            preparedStatement.setString(1, university);
+            preparedStatement.setInt(2, journalId);
+
+            ResultSet res = preparedStatement.executeQuery();
+            res.next();
+            return res.getInt(1);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 }

@@ -72,17 +72,25 @@ public class JournalOf {
 		});
 		btnNewButton.setBounds(60, 103, 200, 23);
 		frame.getContentPane().add(btnNewButton);
-		
+
+
 		JButton btnPublishrejectArticle = new JButton("Accept/Reject Article");
 		btnPublishrejectArticle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				DecidingArticle da=new DecidingArticle();
+				DecidingArticle da = new DecidingArticle();
 				da.frame.setVisible(true);
 			}
 		});
 		btnPublishrejectArticle.setBounds(60, 177, 200, 23);
 		frame.getContentPane().add(btnPublishrejectArticle);
+		if(Controllers.JOURNAL.submissionsEditorAffiliationOverlap(Controllers.USER.getLoggedUser(), Controllers.JOURNAL.getChosenJournal().getId()) > 0) {
+			btnPublishrejectArticle.setEnabled(false);
+			JLabel lblAffiliationOverlap = new JLabel("You have affiliation overlap");
+			lblAffiliationOverlap.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAffiliationOverlap.setBounds(60, 205, 191, 16);
+			frame.getContentPane().add(lblAffiliationOverlap);
+		}
 		
 		JButton btnAddEditor = new JButton("Add Editor");
 		btnAddEditor.addActionListener(new ActionListener() {

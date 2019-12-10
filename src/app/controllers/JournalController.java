@@ -6,6 +6,7 @@ import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Editor;
 import app.pojo.Journal;
+import app.pojo.User;
 import app.services.JournalService;
 
 import java.util.ArrayList;
@@ -87,6 +88,10 @@ public class JournalController extends GenericController<Journal> {
 
     public boolean retireEditor(Editor editor, Journal journal){
         return ((JournalService)this.service).retireEditorFromJournal(editor,journal);
+    }
+
+    public Integer submissionsEditorAffiliationOverlap(User loggedUser, Integer journalId){
+        return ((JournalService)this.service).submissionsEditorAffiliationOverlap(loggedUser.getUniversity(), journalId);
     }
 
 }

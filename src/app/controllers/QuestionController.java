@@ -7,6 +7,7 @@ import app.pojo.Question;
 import app.pojo.Review;
 import app.pojo.Submission;
 import app.services.QuestionService;
+import app.services.SubmissionService;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,13 @@ public class QuestionController extends GenericController<Question> {
     }
 
     public Integer answerQuestion(Question question, String response){
-        return ((QuestionService)service).answerQuestion(question, response);
+        Integer result = ((QuestionService)service).answerQuestion(question, response);
+
+//        SubmissionService ss = new SubmissionService();
+//        if(ss.unansweredReviewQuestions(Controllers.SUBMISSION.getSelectedSubmission().getId()) == 0){
+//            ss.changeSubmissionStatus(Controllers.SUBMISSION.getSelectedSubmission(), "Response received");
+//        }
+        return result;
     }
 
     public ActionResult<Question> addQuestion(Question question){
