@@ -37,15 +37,31 @@ public class Volume implements Identifiable {
         return volumeNumber;
     }
 
+    public void setVolumeNumber(Integer volumeNumber) {
+        this.volumeNumber = volumeNumber;
+    }
+
     public Integer getNumberOfEditions() {
         return numberOfEditions;
+    }
+
+    public void setNumberOfEditions(Integer numberOfEditions) {
+        this.numberOfEditions = numberOfEditions;
     }
 
     public String getYearOfPublication() {
         return yearOfPublication;
     }
 
+    public void setYearOfPublication(String yearOfPublication) {
+        this.yearOfPublication = yearOfPublication;
+    }
+
     public Integer getJournalId() {
         return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }

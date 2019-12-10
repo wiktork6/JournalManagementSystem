@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
+import app.controllers.tools.ActionSuccess;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.Author;
 import app.pojo.Editor;
@@ -65,6 +66,9 @@ public class AuthorController extends GenericController<Author> implements Role 
         return ((AuthorService)service).getUserAuthor(user.getId());
     }
 
+    public ActionSuccess removeAuthor(Integer authorId){
+        return super.removeItem(authorId);
+    }
     public boolean insertCoAuthor(Integer articleId, Integer authorId){
         return ((AuthorService)service).insertCoAuthor(articleId,authorId);
     }

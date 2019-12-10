@@ -4,6 +4,7 @@ package app.controllers;
 import app.controllers.generic.Controller;
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
+import app.controllers.tools.ActionSuccess;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.*;
 import app.services.ReviewerService;
@@ -52,6 +53,10 @@ public class ReviewerController extends GenericController<Reviewer> implements R
 
     public Reviewer getUserReviewer(Integer userId){
         return ((ReviewerService)this.service).getUserReviewer(userId);
+    }
+
+    public ActionSuccess removeReviewer(Integer reviewerId){
+        return super.removeItem(reviewerId);
     }
 
     @Override

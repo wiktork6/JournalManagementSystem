@@ -143,15 +143,7 @@ public class SubmissionController extends GenericController<Submission> {
         ((SubmissionService)this.service).changeSubmissionStatus(submission,status);
     }
 
+    public void removeSubmissionAuthors(Submission submission){
 
-
-
-
-
-
-
-
-
-
-
+    }
 }

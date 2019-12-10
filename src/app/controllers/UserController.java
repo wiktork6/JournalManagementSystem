@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.controllers.generic.GenericController;
 import app.controllers.roles.Role;
+import app.controllers.tools.ActionSuccess;
 import app.controllers.tools.Messages;
 import app.controllers.tools.generic.ActionResult;
 import app.pojo.User;
@@ -148,5 +149,8 @@ public class UserController extends GenericController<User> {
         return !userActionResult.getSuccess();
     }
 
+    public ActionSuccess removeUser(Integer id){
+        return super.removeItem(id);
+    }
 
 }
