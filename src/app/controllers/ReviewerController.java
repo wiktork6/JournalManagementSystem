@@ -55,9 +55,9 @@ public class ReviewerController extends GenericController<Reviewer> implements R
         return ((ReviewerService)this.service).getUserReviewer(userId);
     }
 
-    public ActionSuccess removeReviewer(Integer reviewerId){
-        return super.removeItem(reviewerId);
-    }
+//    public ActionSuccess removeReviewer(Integer reviewerId){
+//        return super.removeItem(reviewerId);
+//    }
 
     @Override
     protected boolean validateItem(Reviewer reviewer) {

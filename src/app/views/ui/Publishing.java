@@ -136,7 +136,8 @@ public class Publishing {
         addToNextEdition.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(acceptedArticles.getSelectedIndex()!=-1){
-                    if(submissionCompletedActionResult.getResult().size()>=8){
+                    System.out.println(submissionCompletedActionResult.getResult().size());
+                    if(submissionCompletedActionResult.getResult().size()<8){
                         Integer index = acceptedArticles.getSelectedIndex();
                         Controllers.SUBMISSION.setStatus(submissionAcceptedActionResult.getResult().get(index),"Completed");
                         frame.dispose();
@@ -169,42 +170,37 @@ public class Publishing {
 
         //publish next edition
 
-            JButton publishNext = new JButton("Publish next edition");
-            publishNext.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (nextEdition.getSelectedIndex() != -1) {
-                        if (currentEdition != null && currentVolume != null) {
-                            if (submissionCompletedActionResult.getResult().size() > 2) {
-                                for (int i = 0; i < submissionCompletedActionResult.getResult().size(); i++) {
-                                    Controllers.ARTICLE.publishArticle(submissionCompletedActionResult.getResult().get(i), currentEdition);
-                                    Controllers.SUBMISSION.setStatus(submissionCompletedActionResult.getResult().get(i), "Published");
-                                }
-                                if (currentEdition.getEdition_number() == 6) {
-                                    Controllers.VOLUME.createNewVolume(Controllers.JOURNAL.getChosenJournal());
-                                } else {
-                                    Controllers.EDITION.createNewEdition(currentVolume);
-                                }
-                                frame.dispose();
-                                Publishing publishing = new Publishing();
-                                publishing.frame.setVisible(true);
-
-                            } else {
-                                error.setText(Messages.Error.MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED);
-
-                            }
-                        } else {
-                            error.setText(Messages.Error.CREATE_VOLUME_OR_EDITION);
+        JButton publishNext = new JButton("Publish next edition");
+        publishNext.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (currentEdition != null && currentVolume != null) {
+                    if (submissionCompletedActionResult.getResult().size() > 2) {
+                        for (int i = 0; i < submissionCompletedActionResult.getResult().size(); i++) {
+                            Controllers.ARTICLE.publishArticle(submissionCompletedActionResult.getResult().get(i), currentEdition);
+                            Controllers.SUBMISSION.setStatus(submissionCompletedActionResult.getResult().get(i), "Published");
                         }
-
+                        if (currentEdition.getEdition_number() == 6) {
+                            Controllers.VOLUME.createNewVolume(Controllers.JOURNAL.getChosenJournal());
+                        } else {
+                            Controllers.EDITION.createNewEdition(currentVolume);
+                        }
+                        frame.dispose();
+                        Publishing publishing = new Publishing();
+                        publishing.frame.setVisible(true);
 
                     } else {
-                        error.setText(Messages.Error.FIELD_IS_EMPTY);
-                    }
+                        error.setText(Messages.Error.MINIMUM_NUMBER_OF_ARTICLES_NOT_ACHIEVED);
 
+                    }
+                } else {
+                    error.setText(Messages.Error.CREATE_VOLUME_OR_EDITION);
                 }
-            });
-            publishNext.setBounds(270, 250, 150, 23);
-            frame.getContentPane().add(publishNext);
+
+
+            }
+        });
+        publishNext.setBounds(270, 250, 150, 23);
+        frame.getContentPane().add(publishNext);
 
 
 

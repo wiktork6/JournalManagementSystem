@@ -92,10 +92,10 @@ public class ReviewController extends GenericController<Review> {
         review.setFinalVerdict(finalVerdict);
         ActionResult<Review> ar = super.updateItem(review);
 
-        Controllers.REVIEWER.removeReviewer(reviewer.getId());
-        if(!(Controllers.USER.isAuthor(loggedUser) || Controllers.USER.isEditor(loggedUser))){
-            Controllers.USER.removeUser(loggedUser.getId());
-        }
+//        Controllers.REVIEWER.removeReviewer(reviewer.getId());
+//        if(!(Controllers.USER.isAuthor(loggedUser) || Controllers.USER.isEditor(loggedUser))){
+//            Controllers.USER.removeUser(loggedUser.getId());
+//        }
 
         int finalReviews = ((ReviewService)this.service).finalReviewsCount(submission.getId());
         if(finalReviews == 3){
