@@ -1,2 +1,2 @@
 # JournalManagementSystem
-A group project made for University made using Java and Sql.
+A group project made for University created using Java and Sql.
