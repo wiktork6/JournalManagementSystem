@@ -5,7 +5,6 @@ import app.database.dataAccessControllers.generic.KVPair;
 import app.pojo.Article;
 import app.pojo.Author;
 import app.services.generic.GenericService;
-
 import java.util.ArrayList;
 
 public class ArticleService extends GenericService<Article> {
